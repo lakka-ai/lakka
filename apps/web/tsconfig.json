@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["es2024", "dom", "dom.iterable"],
+    "types": ["node", "vite/client"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    // TanStack Start docs: verbatimModuleSyntax can pull server-only code into client bundles.
+    "verbatimModuleSyntax": false
+  },
+  "include": ["src", "test", "vite.config.ts", "server.ts", ".storybook"]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@lakka/api",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch --env-file=../../docker/dev.env src/main.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "setup-code": "node --env-file=../../docker/dev.env src/cli/setup-code.ts"
+  },
+  "dependencies": {
+    "@lakka/contracts": "workspace:*",
+    "@lakka/core": "workspace:*",
+    "@lakka/db": "workspace:*",
+    "fastify": "5.12.5",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@opentelemetry/api": "1.9.1",
+    "@opentelemetry/sdk-trace-base": "2.11.0"
+  }
+}

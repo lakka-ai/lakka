@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add a tool server</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500;600&amp;family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap" rel="stylesheet" data-dc-tpl="1">
+<style data-dc-tpl="2">
+body{margin:0}
+.lk{--surface-tertiary:#E6E8E7;--lk-cloudberry:#E3A33F;--foreground:#212423;--surface:#FFFFFF;--surface-secondary:#EFF0F0;--overlay:#FFFFFF;--muted:#5D615F;--border:#DEE1E0;--separator:#E6E8E7;--default:#E6E8E7;--default-foreground:#212423;--accent:#2A5245;--accent-foreground:#FFFFFF;--accent-soft:#E2EDE8;--warning:#8A5D0C;--warning-soft:#FBF1DC;--warning-soft-foreground:#7A520A;--warning-edge:#E3C17E;--field-background:#FFFFFF;--field-border:#838886;--focus:#2F5B8A;--overlay-shadow:0 4px 12px rgba(33,36,35,.10),0 16px 32px rgba(33,36,35,.10);font-family:"Atkinson Hyperlegible Next",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--foreground);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.lk,.lk *{box-sizing:border-box}
+.lk h2,.lk p,.lk fieldset{margin:0}
+.mono{font-family:"Atkinson Hyperlegible Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:8px;border:1px solid transparent;font:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;text-decoration:none;line-height:1;color:var(--foreground);background:transparent}
+.btn-primary{background:var(--accent);color:var(--accent-foreground)}
+.btn-secondary{background:var(--default);color:var(--default-foreground)}
+.label{font-size:13px;font-weight:500;color:var(--foreground)}
+.desc{font-size:13px;color:var(--muted)}
+.input{display:block;width:100%;height:40px;padding:0 12px;background:var(--field-background);border:1px solid var(--field-border);border-radius:8px;font:inherit;font-size:14px;color:var(--foreground)}
+.field{display:flex;flex-direction:column;gap:6px}
+.opt{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;cursor:pointer}
+.opt.on{border:2px solid var(--accent);padding:12px 12px;background:var(--accent-soft)}
+.dot{width:18px;height:18px;border-radius:50%;border:1px solid var(--field-border);background:var(--field-background);margin-top:2px}
+.opt.on .dot{border:5px solid var(--accent)}
+.opt.dis{opacity:.55;cursor:not-allowed}
+/* States, one pattern everywhere */
+button.chip{cursor:pointer}
+.btn:hover,.navt:hover{background-color:var(--surface-tertiary)}
+.btn-primary:hover{background:var(--accent);opacity:.9}
+.btn-danger:hover{opacity:.9}
+.btn:active{opacity:.8}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+[aria-disabled="true"],:disabled{opacity:.5;cursor:not-allowed}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div id="dc-root"><div class="sc-host"><div class="lk" style="width: 1440px; height: 1200px; background: rgba(33, 36, 35, 0.55); display: flex; justify-content: center; align-items: flex-start; padding: 48px;"><form role="dialog" aria-labelledby="ad-t" style="width: 680px; background: var(--overlay); border-radius: 16px; box-shadow: var(--overlay-shadow); display: flex; flex-direction: column;"><div style="padding: 20px 24px 16px; border-bottom: 1px solid var(--separator); display: flex; justify-content: space-between; align-items: center;"><h2 id="ad-t" style="font-size: 20px; font-weight: 600;">Add a tool server</h2><button type="button" class="btn" aria-label="Close" style="width: 32px; padding: 0px;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div><div style="padding: 20px 24px; display: flex; flex-direction: column; gap: 16px;"><div class="field"><label class="label" for="sn">Name</label><input id="sn" class="input" value="Warehouse"><span class="desc">People see this name next to its tools.</span></div><fieldset style="border: 0px; padding: 0px; display: flex; flex-direction: column; gap: 8px;"><legend class="label" style="padding: 0px 0px 8px;">How Lakka reaches it</legend><label class="opt"><span class="dot"></span><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-weight: 500;">Over HTTP</span><span class="desc">The server runs somewhere else and has an address.</span></span></label><label class="opt on"><span class="dot"></span><span style="display: flex; flex-direction: column; gap: 8px;"><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-weight: 500;">A command on this server</span><span class="desc">Lakka starts it. Only instance admins can choose this.</span></span><span class="field"><label class="label" for="cmd">Command</label><input id="cmd" class="input mono" value="/opt/tools/warehouse-mcp --read-only" style="font-size: 13px;"></span></span></label></fieldset><fieldset style="border: 0px; padding: 0px; display: flex; flex-direction: column; gap: 8px;"><legend class="label" style="padding: 0px 0px 8px;">How Lakka signs in to it</legend><label class="opt"><span class="dot"></span><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-weight: 500;">Nothing</span><span class="desc">The server needs no sign-in.</span></span></label><label class="opt on"><span class="dot"></span><span style="display: flex; flex-direction: column; gap: 10px;"><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-weight: 500;">A shared credential</span><span class="desc">One account for everyone in this workspace.</span></span><span role="note" style="display: flex; gap: 10px; align-items: flex-start; background: var(--warning-soft); border: 1px solid var(--warning-edge); border-radius: 8px; padding: 10px 12px;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 4px; color: var(--warning);"><path d="M12 3.5 2.8 19.5h18.4Z"></path><path d="M12 10v4.5M12 17v.5"></path></svg><span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-weight: 600; color: var(--warning-soft-foreground);">The tool acts as this one account, not as each person.</span><span>Anyone who can use this tool can do anything this account can do. The tool cannot tell people apart. Traces still show who asked.</span></span></span><span class="field"><label class="label" for="cred">Credential</label><input id="cred" type="password" class="input" placeholder="Paste the token or password" autocomplete="off"><span class="desc">Stored encrypted and never shown again.</span></span><label style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px;"><input type="checkbox" style="width: 18px; height: 18px; margin: 2px 0px 0px; accent-color: var(--accent);">I understand that everyone using this tool acts as one shared account.</label></span></label><label class="opt"><span class="dot"></span><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-weight: 500;">Each person's own account</span><span class="desc">People connect their account in Your connections. The tool can only do what each person may do. Recommended when the server supports it.</span></span></label></fieldset></div><div style="padding: 16px 24px 20px; border-top: 1px solid var(--separator); display: flex; justify-content: flex-end; align-items: center;"><span id="add-why" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap;">Tick the box above to add this server.</span><div style="display: flex; gap: 8px;"><button type="button" class="btn btn-secondary">Cancel</button><button class="btn btn-primary" aria-disabled="true" aria-describedby="add-why" style="opacity: 0.5; cursor: not-allowed;">Add and sync tools</button></div></div></form></div></div></div>
+</body>
+</html>

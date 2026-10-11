@@ -1,0 +1,68 @@
+name: Feature request
+description: Something Lakka should do that it does not do yet.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Lakka is a self-hosted AI control plane for teams of 10 to 50 people: one install, one
+        identity and policy model across chat, the API and MCP, with spend that cannot pass a cap.
+
+        Before you ask, see `docs/roadmap.md`. Some things are planned for v2: knowledge bases
+        and retrieval, scheduled or durable agents, an eval loop and policy replay, an outbound
+        MCP server, tools that run code, SAML, and running more than one instance. Some are out
+        of scope for good: a visual workflow builder, serving models, public agent-orchestration
+        primitives, and reselling model access.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What you are trying to do, and what gets in the way today.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like
+      description: How it would work for the people who use it.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: who
+    attributes:
+      label: Who it is for
+      multiple: true
+      options:
+        - People who chat
+        - Workspace admins
+        - Instance admins
+        - The operator who runs the install
+        - Developers using the API or MCP
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you do instead today
+      description: Workarounds or other tools, if any.
+
+  - type: input
+    id: requirements
+    attributes:
+      label: Related requirements
+      description: IDs from `docs/requirements.md` this touches, if you know them.
+      placeholder: BG-12, TL-4
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you send it
+      options:
+        - label: I searched the open and closed issues for this.
+          required: true
+        - label: I checked `docs/roadmap.md`, and this is not a permanent non-goal.
+          required: true

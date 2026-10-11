@@ -1,0 +1,1 @@
+ALTER TABLE "retention_settings" ADD COLUMN "last_run_duration_ms" integer;

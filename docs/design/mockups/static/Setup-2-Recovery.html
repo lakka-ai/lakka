@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup 2: recovery key</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500;600&amp;family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap" rel="stylesheet" data-dc-tpl="1">
+<style data-dc-tpl="2">
+body{margin:0}
+</style>
+<style data-dc-tpl="2">
+body{margin:0}
+.lk{--lk-cloudberry:#E3A33F;--background:#F3F5F4;--foreground:#212423;--surface:#FFFFFF;--surface-secondary:#EFF0F0;--surface-tertiary:#E6E8E7;--muted:#5D615F;--border:#DEE1E0;--separator:#E6E8E7;--link:#2A5245;--default:#E6E8E7;--default-foreground:#212423;--accent:#2A5245;--accent-foreground:#FFFFFF;--accent-soft:#E2EDE8;--accent-soft-foreground:#2A5245;--success:#2F6B50;--success-soft:#E2EFE7;--warning:#8A5D0C;--warning-soft:#FBF1DC;--warning-soft-foreground:#7A520A;--field-background:#FFFFFF;--field-border:#838886;--focus:#2F5B8A;font-family:"Atkinson Hyperlegible Next",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--foreground);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.lk,.lk *{box-sizing:border-box}
+.lk h1,.lk h2,.lk p,.lk ol,.lk fieldset{margin:0}
+.lk ol{padding:0;list-style:none}
+.mono{font-family:"Atkinson Hyperlegible Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:8px;border:1px solid transparent;font:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;text-decoration:none;line-height:1;color:var(--foreground);background:transparent}
+.btn-primary{background:var(--accent);color:var(--accent-foreground)}
+.btn-secondary{background:var(--default);color:var(--default-foreground)}
+.focus{outline:2px solid var(--focus);outline-offset:2px}
+.label{font-size:13px;font-weight:500;color:var(--foreground)}
+.desc{font-size:13px;color:var(--muted)}
+.input{display:block;height:40px;padding:0 12px;background:var(--field-background);border:1px solid var(--field-border);border-radius:8px;font:inherit;font-size:14px;color:var(--foreground);width:100%}
+.field{display:flex;flex-direction:column;gap:6px}
+.link{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+.step{display:flex;align-items:center;gap:8px;font-size:14px}
+.dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+/* States, one pattern everywhere */
+button.chip{cursor:pointer}
+.btn:hover,.navt:hover{background-color:var(--surface-tertiary)}
+.btn-primary:hover{background:var(--accent);opacity:.9}
+.btn-danger:hover{opacity:.9}
+.btn:active{opacity:.8}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+[aria-disabled="true"],:disabled{opacity:.5;cursor:not-allowed}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div id="dc-root"><div class="sc-host"><div style="width: 1280px; height: 960px; overflow: hidden; background: rgb(243, 245, 244);"><div class="sc-host"><div class="lk" style="width: 1280px; height: 960px; background: var(--background); display: flex; flex-direction: column; padding: 28px 40px 20px;"><div style="display: flex; align-items: center; gap: 8px;"><span aria-hidden="true" style="width: 11px; height: 11px; border-radius: 50%; background: var(--lk-cloudberry); flex-shrink: 0;"></span><span style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em;">lakka</span></div><main style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding-top: 28px; gap: 24px;"><nav aria-label="Setup progress" style="width: 560px;"><ol style="display: flex; align-items: center; gap: 12px;"><li class="step" aria-current="false"><span class="dot" style="background: var(--success-soft); color: var(--success);"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width: 13px; height: 13px; stroke-width: 2.5;"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span style="color: var(--foreground);">Setup code<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px);">, done</span></span></li><li aria-hidden="true" style="flex-grow: 1; height: 1px; background: var(--border);"></li><li class="step" aria-current="step"><span class="dot" style="background: var(--accent); color: var(--accent-foreground);">2</span><span style="font-weight: 600;">Recovery key</span></li><li aria-hidden="true" style="flex-grow: 1; height: 1px; background: var(--border);"></li><li class="step" aria-current="false"><span class="dot" style="background: var(--surface); color: var(--muted); border: 1px solid var(--field-border);">3</span><span style="color: var(--muted);">Admin account</span></li></ol></nav><form aria-labelledby="h1b" style="width: 560px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 24px;"><div style="display: flex; flex-direction: column; gap: 8px;"><h1 id="h1b" style="font-family: Newsreader, Georgia, &quot;Times New Roman&quot;, serif; font-size: 30px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2;">Save your recovery key</h1><p style="font-size: 15px; color: var(--muted);">You need it to recover this server if admin access is lost.</p></div><div role="note" style="display: flex; gap: 10px; align-items: flex-start; background: var(--warning-soft); border-radius: 10px; padding: 12px 14px; font-size: 14px;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 4px; color: var(--warning);"><path d="M12 3.5 2.8 19.5h18.4Z"></path><path d="M12 10v4.5M12 17v.5"></path></svg><p><span style="font-weight: 600; color: var(--warning-soft-foreground);">This is the only time it is shown.</span> Store it in a password manager or print it. Lakka cannot show it again.</p></div><div class="field"><label class="label" for="rk">Recovery key</label><textarea id="rk" readonly="" rows="2" class="mono" style="font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-family: &quot;Atkinson Hyperlegible Mono&quot;, ui-monospace, monospace; font-size: 17px; line-height: 28px; letter-spacing: 0.04em; padding: 12px 14px; border: 1px solid var(--field-border); border-radius: 8px; background: var(--surface-secondary); color: var(--foreground); resize: none; width: 100%;">HJR1-7KQ2-M9XD-4TPA-W3LZ-8C6N-RB5E-Y2HF</textarea><div style="display: flex; gap: 8px;"><button type="button" class="btn btn-secondary focus"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2"></rect><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"></path></svg>Copy</button><button type="button" class="btn btn-secondary"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14"></path></svg>Download as a text file</button></div></div><label style="display: flex; align-items: center; gap: 10px; font-size: 14px; padding-top: 4px;"><input type="checkbox" style="width: 18px; height: 18px; margin: 0px; accent-color: var(--accent);">I have saved the recovery key somewhere safe</label><div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px;"><span id="rk-why" class="desc">Tick the box to continue.</span><button class="btn btn-primary" aria-disabled="true" aria-describedby="rk-why" style="opacity: 0.5; cursor: not-allowed;">Continue</button></div></form></main></div></div></div></div></div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/lakka-ai/lakka/security/advisories/new
+    about: Report it privately, never in a public issue. SECURITY.md says what to include.
+  - name: Read the guide
+    url: https://github.com/lakka-ai/lakka/tree/main/docs/guide
+    about: Installing, running, upgrading and administering Lakka, with a troubleshooting page.

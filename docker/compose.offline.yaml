@@ -1,0 +1,5 @@
+# For the offline start check only (AC 2, NF-D5, ADR 0086): the stack's network has no route
+# out, so anything that needed the internet to start, such as downloading model weights, fails.
+networks:
+  default:
+    internal: true

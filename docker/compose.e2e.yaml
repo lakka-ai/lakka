@@ -1,0 +1,119 @@
+# A fake model provider for the acceptance suite (ADR 0061), so chat in the browser has a model
+# that answers without reaching a real provider. CI and local runs of `pnpm test:e2e` only:
+#   docker compose -f compose.yaml -f docker/compose.e2e.yaml up -d --wait
+# Tests register it as an OpenAI-compatible provider at http://fake-provider:4010/openai/v1.
+# The same container serves MCP servers: plain on :4011 and, behind Keycloak, on :4012 (ADR 0072,
+# ADR 0074). Keycloak is a real authorization server with people in it, at
+# https://keycloak.localhost:18543 for the browser and the api alike. The sandbox gets the stack
+# test's probe, a stdio MCP server (test/sandbox, ADR 0118).
+services:
+  api:
+    environment:
+      # Served at the address the suite browses, so redirects back to Lakka, such as the MCP
+      # OAuth callback (ADR 0068), land where the browser's session is.
+      LAKKA_PUBLIC_URL: ${LAKKA_PUBLIC_URL:-${LAKKA_E2E_URL:-http://127.0.0.1:8080}}
+      # The stack's Keycloak serves a certificate of its own, trusted as an organisation would
+      # trust its internal CA.
+      NODE_EXTRA_CA_CERTS: /run/lakka/test-certs/keycloak.pem
+      # The same Keycloak as a sign-in provider (ID-2): it is on a private address, which Better
+      # Auth refuses unless it is listed here (ADR 0032).
+      LAKKA_OIDC_PRIVATE_ORIGINS: https://keycloak.localhost:${LAKKA_E2E_KEYCLOAK_PORT:-18543}
+    volumes:
+      - keycloak-certs:/run/lakka/test-certs:ro
+    depends_on:
+      keycloak-certs:
+        condition: service_completed_successfully
+
+  sandbox:
+    volumes:
+      # stdio servers run in the sandbox, so their files are mounted there, never into the api.
+      # Relative to the first compose file, the repository root.
+      - ./test/sandbox:/probe:ro
+
+  web:
+    environment:
+      # Read when a page is served, not at build time: the suite checks the footer links here
+      # (AD-6, ADR 0085).
+      LAKKA_SOURCE_URL: https://source.example.com/lakka-e2e
+
+  fake-provider:
+    # The same Node image the app is built on; the provider uses only Node's own modules.
+    image: node:24.21.0-trixie-slim
+    init: true
+    user: node
+    command: ['node', '/fake/fake-provider-serve.ts']
+    environment:
+      LAKKA_E2E_KEYCLOAK_PORT: ${LAKKA_E2E_KEYCLOAK_PORT:-18543}
+    volumes:
+      # Relative to the first compose file, the repository root.
+      - ./test/integration:/fake:ro
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:4010/openai/v1/models').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+  keycloak-certs:
+    # A certificate for keycloak.localhost, made once per stack with Keycloak's own keytool, and
+    # kept across `up` so Keycloak and the api keep agreing on it.
+    # OAuth token requests must use TLS unless the server is on loopback, which the MCP client
+    # enforces, so the stack's authorization server serves HTTPS as a real one would.
+    image: quay.io/keycloak/keycloak:26.7.4
+    user: root
+    entrypoint: ['/bin/bash', '-c']
+    command:
+      - >-
+        test -f /certs/keycloak.pem || {
+        keytool -genkeypair -alias keycloak -keyalg RSA -keysize 2048 -validity 7
+        -dname CN=keycloak.localhost -ext SAN=dns:keycloak.localhost
+        -keystore /certs/keycloak.p12 -storetype PKCS12 -storepass keycloak-tests-only &&
+        keytool -exportcert -rfc -alias keycloak -keystore /certs/keycloak.p12
+        -storepass keycloak-tests-only -file /certs/keycloak.pem &&
+        chmod 644 /certs/keycloak.p12 /certs/keycloak.pem; }
+    volumes:
+      - keycloak-certs:/certs
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7.4
+    command: ['start-dev', '--https-port=${LAKKA_E2E_KEYCLOAK_PORT:-18543}', '--http-port=8080']
+    environment:
+      # Test credentials for a throwaway realm; test/integration/keycloak.ts uses the same.
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: keycloak-tests-only
+      KC_HEALTH_ENABLED: 'true'
+      # One issuer for everyone, whichever address a request comes in on.
+      KC_HOSTNAME: https://keycloak.localhost:${LAKKA_E2E_KEYCLOAK_PORT:-18543}
+      KC_HTTPS_KEY_STORE_FILE: /certs/keycloak.p12
+      KC_HTTPS_KEY_STORE_PASSWORD: keycloak-tests-only
+      # Health checks stay on plain HTTP inside the container.
+      KC_HTTP_MANAGEMENT_SCHEME: http
+    volumes:
+      - keycloak-certs:/certs:ro
+    depends_on:
+      keycloak-certs:
+        condition: service_completed_successfully
+    ports:
+      # HTTPS for the browser, at the same port as inside; plain HTTP for the suite's admin calls.
+      - '${LAKKA_E2E_KEYCLOAK_PORT:-18543}:${LAKKA_E2E_KEYCLOAK_PORT:-18543}'
+      - '127.0.0.1:${LAKKA_E2E_KEYCLOAK_ADMIN_PORT:-18480}:8080'
+    networks:
+      default:
+        aliases: [keycloak.localhost]
+    healthcheck:
+      # The image has no curl; bash can speak HTTP to the management port.
+      test:
+        - CMD-SHELL
+        - >-
+          exec 3<>/dev/tcp/127.0.0.1/9000 &&
+          printf 'GET /health/ready HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n' >&3 &&
+          grep -q '"UP"' <&3
+      interval: 3s
+      timeout: 3s
+      retries: 40
+
+volumes:
+  keycloak-certs:

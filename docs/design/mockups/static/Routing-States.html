@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Routing states</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500;600&amp;family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap" rel="stylesheet" data-dc-tpl="1">
+<style data-dc-tpl="2">
+body{margin:0}
+.lk{--lk-cloudberry:#E3A33F;--background:#F3F5F4;--foreground:#212423;--surface:#FFFFFF;--surface-secondary:#EFF0F0;--surface-tertiary:#E6E8E7;--muted:#5D615F;--border:#DEE1E0;--separator:#E6E8E7;--link:#2A5245;--default:#E6E8E7;--default-foreground:#212423;--accent:#2A5245;--accent-foreground:#FFFFFF;--accent-soft:#E2EDE8;--accent-soft-foreground:#2A5245;--field-background:#FFFFFF;--field-border:#838886;--focus:#2F5B8A;font-family:"Atkinson Hyperlegible Next",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--foreground);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.lk,.lk *{box-sizing:border-box}
+.lk h1,.lk h2,.lk h3,.lk p,.lk dl,.lk dd{margin:0}
+.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.i14{width:14px;height:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:8px;border:1px solid transparent;font:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;text-decoration:none;line-height:1;color:var(--foreground);background:transparent}
+.btn-primary{background:var(--accent);color:var(--accent-foreground)}
+.btn-secondary{background:var(--default);color:var(--default-foreground)}
+.desc{font-size:13px;color:var(--muted)}
+.label{font-size:13px;font-weight:500;color:var(--foreground)}
+.link{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+.input{display:block;height:40px;padding:0 12px;background:var(--field-background);border:1px solid var(--field-border);border-radius:8px;font:inherit;font-size:14px;color:var(--foreground);width:100%}
+.st{display:flex;flex-direction:column;gap:10px}
+.stl h2{font-size:15px;font-weight:600}
+.stage{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.sw{width:44px;height:26px;border-radius:999px;border:1px solid var(--field-border);background:var(--surface);padding:2px;display:inline-flex;justify-content:flex-start;align-items:center;flex-shrink:0;cursor:pointer}
+/* States, one pattern everywhere */
+.link{padding-block:4px}
+button.chip{cursor:pointer}
+.btn:hover,.navt:hover{background-color:var(--surface-tertiary)}
+.btn-primary:hover{background:var(--accent);opacity:.9}
+.btn-danger:hover{opacity:.9}
+.btn:active{opacity:.8}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+[aria-disabled="true"],:disabled{opacity:.5;cursor:not-allowed}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div id="dc-root"><div class="sc-host"><div class="lk" style="width: 1440px; height: 940px; background: var(--background); padding: 64px; display: flex; flex-direction: column; gap: 40px;"><header style="display: flex; flex-direction: column; gap: 10px;"><h1 style="font-family: Newsreader, Georgia, &quot;Times New Roman&quot;, serif; font-size: 40px; line-height: 1.1; font-weight: 400; letter-spacing: -0.015em;">Routing states</h1><p style="font-size: 17px; color: var(--muted); max-width: 860px;">Routing has to make sense switched off, with nothing set up, and for members who cannot change it.</p></header><div style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 32px 28px; align-items: start;"><section class="st"><div class="stl"><h2>Routing off</h2><p class="desc">Routes stay saved. The page reads as one setting and a default model.</p></div><div class="stage" style="gap: 0px; padding: 8px 24px;"><div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 16px 0px; border-top: 0px;"><div style="display: flex; flex-direction: column; gap: 2px;"><label for="off" style="font-weight: 600;">Choose models automatically</label><span class="desc" id="off-d">Off. Everyone gets the default model unless they pick one.</span></div><input type="checkbox" id="off" aria-describedby="off-d" style="width: 18px; height: 18px; margin: 0px; accent-color: var(--accent); flex-shrink: 0;"></div><div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 16px 0px; border-top: 1px solid var(--separator);"><div style="display: flex; flex-direction: column; gap: 2px;"><span id="off-dm" style="font-weight: 600;">Default model</span><span class="desc">Used whenever someone does not pick a model.</span></div><button class="input" aria-labelledby="off-dm" aria-haspopup="listbox" style="width: 240px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; cursor: pointer; text-align: left;"><span>Claude Sonnet 4.5</span><svg class="i i14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button></div><div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 16px 0px; border-top: 1px solid var(--separator);"><p class="desc">5 routes are saved and not used while routing is off. <a class="link" href="#">Show routes</a></p></div><div style="display: flex; justify-content: flex-end; padding: 14px 0px 8px; border-top: 1px solid var(--separator);"><button class="btn btn-primary">Save</button></div></div></section><section class="st"><div class="stl"><h2>No routes yet</h2><p class="desc">Routing on, nothing to route to. Says what happens now and what a route is for.</p></div><div class="stage" style="align-items: flex-start; padding: 32px;"><h3 style="font-size: 20px; font-weight: 600;">No routes yet</h3><p style="max-width: 480px;">Every message goes to the default model, Claude Sonnet 4.5. Add a route to send one kind of message, like code or quick questions, to a model that suits it better or costs less.</p><button class="btn btn-primary">Add a route</button></div></section><section class="st"><div class="stl"><h2>Member opens Routing</h2><p class="desc">A short note, not an error. No settings are sent to the browser.</p></div><div class="stage" style="padding: 32px;"><h3 style="font-size: 20px; font-weight: 600;">Routing is managed by workspace admins</h3><p style="max-width: 480px;">Each reply in chat tells you which model answered and why. To change how models are chosen, ask Maja Lind.</p><a class="link" href="#">Back to chat</a></div></section><section class="st"><div class="stl"><h2>Try a phrase: no route is sure enough</h2><p class="desc">Shows the closest route and why it did not win.</p></div><div class="stage"><div style="display: flex; flex-direction: column; gap: 6px;"><label class="label" for="ph2">Message</label><div style="display: flex; gap: 8px;"><input id="ph2" class="input" value="Can you help me plan the team offsite?"><button class="btn btn-secondary" style="height: 40px;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5Z"></path></svg>Try</button></div></div><div role="status" style="background: var(--surface-secondary); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;"><p style="font-weight: 600;">Default model, Claude Sonnet 4.5</p><dl style="display: grid; grid-template-columns: auto minmax(0px, 1fr); gap: 6px 16px; font-size: 14px;"><dt class="desc">Rule</dt><dd>No route was sure enough</dd><dt class="desc">Closest</dt><dd>Writing, 0.52. It needs 0.70.</dd></dl></div></div></section></div></div></div></div>
+</body>
+</html>

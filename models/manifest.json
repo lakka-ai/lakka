@@ -1,0 +1,86 @@
+{
+  "models": [
+    {
+      "name": "paraphrase-multilingual-MiniLM-L12-v2",
+      "description": "INT8-quantized ONNX export of paraphrase-multilingual-MiniLM-L12-v2 by its own publisher, one file per CPU family, 384 dimensions, 50+ languages (ADR 0088, ADR 0124)",
+      "source": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+      "license": "Apache-2.0",
+      "files": [
+        {
+          "path": "model_quantized.onnx",
+          "arch": "arm64",
+          "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/onnx/model_qint8_arm64.onnx",
+          "size": 118412398,
+          "sha256": "783fea82d71a58179b830a4dbd2d58447e640609e98eedf9ffa12622d375a672"
+        },
+        {
+          "path": "model_quantized.onnx",
+          "arch": "amd64",
+          "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/onnx/model_quint8_avx2.onnx",
+          "size": 118453870,
+          "sha256": "98a01d88b7de996cdea58c32ca71208c09968d143798814b2ea09d3439dc334f"
+        },
+        {
+          "path": "tokenizer.json",
+          "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/tokenizer.json",
+          "size": 9081518,
+          "sha256": "2c3387be76557bd40970cec13153b3bbf80407865484b209e655e5e4729076b8"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/tokenizer_config.json",
+          "size": 526,
+          "sha256": "5036ea374ffedd706e3bef33e2e0d6953cb868ef8a490e76e32ba0faa37a6b9b"
+        },
+        {
+          "path": "sentence_bert_config.json",
+          "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/e8f8c211226b894fcb81acc59f3b34ba3efd5f42/sentence_bert_config.json",
+          "size": 53,
+          "sha256": "70f4448f31320443fe3557cacea5abf2dcc4915dda8c80646bec9f3bb0aa5a1f"
+        }
+      ]
+    },
+    {
+      "name": "paraphrase-multilingual-mpnet-base-v2",
+      "description": "INT8-quantized ONNX export of paraphrase-multilingual-mpnet-base-v2 by its own publisher, one file per CPU family, 768 dimensions, 50+ languages; a supported classifier the operator can choose (ADR 0123, ADR 0124)",
+      "source": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+      "revision": "4328cf26390c98c5e3c738b4460a05b95f4911f5",
+      "license": "Apache-2.0",
+      "files": [
+        {
+          "path": "model_quantized.onnx",
+          "arch": "arm64",
+          "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2/resolve/4328cf26390c98c5e3c738b4460a05b95f4911f5/onnx/model_qint8_arm64.onnx",
+          "size": 278719559,
+          "sha256": "88784a4b95fd6a28e3b3b307578e2c4d12d8d550bf55d68257c8e2283f1ee901"
+        },
+        {
+          "path": "model_quantized.onnx",
+          "arch": "amd64",
+          "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2/resolve/4328cf26390c98c5e3c738b4460a05b95f4911f5/onnx/model_quint8_avx2.onnx",
+          "size": 278802503,
+          "sha256": "82f6b58b509e6f87a3c181fd08a94376499faa6c344eea0b36214d47d3943e61"
+        },
+        {
+          "path": "tokenizer.json",
+          "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2/resolve/4328cf26390c98c5e3c738b4460a05b95f4911f5/tokenizer.json",
+          "size": 9081518,
+          "sha256": "2c3387be76557bd40970cec13153b3bbf80407865484b209e655e5e4729076b8"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2/resolve/4328cf26390c98c5e3c738b4460a05b95f4911f5/tokenizer_config.json",
+          "size": 402,
+          "sha256": "a312d5bef89ec4c9355638520a31582e761f205d79df3002a3bd390d7077455f"
+        },
+        {
+          "path": "sentence_bert_config.json",
+          "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2/resolve/4328cf26390c98c5e3c738b4460a05b95f4911f5/sentence_bert_config.json",
+          "size": 53,
+          "sha256": "70f4448f31320443fe3557cacea5abf2dcc4915dda8c80646bec9f3bb0aa5a1f"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create, rename and delete a workspace</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500;600&amp;family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap" rel="stylesheet" data-dc-tpl="1">
+<style data-dc-tpl="2">
+body{margin:0}
+.lk{--surface-tertiary:#E6E8E7;--danger-foreground:#FFFFFF;--lk-cloudberry:#E3A33F;--background:#F3F5F4;--foreground:#212423;--surface:#FFFFFF;--surface-secondary:#EFF0F0;--overlay:#FFFFFF;--muted:#5D615F;--border:#DEE1E0;--separator:#E6E8E7;--default:#E6E8E7;--default-foreground:#212423;--accent:#2A5245;--accent-foreground:#FFFFFF;--danger:#B03A2D;--danger-soft:#FBE9E6;--danger-soft-foreground:#A03427;--danger-edge:#E9B3AA;--field-background:#FFFFFF;--field-border:#838886;--focus:#2F5B8A;--overlay-shadow:0 4px 12px rgba(33,36,35,.10),0 16px 32px rgba(33,36,35,.10);font-family:"Atkinson Hyperlegible Next",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--foreground);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.lk,.lk *{box-sizing:border-box}
+.lk h1,.lk h2,.lk p,.lk fieldset{margin:0}
+.mono{font-family:"Atkinson Hyperlegible Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+.num{font-variant-numeric:tabular-nums}
+.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:8px;border:1px solid transparent;font:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;text-decoration:none;line-height:1;color:var(--foreground);background:transparent}
+.btn-primary{background:var(--accent);color:var(--accent-foreground)}
+.btn-secondary{background:var(--default);color:var(--default-foreground)}
+.label{font-size:13px;font-weight:500;color:var(--foreground)}
+.desc{font-size:13px;color:var(--muted)}
+.input{display:block;width:100%;height:40px;padding:0 12px;background:var(--field-background);border:1px solid var(--field-border);border-radius:8px;font:inherit;font-size:14px;color:var(--foreground)}
+.field{display:flex;flex-direction:column;gap:6px}
+.st{display:flex;flex-direction:column;gap:10px}
+.stl h2{font-size:15px;font-weight:600}
+.dim{background:rgba(33,36,35,.55);border-radius:12px;padding:40px;display:flex;justify-content:center;align-items:flex-start}
+.dlg{width:100%;background:var(--overlay);border-radius:16px;box-shadow:var(--overlay-shadow);display:flex;flex-direction:column}
+.dh{min-height:69px;padding:20px 24px 16px;border-bottom:1px solid var(--separator);display:flex;justify-content:space-between;align-items:center;gap:16px}
+.dh h3{margin:0;font-size:20px;font-weight:600;line-height:1.3}
+.db{padding:20px 24px;display:flex;flex-direction:column;gap:16px}
+.df{padding:16px 24px 20px;border-top:1px solid var(--separator);display:flex;justify-content:flex-end;align-items:center;gap:8px}
+.x{width:32px;padding:0;background:transparent;color:var(--foreground)}
+.ig{display:flex;align-items:stretch;height:40px;border:1px solid var(--field-border);border-radius:8px;background:var(--field-background);overflow:hidden}.ig:focus-within,.ig.fv{outline:2px solid var(--focus);outline-offset:2px}.ig-a{display:flex;align-items:center;padding:0 0 0 12px;color:var(--muted);font-size:14px;white-space:nowrap}.ig-a.end{padding:0 12px 0 0}.ig-a + .ig-i{padding-left:6px}.ig-i:not(:last-child){padding-right:6px}.ig-i{flex-grow:1;min-width:0;border:0;outline:0;padding:0 12px;font:inherit;font-size:14px;background:transparent;color:var(--foreground)}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.btn-danger{background:var(--danger);color:var(--danger-foreground)}
+.sel{display:block;height:38px;padding:0 12px;background:var(--field-background);border:1px solid var(--field-border);border-radius:8px;font:inherit;font-size:14px;color:var(--foreground);width:100%}
+.dn{display:flex;gap:10px;align-items:flex-start;background:var(--danger-soft);border:1px solid var(--danger-edge);border-radius:10px;padding:10px 12px;font-size:14px}
+.dn ul{margin:6px 0 0;padding-left:16px}
+/* States, one pattern everywhere */
+button.chip{cursor:pointer}
+.btn:hover,.navt:hover{background-color:var(--surface-tertiary)}
+.btn-primary:hover{background:var(--accent);opacity:.9}
+.btn-danger:hover{opacity:.9}
+.btn:active{opacity:.8}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+[aria-disabled="true"],:disabled{opacity:.5;cursor:not-allowed}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div id="dc-root"><div class="sc-host"><div class="lk" style="width: 1440px; height: 900px; background: var(--background); padding: 64px; display: flex; flex-direction: column; gap: 40px;"><header style="display: flex; flex-direction: column; gap: 10px;"><h1 style="font-family: Newsreader, Georgia, &quot;Times New Roman&quot;, serif; font-size: 40px; line-height: 1.1; font-weight: 400; letter-spacing: -0.015em;">Workspace dialogs</h1><p style="font-size: 17px; color: var(--muted); max-width: 860px;">Opened from the Workspaces page. Create and Rename are form dialogs. Delete cannot be undone, so it asks you to type the workspace name.</p></header><div style="display: grid; grid-template-columns: repeat(3, minmax(0px, 1fr)); gap: 28px; align-items: start;"><section class="st"><div class="stl"><h2>Create a workspace</h2><p class="desc">Opened from Create workspace.</p></div><div class="dim" style="padding: 32px 24px;"><form role="dialog" aria-labelledby="cw-t" class="dlg"><div class="dh"><h3 id="cw-t">Create a workspace</h3><button type="button" class="btn x" aria-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div><div class="db"><div class="field"><label class="label" for="cw-n">Name</label><input id="cw-n" class="input" placeholder="For example Finance" aria-describedby="cw-nd" style="border: 2px solid var(--focus);"><span id="cw-nd" class="desc">Shown in the workspace switcher. You can rename it later.</span></div><div class="field"><label class="label" for="cw-a">First admin</label><select id="cw-a" class="sel" aria-describedby="cw-ad"><option>Maja Lind (you)</option></select><span id="cw-ad" class="desc">They can invite everyone else from Workspace settings.</span></div></div><div class="df"><button type="button" class="btn btn-secondary">Cancel</button><button class="btn btn-primary">Create workspace</button></div></form></div></section><section class="st"><div class="stl"><h2>Rename a workspace</h2><p class="desc">Opened from Rename on a workspace row.</p></div><div class="dim" style="padding: 32px 24px;"><form role="dialog" aria-labelledby="rw-t" class="dlg"><div class="dh"><h3 id="rw-t">Rename Support</h3><button type="button" class="btn x" aria-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div><div class="db"><div class="field"><label class="label" for="rw-n">Name</label><input id="rw-n" class="input" aria-describedby="rw-nd" value="Support" style="border: 2px solid var(--focus);"><span id="rw-nd" class="desc">People see the new name right away. Links, API keys and traces keep working.</span></div></div><div class="df"><button type="button" class="btn btn-secondary">Cancel</button><button class="btn btn-primary">Save name</button></div></form></div></section><section class="st"><div class="stl"><h2>Delete a workspace</h2><p class="desc">Opened from Delete on a workspace row.</p></div><div class="dim" style="padding: 32px 24px;"><form role="alertdialog" aria-labelledby="dw-t" aria-describedby="dw-d" class="dlg"><div class="dh"><h3 id="dw-t">Delete Support?</h3><button type="button" class="btn x" aria-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div><div class="db"><div id="dw-d" class="dn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 4px; color: var(--danger);"><path d="M12 3.5 2.8 19.5h18.4Z"></path><path d="M12 10v4.5M12 17v.5"></path></svg><div><p>This cannot be undone. Deleting Support removes:</p><ul><li>Its conversations and request traces</li><li>Its API keys, which stop working at once</li><li>Its routes, tools and provider keys</li></ul><p style="margin-top: 6px;">Its 6 people keep their accounts. Its spend stays in the instance report.</p></div></div><div class="field"><label class="label" for="dw-c">Type Support to confirm</label><input id="dw-c" class="input" autocomplete="off" style="border: 2px solid var(--focus);"></div></div><div class="df"><button type="button" class="btn btn-secondary">Cancel</button><button class="btn btn-danger" aria-disabled="true" style="opacity: 0.5;">Delete workspace</button></div></form></div></section></div></div></div></div>
+</body>
+</html>

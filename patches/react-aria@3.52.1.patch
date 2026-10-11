@@ -1,0 +1,60 @@
+diff --git a/dist/private/collections/BaseCollection.cjs b/dist/private/collections/BaseCollection.cjs
+index 8385b7566ab8bc529f3586d22f90e19f43945915..3a91ea1871473c2b05481a283318758d5330ac2d 100644
+--- a/dist/private/collections/BaseCollection.cjs
++++ b/dist/private/collections/BaseCollection.cjs
+@@ -239,11 +239,15 @@ function $a76f1c7ecd25aae2$var$filterChildren(collection, newCollection, firstCh
+     ];
+     let firstNode = null;
+     let lastNode = null;
++    // lakka patch: a kept node is numbered among the kept siblings, not where it sat before
++    // filtering, so aria-posinset stays within aria-setsize (ADR 0103).
++    let index = 0;
+     let currentNode = collection.getItem(firstChildKey);
+     while(currentNode != null){
+         let newNode = currentNode.filter(collection, newCollection, filterFn);
+         if (newNode != null) {
+             newNode.nextKey = null;
++            newNode.index = index++;
+             if (lastNode) {
+                 newNode.prevKey = lastNode.key;
+                 lastNode.nextKey = newNode.key;
+diff --git a/dist/private/collections/BaseCollection.js b/dist/private/collections/BaseCollection.js
+index 7314ee28c93a197094e628e2d3fa0e6270f2ed9f..0164ab49d87a95136ac9264d5500905c29caf343 100644
+--- a/dist/private/collections/BaseCollection.js
++++ b/dist/private/collections/BaseCollection.js
+@@ -222,11 +222,15 @@ function $0c55dae31ace3277$var$filterChildren(collection, newCollection, firstCh
+     ];
+     let firstNode = null;
+     let lastNode = null;
++    // lakka patch: a kept node is numbered among the kept siblings, not where it sat before
++    // filtering, so aria-posinset stays within aria-setsize (ADR 0103).
++    let index = 0;
+     let currentNode = collection.getItem(firstChildKey);
+     while(currentNode != null){
+         let newNode = currentNode.filter(collection, newCollection, filterFn);
+         if (newNode != null) {
+             newNode.nextKey = null;
++            newNode.index = index++;
+             if (lastNode) {
+                 newNode.prevKey = lastNode.key;
+                 lastNode.nextKey = newNode.key;
+diff --git a/dist/private/collections/BaseCollection.mjs b/dist/private/collections/BaseCollection.mjs
+index 5ea826408fcfab67480ded085e6202d35e0d217f..7437b88deecc97fffddd1534446b7388fbfc96cb 100644
+--- a/dist/private/collections/BaseCollection.mjs
++++ b/dist/private/collections/BaseCollection.mjs
+@@ -227,11 +227,15 @@ function $6f0c29017aeec335$var$filterChildren(collection, newCollection, firstCh
+     ];
+     let firstNode = null;
+     let lastNode = null;
++    // lakka patch: a kept node is numbered among the kept siblings, not where it sat before
++    // filtering, so aria-posinset stays within aria-setsize (ADR 0103).
++    let index = 0;
+     let currentNode = collection.getItem(firstChildKey);
+     while(currentNode != null){
+         let newNode = currentNode.filter(collection, newCollection, filterFn);
+         if (newNode != null) {
+             newNode.nextKey = null;
++            newNode.index = index++;
+             if (lastNode) {
+                 newNode.prevKey = lastNode.key;
+                 lastNode.nextKey = newNode.key;

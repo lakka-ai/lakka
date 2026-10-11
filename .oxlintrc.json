@@ -1,0 +1,157 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import", "node", "vitest"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error"
+  },
+  "ignorePatterns": ["**/routeTree.gen.ts", "**/dist/**", "**/.output/**"],
+  "rules": {
+    "no-console": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/consistent-type-imports": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "pino",
+            "message": "Log through the Logger from @lakka/core; it enforces the field allowlist (ADR 0005)."
+          }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["packages/core/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "pino",
+                "message": "Only packages/core/src/logger.ts may import pino (ADR 0005)."
+              },
+              {
+                "name": "fastify",
+                "message": "core must not depend on fastify; surfaces are adapters (CLAUDE.md invariant 1, ADR 0007)."
+              }
+            ],
+            "patterns": [
+              {
+                "group": [
+                  "fastify/*",
+                  "@fastify/*",
+                  "react",
+                  "react/*",
+                  "react-dom",
+                  "react-dom/*",
+                  "@tanstack/*",
+                  "@lakka/api",
+                  "@lakka/api/*",
+                  "@lakka/web",
+                  "@lakka/web/*",
+                  "@lakka/worker",
+                  "@lakka/worker/*",
+                  "**/apps/**"
+                ],
+                "message": "core must not import HTTP frameworks, UI libraries or app packages (ADR 0007)."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["packages/core/src/logger.ts"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "fastify",
+                "message": "core must not depend on fastify (ADR 0007)."
+              }
+            ],
+            "patterns": [
+              {
+                "group": [
+                  "fastify/*",
+                  "@fastify/*",
+                  "react",
+                  "react/*",
+                  "react-dom",
+                  "react-dom/*",
+                  "@tanstack/*",
+                  "@lakka/api",
+                  "@lakka/api/*",
+                  "@lakka/web",
+                  "@lakka/web/*",
+                  "@lakka/worker",
+                  "@lakka/worker/*",
+                  "**/apps/**"
+                ],
+                "message": "core must not import HTTP frameworks, UI libraries or app packages (ADR 0007)."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["apps/web/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "pino",
+                "message": "web does not log through pino."
+              },
+              {
+                "name": "pg",
+                "message": "web talks to api over HTTP only (ADR 0006)."
+              },
+              {
+                "name": "@lakka/core",
+                "message": "web talks to api over HTTP only, never to core (ADR 0006)."
+              },
+              {
+                "name": "@lakka/db",
+                "message": "web talks to api over HTTP only, never to db (ADR 0006)."
+              }
+            ],
+            "patterns": [
+              {
+                "group": [
+                  "@lakka/core/*",
+                  "@lakka/db/*",
+                  "@valkey/*",
+                  "**/packages/core/**",
+                  "**/packages/db/**"
+                ],
+                "message": "web talks to api over HTTP only (ADR 0006)."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["apps/site/.vitepress/theme/**"],
+      "rules": {
+        "import/no-unassigned-import": [
+          "error",
+          {
+            "allow": ["**/*.css"]
+          }
+        ]
+      }
+    }
+  ]
+}

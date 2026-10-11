@@ -1,0 +1,803 @@
+/*
+ * The Spruce theme on VitePress's own variables (ADR 0119). lakka-theme.css, loaded before
+ * this file, sets the tokens for light and for `.dark`, which VitePress puts on <html>, so one
+ * mapping serves both. `.dark` is listed so this wins over VitePress's own `.dark` values.
+ * Colours come only from tokens: nothing here is derived with color-mix(), whose results were
+ * never contrast-checked (docs/design/docs/tokens.md).
+ */
+:root,
+.dark {
+  --vp-c-bg: var(--surface);
+  --vp-c-bg-alt: var(--background);
+  --vp-c-bg-soft: var(--surface-secondary);
+  --vp-c-bg-elv: var(--overlay);
+
+  --vp-c-text-1: var(--foreground);
+  --vp-c-text-2: var(--muted);
+  --vp-c-text-3: var(--muted);
+
+  --vp-c-divider: var(--separator);
+  --vp-c-gutter: var(--separator);
+  --vp-c-border: var(--border);
+
+  --vp-c-brand-1: var(--link);
+  --vp-c-brand-2: var(--link);
+  --vp-c-brand-3: var(--accent);
+  --vp-c-brand-soft: var(--accent-soft);
+
+  --vp-c-default-1: var(--surface-tertiary);
+  --vp-c-default-2: var(--surface-tertiary);
+  --vp-c-default-3: var(--default);
+  --vp-c-default-soft: var(--surface-secondary);
+
+  --vp-c-tip-1: var(--success-soft-foreground);
+  --vp-c-tip-2: var(--success-soft-foreground);
+  --vp-c-tip-3: var(--success);
+  --vp-c-tip-soft: var(--success-soft);
+  --vp-c-warning-1: var(--warning-soft-foreground);
+  --vp-c-warning-2: var(--warning-soft-foreground);
+  --vp-c-warning-3: var(--warning);
+  --vp-c-warning-soft: var(--warning-soft);
+  --vp-c-danger-1: var(--danger-soft-foreground);
+  --vp-c-danger-2: var(--danger-soft-foreground);
+  --vp-c-danger-3: var(--danger);
+  --vp-c-danger-soft: var(--danger-soft);
+
+  --vp-font-family-base: var(--font-sans);
+  --vp-font-family-mono: var(--font-mono);
+
+  /* Only things that float cast a shadow (tokens.md, Shadows). */
+  --vp-shadow-1: none;
+  --vp-shadow-2: var(--overlay-shadow);
+  --vp-shadow-3: var(--overlay-shadow);
+  --vp-shadow-4: var(--overlay-shadow);
+  --vp-shadow-5: var(--overlay-shadow);
+  --vp-backdrop-bg-color: var(--backdrop);
+
+  /* Primary button: accent fill; hover and press change opacity, not colour (patterns.md, States). */
+  --vp-button-brand-bg: var(--accent);
+  --vp-button-brand-text: var(--accent-foreground);
+  --vp-button-brand-hover-bg: var(--accent);
+  --vp-button-brand-hover-text: var(--accent-foreground);
+  --vp-button-brand-active-bg: var(--accent);
+  --vp-button-brand-active-text: var(--accent-foreground);
+  /* Secondary button: neutral fill, --surface-tertiary on hover (patterns.md, States). */
+  --vp-button-alt-bg: var(--default);
+  --vp-button-alt-text: var(--default-foreground);
+  --vp-button-alt-hover-bg: var(--surface-tertiary);
+  --vp-button-alt-hover-text: var(--default-foreground);
+  --vp-button-alt-active-bg: var(--surface-tertiary);
+  --vp-button-alt-active-text: var(--default-foreground);
+
+  /* Code: the app's code block fill, in the text colour, as CodeBlock draws it (patterns.md). */
+  --vp-code-color: var(--foreground);
+  --vp-code-bg: var(--lk-code-background);
+  --vp-code-block-bg: var(--lk-code-background);
+  --vp-code-block-color: var(--foreground);
+  --vp-code-lang-color: var(--muted);
+  --vp-code-link-color: var(--link);
+  --vp-code-link-hover-color: var(--link);
+  --vp-code-copy-code-bg: var(--surface);
+  --vp-code-copy-code-hover-bg: var(--surface-tertiary);
+  --vp-code-copy-code-border-color: var(--border);
+  --vp-code-copy-code-hover-border-color: var(--border);
+  --vp-code-copy-code-active-text: var(--muted);
+
+  /* Fields need a 3:1 edge (tokens.md, Borders). */
+  --vp-input-border-color: var(--field-border);
+  --vp-input-bg-color: var(--field-background);
+  --vp-input-switch-bg-color: var(--surface-secondary);
+
+  --vp-nav-bg-color: var(--surface);
+  --vp-nav-home-bg-color: var(--surface);
+  --vp-nav-screen-bg-color: var(--surface);
+  --vp-sidebar-bg-color: var(--background);
+  --vp-local-nav-bg-color: var(--surface);
+
+  --vp-local-search-bg: var(--overlay);
+  --vp-local-search-result-bg: var(--surface);
+  --vp-local-search-result-border: var(--border);
+  --vp-local-search-result-selected-bg: var(--accent-soft);
+  --vp-local-search-result-selected-border: var(--accent);
+  --vp-local-search-highlight-bg: var(--accent-soft);
+  --vp-local-search-highlight-text: var(--accent-soft-foreground);
+
+  --vp-home-hero-name-color: var(--foreground);
+  --vp-home-hero-name-background: none;
+}
+
+/*
+ * The tokens apps/web/src/styles/app.css adds beside the theme file, with the same values: the
+ * type scale (tokens.md), whose reading styles step up one size below 1024px (phone.md); the
+ * 10px corner between a button's and a card's; the button and field heights, 44px on a phone.
+ */
+:root {
+  --lk-text-title: 30px;
+  --lk-leading-title: 36px;
+  --lk-text-dialog-title: 20px;
+  --lk-leading-dialog-title: 26px;
+  --lk-text-chat: 16px;
+  --lk-leading-chat: 26px;
+  --lk-text-body: 14px;
+  --lk-leading-body: 22px;
+  --lk-text-small: 13px;
+  --lk-leading-small: 20px;
+  --lk-text-label: 13px;
+  --lk-leading-label: 18px;
+  --lk-text-caption: 12px;
+  --lk-leading-caption: 16px;
+  --radius-note: 10px;
+  --lk-field-height: 2.5rem;
+}
+@media (width < 64rem) {
+  :root {
+    --lk-text-title: 26px;
+    --lk-leading-title: 32px;
+    --lk-text-body: 15px;
+    --lk-text-small: 14px;
+    --lk-text-label: 14px;
+    --lk-leading-label: 20px;
+    --lk-field-height: 2.75rem;
+  }
+}
+
+/* Text is drawn as the app draws it: greyscale antialiasing (apps/web/src/styles/app.css). */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+ * Page titles in Newsreader, always regular, as the app's .lk-title (tokens.md, type scale:
+ * title 30/36). Other headings stay in the sans.
+ */
+.vp-doc h1,
+:root .VPHero .name {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.vp-doc h1 {
+  font-size: var(--lk-text-title);
+  line-height: var(--lk-leading-title);
+}
+
+/*
+ * The guide reads as a reply in chat does (apps/web/src/components/chat/markdown.tsx): text and
+ * list items at body-chat, 16/26; a section heading at the dialog-title style, 20/26 semibold;
+ * smaller headings at body-chat, semibold. List items are 4px apart, indented 24px. A quote is
+ * muted, behind a 2px --border line, 12px in.
+ */
+.vp-doc :is(p, li) {
+  font-size: var(--lk-text-chat);
+  line-height: var(--lk-leading-chat);
+}
+.vp-doc h2 {
+  font-size: var(--lk-text-dialog-title);
+  line-height: var(--lk-leading-dialog-title);
+  letter-spacing: normal;
+}
+.vp-doc :is(h3, h4, h5, h6) {
+  font-size: var(--lk-text-chat);
+  line-height: var(--lk-leading-chat);
+  letter-spacing: normal;
+}
+.vp-doc :is(ul, ol) {
+  padding-left: 1.5rem;
+}
+.vp-doc li + li {
+  margin-top: 0.25rem;
+}
+.vp-doc blockquote {
+  padding-left: 0.75rem;
+  border-left-color: var(--border);
+}
+
+/*
+ * The wordmark: the Cloudberry dot, then the lowercase name, 18px semibold with tight tracking,
+ * as apps/web/src/components/shell/brand.tsx draws it. The dot is decoration only: it is 2.2:1
+ * on white, so it never carries text or meaning (tokens.md, Rules).
+ */
+:root .VPNavBarTitle .title {
+  gap: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+}
+:root .VPNavBarTitle .title::before {
+  content: '';
+  flex: none;
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 9999px;
+  background-color: var(--lk-cloudberry);
+}
+
+/*
+ * The hero's actions are the page's main actions, so they are app.css's lg button: a field's
+ * height, 40px and 44px on a phone, 16px in, body text at 500, with 8px corners (tokens.md,
+ * Radius; ADR 0108, ADR 0111). VitePress draws 38px pills in 600.
+ */
+:root .VPButton.medium,
+:root .VPButton.big {
+  height: var(--lk-field-height);
+  padding: 0 16px;
+  border-radius: var(--radius);
+  font-size: var(--lk-text-body);
+  font-weight: 500;
+  line-height: calc(var(--lk-field-height) - 2px);
+}
+/* Primary buttons drop to 90 percent on hover and 80 when pressed (patterns.md, States). */
+:root .VPButton.brand:hover {
+  opacity: 0.9;
+}
+:root .VPButton:active {
+  opacity: 0.8;
+}
+
+/* Cards: 12px corners and a 1px --border edge, flat (tokens.md, Radius and Borders). */
+:root .VPFeature {
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+/*
+ * A feature card is a link: hovered, it takes --surface-tertiary, one step from its
+ * --surface-secondary, as buttons and menu items do (patterns.md, States), and keeps its edge.
+ * VitePress turned the edge accent, which in the app marks a chosen option.
+ */
+:root .VPFeatures .VPFeature.link:hover {
+  border-color: var(--border);
+  background-color: var(--surface-tertiary);
+}
+/*
+ * The four features stay two by two until 1280px. VitePress puts them in one row from 960px, where
+ * at 1000px each card's text is about 158px wide: titles on three lines, descriptions on nine and
+ * the links broken in two. Below 960px VitePress's own layout stands: one column on a phone, two
+ * from 640px.
+ */
+@media (60rem <= width < 80rem) {
+  :root .VPFeatures .item.grid-4 {
+    width: 50%;
+  }
+}
+
+/*
+ * Code blocks as CodeBlock draws them (patterns.md, Code block): 10px by 12px in, the small style
+ * in mono, 13/20 and 14 on a phone. VitePress already gives them 8px corners from 640px.
+ */
+.vp-doc div[class*='language-'] pre {
+  padding: 10px 0;
+}
+.vp-doc div[class*='language-'] code {
+  padding: 0 12px;
+  font-size: var(--lk-text-small);
+  line-height: var(--lk-leading-small);
+}
+/*
+ * Below 640px VitePress runs a code block out to the screen's edges, 24px past the text on either
+ * side. 24px in, the code starts where the text above it does. In a list item or a quote it ran
+ * 24px out on both sides too, over the item's text or the quote's line on the left and off the
+ * screen on the right; there it stays inside, as on a wider screen, with 8px corners and 12px in.
+ */
+@media (width < 40rem) {
+  .vp-doc div[class*='language-'] code {
+    padding: 0 24px;
+  }
+  .vp-doc :is(li, blockquote) div[class*='language-'] {
+    margin: 1rem 0;
+    border-radius: var(--radius);
+  }
+  .vp-doc :is(li, blockquote) div[class*='language-'] code {
+    padding: 0 12px;
+  }
+}
+/*
+ * A touch screen has no hover, and VitePress shows the copy button only on hover or focus: on a
+ * phone or tablet it was there but unseen. It is always shown where nothing can hover, with the
+ * language label it would cover hidden, as VitePress hides it while the button shows, and the code
+ * keeps 44px clear at its end, so a long line can scroll out from under the button.
+ */
+@media (hover: none) {
+  .vp-doc [class*='language-'] > button.copy {
+    opacity: 1;
+  }
+  .vp-doc [class*='language-'] > span.lang {
+    opacity: 0;
+  }
+  .vp-doc div[class*='language-'] code,
+  .vp-doc :is(li, blockquote) div[class*='language-'] code {
+    padding-right: 44px;
+  }
+}
+/*
+ * The copy button is app.css's icon-only md button: 32px square with 8px corners and a 16px icon,
+ * 4px in from the block's corner, so a one-line block (40px) holds it. VitePress's 40px button,
+ * 12px down, ran past such a block and made it scroll.
+ */
+.vp-doc [class*='language-'] > button.copy {
+  top: 4px;
+  right: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius);
+  background-size: 16px;
+}
+.vp-doc [class*='language-'] > button.copy.copied,
+.vp-doc [class*='language-'] > button.copy:hover.copied {
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.vp-doc [class*='language-'] > button.copy.copied::before,
+.vp-doc [class*='language-'] > button.copy:hover.copied::before {
+  height: 32px;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+/* Inline code: 4px corners, 2px by 4px in, at 0.9 of the text (markdown.tsx). */
+.vp-doc :not(pre) > code {
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+/*
+ * Code in a semibold heading is set at 500: the mono is bundled at 400 and 500 only, as in the
+ * app, and the browser would fake the 600 by smearing the 500. A page title is regular, so its
+ * code is too.
+ */
+.vp-doc :is(h2, h3, h4, h5, h6) > code {
+  font-weight: 500;
+}
+
+/*
+ * Links as app.css's lk-link (patterns.md, States and Controls): the link colour, at the text's
+ * own weight, with a 1px underline 2px below that thickens to 2px on hover, and 2px corners for
+ * the focus ring. VitePress sets them in 500.
+ */
+.vp-doc a:not(.header-anchor) {
+  border-radius: 2px;
+  font-weight: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.vp-doc a:not(.header-anchor):hover {
+  text-decoration-thickness: 2px;
+}
+
+/*
+ * Focus: a 2px --focus outline with a 2px offset, on :focus-visible only (accessibility.md;
+ * patterns.md, States). Blue, so it never blends into a spruce button.
+ */
+:root :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+/*
+ * VitePress moves focus to the heading a link names, and the skip link to the content, giving
+ * each tabindex -1, so a screen reader goes on from there. Neither is a control, so neither is
+ * ringed, as the app rings controls only; WebKit ringed a heading after a tap or a click too.
+ */
+:root :is(.vp-doc :is(h1, h2, h3, h4, h5, h6), #VPContent)[tabindex='-1']:focus-visible {
+  outline: none;
+}
+/* Sidebar and outline rows touch, so their ring is drawn inside (patterns.md, States). */
+:root .VPSidebarItem .item :focus-visible,
+:root .VPDocOutlineItem :focus-visible {
+  outline-offset: -2px;
+}
+/*
+ * The skip link as app.css's lk-skip-link: a small box over the page's top left corner, 8px in,
+ * with 8px corners, on the surface, in the link colour, and no shadow.
+ */
+:root .VPSkipLink {
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  box-shadow: none;
+  font-size: var(--lk-text-body);
+}
+
+/*
+ * The light and dark switch as app.css's md switch (patterns.md, Controls): a 44 by 26 track on
+ * the surface with a --field-border edge, so it reaches 3:1, and a round 20px knob 2px in, in
+ * --field-border; on, the track is --accent and the knob --accent-foreground. Hovered, the track
+ * takes --surface-secondary. The knob's sun or moon sits on it in the track's colour.
+ */
+:root .VPSwitch {
+  box-sizing: border-box;
+  width: 44px;
+  height: 26px;
+  border: 1px solid var(--field-border);
+  border-radius: 9999px;
+  background-color: var(--surface);
+}
+:root .VPSwitch:hover {
+  border-color: var(--field-border);
+  background-color: var(--surface-secondary);
+}
+:root .VPSwitch[aria-checked='true'] {
+  border-color: var(--accent);
+  background-color: var(--accent);
+}
+:root .VPSwitch .check {
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--field-border);
+  box-shadow: none;
+}
+:root .VPSwitch[aria-checked='true'] .check {
+  background-color: var(--accent-foreground);
+}
+:root .VPSwitch .icon {
+  width: 20px;
+  height: 20px;
+}
+:root .VPSwitch .icon [class^='vpi-'] {
+  top: 4px;
+  left: 4px;
+  color: var(--surface);
+}
+:root .VPSwitch[aria-checked='true'] .icon [class^='vpi-'] {
+  color: var(--accent);
+}
+
+/*
+ * The search field as app.css's fields: 40px, 44 on a phone, a --field-border edge with 8px
+ * corners, and one focus ring, on the box that holds the field, not on the input inside it
+ * (patterns.md, States).
+ */
+:root .VPLocalSearchBox .search-bar {
+  min-height: var(--lk-field-height);
+  border-color: var(--field-border);
+  border-radius: var(--radius);
+}
+:root .VPLocalSearchBox .search-bar:focus-within {
+  border-color: var(--field-border);
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+:root .VPLocalSearchBox .search-bar input:focus-visible {
+  outline: none;
+}
+/*
+ * The chosen result takes the accent-soft fill, as the chosen option in app.css's autocomplete
+ * list does, and keeps the accent edge, so the choice does not rest on a fill change alone.
+ * Results are rows with 10px corners (tokens.md, Radius), 44px tall on a phone, a touch target.
+ */
+:root .VPLocalSearchBox .result {
+  border-radius: var(--radius-note);
+}
+/*
+ * From 768px search is a dialog over the page, not the whole screen: a dialog's 16px corners and
+ * the shadow that only floating things cast (tokens.md, Radius and Shadows). VitePress draws it
+ * with 6px corners and no shadow.
+ */
+@media (width >= 48rem) {
+  :root .VPLocalSearchBox .shell {
+    border-radius: 16px;
+    box-shadow: var(--overlay-shadow);
+  }
+}
+:root .VPLocalSearchBox .result.selected {
+  background-color: var(--accent-soft);
+}
+/*
+ * In the detailed list VitePress fades every excerpt but the chosen one to half opacity, about
+ * 3.2:1 in light and 4.0:1 in dark, under the 4.5:1 text needs. Excerpts are muted text at full
+ * strength instead, and the chosen one is in the text colour.
+ */
+:root .VPLocalSearchBox .excerpt {
+  opacity: 1;
+  color: var(--muted);
+}
+:root .VPLocalSearchBox .result.selected .excerpt {
+  color: var(--foreground);
+}
+/* The words that matched sit on the same fill there, so they are underlined instead. */
+:root .VPLocalSearchBox .result.selected mark {
+  background-color: transparent;
+  text-decoration: underline 2px;
+  text-underline-offset: 2px;
+}
+@media (width < 64rem) {
+  :root .VPLocalSearchBox .result {
+    min-height: 44px;
+  }
+}
+
+/*
+ * Tables as a reply in chat draws them (markdown.tsx): wide ones scroll sideways inside their own
+ * box, never the page, and the box takes keyboard focus so the scroll can be reached
+ * (accessibility.md). The box has a --border edge and 10px corners; the table is body text, its
+ * header row --surface-secondary in the caption style at 500, muted, cells 10px by 12px over a
+ * --separator line, with no stripes. The box comes from the Markdown config.
+ */
+.vp-doc .lk-table-scroll {
+  margin: 20px 0;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-note);
+}
+.vp-doc .lk-table-scroll > table {
+  display: table;
+  width: 100%;
+  margin: 0;
+  font-size: var(--lk-text-body);
+  line-height: var(--lk-leading-body);
+}
+.vp-doc .lk-table-scroll tr {
+  border: 0;
+  background-color: transparent;
+}
+.vp-doc .lk-table-scroll :is(th, td) {
+  border: 0;
+  border-bottom: 1px solid var(--separator);
+  padding: 10px 12px;
+  font-size: inherit;
+  vertical-align: top;
+}
+.vp-doc .lk-table-scroll th {
+  padding-block: 8px;
+  border-bottom-color: var(--border);
+  background-color: var(--surface-secondary);
+  color: var(--muted);
+  font-size: var(--lk-text-caption);
+  font-weight: 500;
+  line-height: var(--lk-leading-caption);
+}
+.vp-doc .lk-table-scroll tr:last-child td {
+  border-bottom: 0;
+}
+/*
+ * The guide's tables end with the column that explains, which the browser would otherwise squeeze
+ * to a word a line beside columns of settings and defaults. It keeps a readable width; the box
+ * scrolls instead.
+ */
+.vp-doc .lk-table-scroll :is(th, td):last-child {
+  min-width: 16rem;
+}
+
+/*
+ * The hero: the name at the display size (34/40), what it is at the dialog-title style (20/26,
+ * semibold), and the promise at body-chat (16/26) in --muted. VitePress draws both lines of the
+ * heading at 56px bold.
+ */
+:root .VPHero .name {
+  max-width: none;
+  font-size: 2.125rem;
+  line-height: 2.5rem;
+}
+:root .VPHero .text {
+  max-width: 36rem;
+  margin-top: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.625rem;
+  letter-spacing: normal;
+}
+:root .VPHero .tagline {
+  max-width: 36rem;
+  padding-top: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: var(--muted);
+}
+/* 40 above the hero and 32 below on desktop (tokens.md, Spacing): the page fits a screen and a
+   half. */
+@media (min-width: 40rem) {
+  :root .VPHero {
+    padding-top: calc(var(--vp-nav-height) + 2.5rem);
+    padding-bottom: 2rem;
+  }
+}
+
+/*
+ * On pages without a sidebar, the landing page and the 404 page, the nav bar keeps to the hero's
+ * column, so the wordmark starts where the hero does and the bar's last icon ends where the
+ * features do. VitePress lays the bar out for its 1440px page with 32px padding: the wordmark
+ * stood 32px left of the hero at 1280px and 112px from 1440px.
+ */
+@media (width >= 48rem) {
+  :root .VPNavBar:not(.has-sidebar) .wrapper {
+    padding-inline: 3rem;
+  }
+}
+@media (width >= 60rem) {
+  :root .VPNavBar:not(.has-sidebar) .wrapper {
+    padding-inline: 4rem;
+  }
+  :root .VPNavBar:not(.has-sidebar) .container {
+    max-width: 72rem;
+  }
+}
+
+/*
+ * The sidebar as the app's side menu (patterns.md, Side menu; apps/web/src/components/shell/
+ * nav-list.tsx): pages in body text and the text colour on rows with 8px corners, 34px tall with
+ * 2px between them; a row takes --default on hover; the current page takes the accent soft pair
+ * and semibold, so it is not marked by colour alone (accessibility.md), as VitePress marked it.
+ * The link fills its row, so the focus ring, drawn inside, rings the row. A group's heading is the
+ * caption style, semibold and muted. In the phone drawer rows are 44px with 10px corners.
+ */
+:root .VPSidebar .nav .VPSidebarItem.level-0 > .item > .text {
+  padding: 0 0 4px;
+  color: var(--muted);
+  font-size: var(--lk-text-caption);
+  font-weight: 600;
+  line-height: var(--lk-leading-caption);
+}
+:root .VPSidebar .nav .VPSidebarItem.is-link > .item {
+  margin-inline: -10px;
+  width: calc(100% + 20px);
+  border-radius: var(--radius);
+}
+:root .VPSidebar .nav .VPSidebarItem.is-link + .VPSidebarItem.is-link {
+  margin-top: 2px;
+}
+:root .VPSidebar .nav .VPSidebarItem.is-link > .item > .link {
+  padding-inline: 10px;
+  border-radius: inherit;
+}
+:root .VPSidebar .nav .VPSidebarItem.is-link > .item .link > .text,
+:root .VPSidebar .nav .VPSidebarItem.is-link > .item > .link:hover .text {
+  color: var(--foreground);
+  font-size: var(--lk-text-body);
+  font-weight: 400;
+  /* A fixed line, so a row is 34px, or 44px below 1024px, whichever size the text is. */
+  line-height: 24px;
+}
+:root .VPSidebar .nav .VPSidebarItem.is-link > .item:hover {
+  background-color: var(--default);
+}
+:root .VPSidebar .nav .VPSidebarItem.is-active > .item {
+  background-color: var(--accent-soft);
+}
+:root .VPSidebar .nav .VPSidebarItem.is-active > .item .link > .text,
+:root .VPSidebar .nav .VPSidebarItem.is-active > .item > .link:hover .text {
+  color: var(--accent-soft-foreground);
+  font-weight: 600;
+}
+@media (width >= 64rem) {
+  :root .VPSidebar .link > .text {
+    padding-block: 5px;
+  }
+}
+@media (width < 60rem) {
+  :root .VPSidebar .nav .VPSidebarItem.is-link > .item {
+    border-radius: var(--radius-note);
+  }
+}
+
+/*
+ * The closed drawer is hidden, not only faded out and moved off the screen as VitePress leaves it:
+ * its links stayed in the tab order, so a keyboard went through nine links no one could see, and a
+ * screen reader read them. It hides once it has slid away, so closing still animates.
+ */
+@media (width < 60rem) {
+  :root .VPSidebar:not(.open) {
+    visibility: hidden;
+    transition:
+      opacity 0.5s,
+      transform 0.25s ease,
+      visibility 0s linear 0.5s;
+  }
+}
+
+/*
+ * Below 1024px, where the app's phone layout starts and a tablet counts too (phone.md, ADR 0090),
+ * touch targets are at least 44px (accessibility.md). VitePress draws the sidebar's pages and the
+ * On this page entries 32px tall, the search button 38px, the GitHub link 36px and the light and
+ * dark switch 26px.
+ */
+@media (width < 64rem) {
+  :root .VPSidebar .link > .text {
+    padding-block: 10px;
+  }
+  :root .VPLocalNavOutlineDropdown .outline-link {
+    line-height: 44px;
+  }
+  :root .VPNavBarSearchButton {
+    min-height: 44px;
+  }
+  :root .VPSocialLink {
+    width: 44px;
+    height: 44px;
+  }
+  /* The switch keeps its 44 by 26 track; its touch area is 44 by 44, 9px above and below it. */
+  :root .VPSwitch::before {
+    content: '';
+    position: absolute;
+    inset: -10px -1px;
+  }
+}
+/* A popover has 12px corners (tokens.md, Radius). */
+:root .VPLocalNavOutlineDropdown .items {
+  border-radius: 0.75rem;
+}
+/*
+ * The row that holds the switch reads as a setting: its name in the label style, 13px and 14 on
+ * a phone, at 500, and the phone drawer's 10px corners (tokens.md, Radius).
+ */
+:root .VPNavScreenAppearance {
+  border-radius: var(--radius-note);
+}
+:root .VPNavScreenAppearance .text {
+  font-size: var(--lk-text-label);
+  line-height: var(--lk-leading-label);
+}
+
+/*
+ * The footer as the app's source notice draws it (apps/web/src/components/shell/source-notice.tsx):
+ * the small style, muted, with the link as lk-link, in the link colour, and at least 44px tall
+ * below 1024px, a phone's touch target.
+ */
+:root .VPFooter .message {
+  font-size: var(--lk-text-small);
+  font-weight: 400;
+  line-height: var(--lk-leading-small);
+}
+:root .VPFooter .message a {
+  border-radius: 2px;
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+:root .VPFooter .message a:hover {
+  color: var(--link);
+  text-decoration-thickness: 2px;
+}
+@media (width < 64rem) {
+  :root .VPFooter .message a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+/*
+ * The 404 page as the app's not-found page: its title is a page title, in Newsreader at the title
+ * style, regular (tokens.md). VitePress draws a 64px "404" over a 20px bold, letter-spaced title;
+ * the code is a small muted line above the title here, and the reason body text. Going back to the
+ * start is the page's main action, app.css's primary lg button.
+ */
+:root .NotFound .code {
+  color: var(--muted);
+  font-size: var(--lk-text-small);
+  font-weight: 500;
+  line-height: var(--lk-leading-small);
+}
+:root .NotFound .title {
+  padding-top: 4px;
+  font-family: var(--font-serif);
+  font-size: var(--lk-text-title);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: var(--lk-leading-title);
+}
+:root .NotFound .quote {
+  max-width: 48.75rem;
+  font-size: var(--lk-text-body);
+  font-weight: 400;
+  line-height: var(--lk-leading-body);
+}
+:root .NotFound .link {
+  display: inline-flex;
+  align-items: center;
+  height: var(--lk-field-height);
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius);
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  font-size: var(--lk-text-body);
+}
+:root .NotFound .link:hover {
+  color: var(--accent-foreground);
+  opacity: 0.9;
+}
+:root .NotFound .link:active {
+  opacity: 0.8;
+}

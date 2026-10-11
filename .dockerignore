@@ -1,0 +1,16 @@
+**/node_modules
+**/dist
+**/storybook-static
+**/.output
+**/.tanstack
+**/coverage
+**/*.tsbuildinfo
+.git
+.github
+.env
+.env.*
+docs
+test-results
+playwright-report
+# The project site is not part of the product image (ADR 0119).
+apps/site

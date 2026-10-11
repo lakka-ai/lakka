@@ -1,0 +1,354 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: typecheck, lint, format, unit tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      # Third-party actions are pinned by commit SHA; the comment names the release.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Reads the pnpm version from package.json packageManager.
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm lint:workflows
+      - run: pnpm format:check
+      - run: pnpm check:copy
+      - run: pnpm test
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+      # The pattern gallery: axe, light and dark, desktop and 390px (NF-A1).
+      - run: pnpm test:stories
+      # The committed migrations must match the Drizzle schema (ADR 0026).
+      - name: Migrations match the schema
+        run: |
+          pnpm db:generate
+          test -z "$(git status --porcelain -- packages/db/migrations)" || {
+            git status --porcelain -- packages/db/migrations
+            echo "schema changed without a migration; run pnpm db:generate and commit the result" >&2
+            exit 1
+          }
+
+  dco:
+    # ADR 0002: every commit of a pull request is signed off by its author (CONTRIBUTING.md).
+    name: dco
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          # Both ends of the pull request, to list its commits.
+          fetch-depth: 0
+      - run: scripts/check-dco.sh "$BASE..$HEAD"
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+
+  site:
+    # The project site (ADR 0119): links and anchors, no third-party requests, and every page at
+    # ten sizes, light and dark, its menus, search and keyboard, one browser engine to a leg.
+    name: site (${{ matrix.browser }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit, firefox]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps "$BROWSER"
+        env:
+          BROWSER: ${{ matrix.browser }}
+      - run: pnpm site:check --project="$BROWSER"
+        env:
+          BROWSER: ${{ matrix.browser }}
+
+  integration:
+    # Real Postgres in a container: the supported minimum and the version compose ships
+    # (AD-4, NF-O1, NF-C2, ADR 0010, ADR 0026).
+    name: integration (${{ matrix.postgres }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        postgres: ['pgvector/pgvector:0.8.6-pg16-trixie', 'pgvector/pgvector:0.8.6-pg18-trixie']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:integration
+        env:
+          LAKKA_TEST_POSTGRES_IMAGE: ${{ matrix.postgres }}
+
+  out-of-process:
+    # M6 exit, TL-8: one tool runs out of process, through the same dispatch seam, in the app
+    # image as `lakka tool-runner`, in a container with no network, a read-only root, no
+    # capabilities and resource limits (ADR 0073). CI only (ADR 0066 H11).
+    name: out-of-process tool
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: docker build -f docker/Dockerfile -t lakka/app:ci .
+      - run: pnpm test:out-of-process
+        env:
+          LAKKA_RUNNER_IMAGE: lakka/app:ci
+
+  image:
+    # Spike A: the image boots the in-process classifier, embeds offline, and fits the
+    # size budget, on native runners for each architecture (NF-D4, NF-D5, NF-D6, RT-4). Both
+    # images pass the scan, and the release bundle starts cold and offline (NF-S7, AC 1 to 3).
+    name: image (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Build images
+        run: |
+          docker build -f docker/Dockerfile -t lakka/app:ci .
+          docker build -f docker/caddy.Dockerfile -t lakka/caddy:ci .
+
+      - name: Embed with no network
+        run: |
+          # Without pipefail, tee would hide a budget failure.
+          set -o pipefail
+          for model in paraphrase-multilingual-MiniLM-L12-v2 paraphrase-multilingual-mpnet-base-v2; do
+            for threads in 1 2; do
+              gate=(--max-p95-ms 100)
+              # mpnet is held to 200 ms at two threads, which amd64 needs; at one thread it is
+              # reported, not gated (ADR 0123).
+              if [ "$model" = paraphrase-multilingual-mpnet-base-v2 ]; then
+                if [ "$threads" = 1 ]; then gate=(); else gate=(--max-p95-ms 200); fi
+              fi
+              # Two CPUs: the reference hardware (NF-D8) for the latency budget.
+              docker run --rm --network none --cpus 2 \
+                -e "LAKKA_CLASSIFIER_MODEL_DIR=/app/models/$model" lakka/app:ci embed-bench \
+                --threads "$threads" \
+                --reference "/app/models/reference/$model.json" \
+                "${gate[@]}" | tee "bench-$model-$threads.json"
+              {
+                echo "### embed-bench, $model, ${{ matrix.arch }}, $threads thread(s)"
+                echo '```json'
+                cat "bench-$model-$threads.json"
+                echo '```'
+              } >> "$GITHUB_STEP_SUMMARY"
+            done
+          done
+
+      - name: Routing evaluation with no network
+        run: |
+          # AC 11: each bundled classifier and the default thresholds on the evaluation set
+          # (ADR 0045, ADR 0123).
+          set -o pipefail
+          for model in paraphrase-multilingual-MiniLM-L12-v2 paraphrase-multilingual-mpnet-base-v2; do
+            docker run --rm --network none --cpus 2 \
+              -e "LAKKA_CLASSIFIER_MODEL_DIR=/app/models/$model" lakka/app:ci classifier-eval \
+              --min-accuracy 0.8 | tee "classifier-eval-$model.json"
+            {
+              echo "### classifier-eval, $model, ${{ matrix.arch }}"
+              echo '```json'
+              cat "classifier-eval-$model.json"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - name: Routing evaluation in other languages
+        # NF-A3, ADR 0088: German, French, Spanish and Swedish, with examples in the same
+        # language and with English ones, and the description fallback in all five (ADR 0122),
+        # for the default model and for mpnet (ADR 0123).
+        run: |
+          scripts/classifier-eval-languages.sh lakka/app:ci
+          scripts/classifier-eval-languages.sh lakka/app:ci paraphrase-multilingual-mpnet-base-v2 0.78
+
+      - name: Image size budget
+        run: |
+          {
+            echo "### Image size, ${{ matrix.arch }}"
+            echo '```'
+            sh docker/image-size.sh lakka/app:ci lakka/caddy:ci
+            echo '```'
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
+      # NF-S7: dependencies and both images; HIGH or CRITICAL with a fix available fails.
+      - name: Scan
+        run: scripts/scan.sh lakka/app:ci lakka/caddy:ci
+
+      # AC 1, 2, 3 from the release bundle: first-run screen, cold start under 30 s, offline.
+      - name: Release bundle, cold and offline
+        run: scripts/bundle-smoke.sh lakka/app:ci lakka/caddy:ci
+
+  upgrade:
+    # NF-O6, ADR 0075 H7: the previous release (or main's previous merge), filled with data,
+    # upgraded in place to this commit, with the data checked afterwards.
+    name: upgrade
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          # Tags and main, to find the version to upgrade from.
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - run: scripts/upgrade-test.sh
+
+  stack:
+    # The full compose stack, exactly as a customer runs it plus a fake model provider, reaches
+    # healthy; the acceptance suite passes in a real browser; the official OpenAI SDKs work
+    # against it through Caddy, streaming unbuffered (AC 15, invariant 6); stdio MCP servers stay in
+    # their sandbox (NF-S4); and shutdown ends open streams cleanly. Native runners for each
+    # architecture (NF-D1, NF-D4, NF-O5).
+    name: stack (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Start the stack with the fake provider
+        run: docker compose -f compose.yaml -f docker/compose.e2e.yaml up -d --build --wait
+
+      - name: Health through Caddy
+        run: curl -fsS http://127.0.0.1:8080/healthz
+
+      # Acceptance suite in a real browser against the running stack (NF-A1: axe and keyboard),
+      # starting with first-run setup (AD-1).
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Acceptance tests
+        run: pnpm test:e2e
+        env:
+          # The stack is fresh here, so first-run setup must run, not be skipped (ADR 0034).
+          LAKKA_E2E_REQUIRE_FIRST_RUN: '1'
+
+      # AC 15: the official SDKs, TypeScript on the runner and Python from a python container,
+      # with nothing but a base URL and a key (ADR 0064).
+      - name: TypeScript SDK
+        run: pnpm test:compat
+      - name: Python SDK
+        run: |
+          set -o pipefail
+          pnpm --silent test:compat:python | tee python-sdk.json
+          {
+            echo "### Python SDK, ${{ matrix.arch }}"
+            echo '```json'
+            cat python-sdk.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # AC 14, API-6: unmodified Open WebUI and LibreChat, pinned, against the same stack. One
+      # architecture is enough to show the products work; both are large to pull.
+      - name: Open WebUI and LibreChat
+        if: matrix.arch == 'amd64'
+        run: pnpm test:compat:apps
+
+      # NF-S4: a probe stdio server in the sandbox reports what it can and cannot reach, and the
+      # sandbox and egress services are stopped and killed under it (ADR 0118).
+      - name: Stdio sandbox
+        run: pnpm test:sandbox
+
+      # AD-3, AC 17: the operator command's bundle, checked against the installed secrets.
+      - name: Diagnostics bundle holds no secret
+        run: scripts/diagnostics-bundle.sh
+
+      # AD-2: back up, destroy the stack and its secrets, install afresh, restore, and check.
+      - name: Backup and restore
+        run: scripts/backup-restore.sh
+
+      - name: Shutdown ends open streams with an error event
+        run: scripts/compat-shutdown.sh
+
+      - name: Logs on failure
+        if: failure()
+        run: |
+          docker compose logs --no-color
+          for c in lakka-open-webui-1 lakka-librechat-1; do
+            docker logs "$c" 2>&1 | tail -n 100 || true
+          done
+      - name: Playwright traces on failure
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: playwright-${{ matrix.arch }}
+          path: test-results/
+          retention-days: 7

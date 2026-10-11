@@ -1,0 +1,39 @@
+packages:
+  - packages/*
+  - apps/*
+
+# Pin exact versions; the lockfile is committed.
+savePrefix: ''
+
+# Refuse to install on a Node version outside package.json engines.
+engineStrict: true
+
+# Dependency build scripts stay blocked unless listed here with a reason.
+allowBuilds:
+  # postinstall only prints a version-scheme warning; not needed at runtime.
+  protobufjs: false
+  # postinstall downloads CUDA and TensorRT libraries from nuget.org on linux x64. The CPU
+  # binaries we use ship in the npm tarball (ADR 0022).
+  onnxruntime-node: false
+  # drizzle-kit (dev only): postinstall only verifies the platform binary, which pnpm installs
+  # as an optional dependency anyway.
+  esbuild: false
+  # testcontainers (dev only): ssh2 and cpu-features build an optional native crypto
+  # accelerator; ssh2 falls back to JavaScript without it, and we never use SSH.
+  ssh2: false
+  cpu-features: false
+
+# Fixes to dependencies until upstream releases them; each names its ADR. Delete a patch when the
+# version it targets is upgraded past the fix.
+patchedDependencies:
+  react-aria@3.52.1: patches/react-aria@3.52.1.patch
+  # The search dialog's roles (ADR 0120).
+  vitepress@2.0.0-alpha.20: patches/vitepress@2.0.0-alpha.20.patch
+
+# better-auth lists vue as an optional peer, and pnpm links an optional peer to any version found
+# anywhere in the workspace. Vue is here only for the project site (apps/site, ADR 0119); linked,
+# it would be installed into the product image as a dependency of better-auth. A range no release
+# satisfies leaves the peer unresolved. ('-', which removes a peer in later pnpm, turns it into
+# '*' in 12.6.)
+overrides:
+  better-auth>vue: '0.0.0'

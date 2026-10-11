@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in, wrong password</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500;600&amp;family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap" rel="stylesheet" data-dc-tpl="1">
+<style data-dc-tpl="2">
+body{margin:0}
+</style>
+<style data-dc-tpl="2">
+body{margin:0}
+.lk{--surface-tertiary:#E6E8E7;--lk-cloudberry:#E3A33F;--background:#F3F5F4;--foreground:#212423;--surface:#FFFFFF;--surface-secondary:#EFF0F0;--muted:#5D615F;--border:#DEE1E0;--separator:#E6E8E7;--link:#2A5245;--default:#E6E8E7;--default-foreground:#212423;--accent:#2A5245;--accent-foreground:#FFFFFF;--accent-soft:#E2EDE8;--accent-soft-foreground:#2A5245;--success:#2F6B50;--success-soft:#E2EFE7;--danger:#B03A2D;--danger-soft:#FBE9E6;--danger-soft-foreground:#A03427;--danger-edge:#E9B3AA;--field-background:#FFFFFF;--field-border:#838886;--focus:#2F5B8A;font-family:"Atkinson Hyperlegible Next",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--foreground);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.lk,.lk *{box-sizing:border-box}
+.lk h1,.lk h2,.lk p,.lk fieldset{margin:0}
+.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:8px;border:1px solid transparent;font:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;text-decoration:none;line-height:1;color:var(--foreground);background:transparent}
+.btn-primary{background:var(--accent);color:var(--accent-foreground)}
+.btn-secondary{background:var(--default);color:var(--default-foreground)}
+.btn-outline{background:transparent;color:var(--foreground);border-color:var(--field-border)}
+.focus{outline:2px solid var(--focus);outline-offset:2px}
+.label{font-size:13px;font-weight:500;color:var(--foreground)}
+.desc{font-size:13px;color:var(--muted)}
+.input{display:block;height:40px;padding:0 12px;background:var(--field-background);border:1px solid var(--field-border);border-radius:8px;font:inherit;font-size:14px;color:var(--foreground);width:100%}
+.field{display:flex;flex-direction:column;gap:6px}
+.link{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+.cardx{width:460px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:20px}
+.or{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px}
+.or span{flex-grow:1;height:1px;background:var(--border)}
+h1.t{font-family:Newsreader,Georgia,"Times New Roman",serif;font-size:30px;font-weight:400;letter-spacing:-0.01em;line-height:1.2}
+/* States, one pattern everywhere */
+button.chip{cursor:pointer}
+.btn:hover,.navt:hover{background-color:var(--surface-tertiary)}
+.btn-primary:hover{background:var(--accent);opacity:.9}
+.btn-danger:hover{opacity:.9}
+.btn:active{opacity:.8}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+[aria-disabled="true"],:disabled{opacity:.5;cursor:not-allowed}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div id="dc-root"><div class="sc-host"><div style="width: 1280px; height: 820px; overflow: hidden; background: rgb(243, 245, 244);"><div class="sc-host"><div class="lk" style="width: 1280px; height: 820px; background: var(--background); display: flex; flex-direction: column; padding: 28px 40px 20px;"><div style="display: flex; align-items: center; gap: 8px;"><span aria-hidden="true" style="width: 11px; height: 11px; border-radius: 50%; background: var(--lk-cloudberry); flex-shrink: 0;"></span><span style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em;">lakka</span></div><main style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 0px;"><form aria-labelledby="si" class="cardx"><div style="display: flex; flex-direction: column; gap: 6px;"><h1 id="si" class="t">Sign in</h1><p class="desc" style="font-size: 14px;">ai.nordlys.se</p></div><div role="alert" style="display: flex; gap: 10px; align-items: flex-start; background: var(--danger-soft); border: 1px solid var(--danger-edge); border-radius: 10px; padding: 10px 12px;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 4px; color: var(--danger);"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5v5.5M12 16v.5"></path></svg><p><span style="font-weight: 600; color: var(--danger-soft-foreground);">The email or password is wrong.</span> Check both and try again.</p></div><button type="button" class="btn btn-outline" style="width: 100%; height: 44px;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h4.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H14"></path><path d="M10 16l4-4-4-4M14 12H4"></path></svg>Sign in with Nordlys SSO</button><div class="or" aria-hidden="true"><span></span>or<span></span></div><div class="field"><label class="label" for="em">Email</label><input id="em" class="input" autocomplete="email" value="maja@nordlys.se"></div><div class="field"><label class="label" for="pw">Password</label><div style="display: flex; gap: 8px;"><input id="pw" type="password" class="input focus" autocomplete="current-password"><button type="button" class="btn btn-secondary" aria-pressed="false" aria-label="Show password"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg>Show</button></div></div><button class="btn btn-primary" style="width: 100%; height: 44px;">Sign in</button><p class="desc">Forgot your password? Ask an instance admin to reset it.</p></form></main></div></div></div></div></div>
+</body>
+</html>

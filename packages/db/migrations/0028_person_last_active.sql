@@ -1,0 +1,1 @@
+ALTER TABLE "principals" ADD COLUMN "last_active_at" timestamp with time zone;

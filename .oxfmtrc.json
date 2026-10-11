@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 100,
+  "singleQuote": true,
+  "semi": true,
+  "trailingComma": "all",
+  "ignorePatterns": [
+    "**/routeTree.gen.ts",
+    "pnpm-lock.yaml",
+    "LICENSE",
+    "docs/requirements.md",
+    "docs/roadmap.md",
+    "docs/tech-spec.md",
+    "CLAUDE.md",
+    "AGENTS.md",
+    "packages/db/migrations/**",
+    "docs/design/**",
+    "apps/web/src/styles/lakka-theme.css"
+  ]
+}

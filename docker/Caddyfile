@@ -1,0 +1,25 @@
+# Reverse proxy in front of web and api, on one origin (ADR 0006).
+#
+# LAKKA_SITE_ADDRESS defaults to ":80", plain HTTP on the loopback-only port that compose
+# publishes. Setting LAKKA_DOMAIN makes it a hostname, and Caddy then obtains a certificate
+# and serves HTTPS (ADR 0008).
+{
+	admin off
+	# No access log: request lines include query strings, which may carry keys (ADR 0005).
+	# No `encode` directive either: compressing an event stream would buffer it.
+}
+
+{$LAKKA_SITE_ADDRESS::80} {
+	@api path /api /api/* /v1 /v1/* /healthz
+	handle @api {
+		reverse_proxy api:3000 {
+			# Write every chunk through immediately. Streaming responses (SSE) must never be
+			# buffered by the proxy (tech spec, Streaming transport; Spike B).
+			flush_interval -1
+		}
+	}
+
+	handle {
+		reverse_proxy web:3000
+	}
+}

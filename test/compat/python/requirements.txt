@@ -1,0 +1,2 @@
+# The official OpenAI Python SDK, pinned (AC 15). CI only; the product has no Python runtime.
+openai==3.19.2

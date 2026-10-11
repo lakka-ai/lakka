@@ -1,0 +1,334 @@
+# The full stack exactly as a customer runs it. Start it from the repository root with
+# `docker compose up`; the root compose.yaml includes this file.
+#
+# Nothing here needs editing (NF-D3). Settings come from the environment or a .env file next
+# to the root compose.yaml, and every one has a working default:
+#   LAKKA_HTTP_BIND / LAKKA_HTTP_PORT     published HTTP address, default 127.0.0.1:8080
+#   LAKKA_HTTPS_BIND / LAKKA_HTTPS_PORT   published HTTPS address, default 127.0.0.1:8443
+#   LAKKA_DOMAIN                             hostname for automatic HTTPS (ADR 0008)
+#   LAKKA_PUBLIC_URL                         only if the address people use differs from the above
+#   LAKKA_OIDC_PRIVATE_ORIGINS               identity providers on a private network (ADR 0032)
+#   LAKKA_MCP_PRIVATE_ORIGINS                MCP servers on a private network (ADR 0066)
+#   LAKKA_OTLP_ENDPOINT / _HEADERS           also send traces to your own OTLP backend; unset, nothing leaves (ADR 0080)
+#   LAKKA_LOG_LEVEL                          default info
+#   LAKKA_CLASSIFIER_THREADS                 threads per routing classification, default 1 (ADR 0022)
+#   LAKKA_MODEL_REQUESTS_PER_MINUTE          model requests one person may start per minute, default 120; 0 is off (ADR 0113)
+#   LAKKA_MODEL_REQUEST_BURST                how many they may start at once, default 60 (ADR 0113)
+#   LAKKA_CATALOGUE_FEED_URL                 where price updates come from once an admin turns them on;
+#                                               empty is the project's own file, "off" locks them off (ADR 0116)
+#   LAKKA_SANDBOX_SLOTS                      stdio MCP server operations the sandbox runs at once, default 8 (ADR 0118)
+#   LAKKA_SANDBOX_MEMORY                     memory for all of them together, default 2g (ADR 0118)
+# Passwords are generated on first run by the init service (ADR 0004). Needs Docker Engine 26 or
+# later: older engines let a container on an internal network resolve outside names (ADR 0118).
+
+x-app: &app
+  image: lakka/app:local
+  build:
+    context: ..
+    dockerfile: docker/Dockerfile
+  init: true
+  restart: unless-stopped
+  environment:
+    LAKKA_SECRETS_DIR: /run/lakka/secrets
+    LAKKA_LOG_LEVEL: ${LAKKA_LOG_LEVEL:-info}
+  volumes:
+    - secrets:/run/lakka/secrets:ro
+
+x-app-healthcheck: &app-healthcheck
+  interval: 5s
+  timeout: 3s
+  retries: 10
+  start_period: 10s
+
+services:
+  init:
+    <<: *app
+    command: ['init']
+    # The secrets volume is created root-owned; only this one-shot service writes to it.
+    user: '0:0'
+    restart: 'no'
+    volumes:
+      - secrets:/run/lakka/secrets
+      # The sandbox's keys, each in a volume of its own, root:node 0440 (ADR 0118).
+      - sandbox-keys:/run/lakka/sandbox
+      - egress-keys:/run/lakka/egress
+
+  postgres:
+    image: &postgres-image pgvector/pgvector:0.8.6-pg18-trixie
+    restart: unless-stopped
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    environment:
+      POSTGRES_USER: lakka
+      POSTGRES_DB: lakka
+      POSTGRES_PASSWORD_FILE: /run/lakka/secrets/database_password
+    volumes:
+      - postgres-data:/var/lib/postgresql
+      - secrets:/run/lakka/secrets:ro
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'lakka', '-d', 'lakka']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # Backup and restore of the database and the secrets (AD-2, ADR 0084), on the database's own
+  # image so pg_dump matches the server. Never started by `up`; see docker/backup.sh:
+  #   docker compose run --rm backup
+  backup:
+    image: *postgres-image
+    profiles: ['tools']
+    restart: 'no'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    entrypoint: ['bash', '/usr/local/bin/lakka-backup']
+    command: ['backup']
+    environment:
+      PGHOST: postgres
+      PGUSER: lakka
+      PGDATABASE: lakka
+    volumes:
+      - ./backup.sh:/usr/local/bin/lakka-backup:ro
+      # Written only by a restore, which replaces the secrets with the backup's.
+      - secrets:/run/lakka/secrets
+      - ${LAKKA_BACKUP_DIR:-../backups}:/backups
+
+  # Rotating the credential master key (NF-S9, ADR 0115), on the app image. Never started by
+  # `up`; stop the api and the worker first:
+  #   docker compose run --rm credential-key rotate | retire | status
+  credential-key:
+    <<: *app
+    profiles: ['tools']
+    restart: 'no'
+    # Writes the new key file into the secrets volume, as init writes the others.
+    user: '0:0'
+    entrypoint: ['lakka', 'credential-key']
+    command: ['status']
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - secrets:/run/lakka/secrets
+
+  valkey:
+    image: valkey/valkey:9.1.2-trixie
+    restart: unless-stopped
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    command: ['valkey-server', '/run/lakka/secrets/valkey.conf']
+    volumes:
+      - valkey-data:/data
+      - secrets:/run/lakka/secrets:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - REDISCLI_AUTH="$$(cat /run/lakka/secrets/cache_password)" valkey-cli ping | grep -q PONG
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  api:
+    <<: *app
+    command: ['api']
+    # Shutdown lets in-flight requests finish for up to 20 s, then ends the rest and settles
+    # their budgets (NF-O5, ADR 0081); Docker's default 10 s would kill it first.
+    stop_grace_period: 30s
+    environment:
+      LAKKA_SECRETS_DIR: /run/lakka/secrets
+      LAKKA_LOG_LEVEL: ${LAKKA_LOG_LEVEL:-info}
+      # The public address, for cookies and trusted origins (ADR 0008, ADR 0028).
+      LAKKA_DOMAIN: ${LAKKA_DOMAIN:-}
+      LAKKA_HTTP_PORT: ${LAKKA_HTTP_PORT:-8080}
+      LAKKA_PUBLIC_URL: ${LAKKA_PUBLIC_URL:-}
+      # Identity providers on a private network must be listed (ADR 0032).
+      LAKKA_OIDC_PRIVATE_ORIGINS: ${LAKKA_OIDC_PRIVATE_ORIGINS:-}
+      # MCP servers on a private network that workspace admins may add (ADR 0066).
+      LAKKA_MCP_PRIVATE_ORIGINS: ${LAKKA_MCP_PRIVATE_ORIGINS:-}
+      # Traces go only to Postgres unless an operator sets an endpoint (OB-5, NF-P1, ADR 0080).
+      LAKKA_OTLP_ENDPOINT: ${LAKKA_OTLP_ENDPOINT:-}
+      LAKKA_OTLP_HEADERS: ${LAKKA_OTLP_HEADERS:-}
+      # Only the api classifies (ADR 0022, ADR 0043).
+      LAKKA_CLASSIFIER_THREADS: ${LAKKA_CLASSIFIER_THREADS:-1}
+      # The per-person rate limit on model requests, keys included (BG-12, ADR 0113).
+      LAKKA_MODEL_REQUESTS_PER_MINUTE: ${LAKKA_MODEL_REQUESTS_PER_MINUTE:-120}
+      LAKKA_MODEL_REQUEST_BURST: ${LAKKA_MODEL_REQUEST_BURST:-60}
+      # Price updates: off until an instance admin turns them on (PR-6, NF-P2, ADR 0116).
+      LAKKA_CATALOGUE_FEED_URL: ${LAKKA_CATALOGUE_FEED_URL:-}
+    volumes:
+      - secrets:/run/lakka/secrets:ro
+      # The tool host's token, and the key egress tokens are signed with (ADR 0118).
+      - sandbox-keys:/run/lakka/sandbox:ro
+      - egress-keys:/run/lakka/egress:ro
+      # The tool host's socket. The api is not on the sandbox's network, so nothing in the
+      # sandbox can reach it.
+      - tool-host:/run/lakka/tool-host
+    # Not on the sandbox: stdio MCP servers fail as unreachable while it is down, and nothing else
+    # does (ADR 0118).
+    depends_on:
+      postgres:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+    healthcheck:
+      <<: *app-healthcheck
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/healthz').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"
+
+  worker:
+    <<: *app
+    command: ['worker']
+    environment:
+      LAKKA_SECRETS_DIR: /run/lakka/secrets
+      LAKKA_LOG_LEVEL: ${LAKKA_LOG_LEVEL:-info}
+      # The worker fetches price updates, only once an instance admin turned them on (ADR 0116).
+      LAKKA_CATALOGUE_FEED_URL: ${LAKKA_CATALOGUE_FEED_URL:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+    healthcheck:
+      <<: *app-healthcheck
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3001/healthz').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"
+
+  # Where stdio MCP servers run (NF-S4, ADR 0118): one runner per operation, each under a uid of
+  # its own with limits, on a network whose only way out is the egress proxy. Root in here only
+  # to switch to those uids: every other capability is dropped, and it cannot gain any.
+  sandbox:
+    <<: *app
+    command: ['tool-host']
+    user: '0:0'
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    environment:
+      LAKKA_LOG_LEVEL: ${LAKKA_LOG_LEVEL:-info}
+      LAKKA_SANDBOX_SLOTS: ${LAKKA_SANDBOX_SLOTS:-8}
+    # No secrets: only the api's token for the tool host, and the socket the api connects to.
+    # A stdio server's command, or files it needs, are mounted here, never into the api.
+    volumes:
+      - sandbox-keys:/run/lakka/sandbox:ro
+      - tool-host:/run/lakka/tool-host
+    networks: [sandbox]
+    read_only: true
+    tmpfs:
+      - /tmp:size=512m,mode=1777,nosuid,nodev
+    cap_drop: [ALL]
+    cap_add: [SETUID, SETGID]
+    security_opt: ['no-new-privileges:true']
+    pids_limit: 512
+    mem_limit: ${LAKKA_SANDBOX_MEMORY:-2g}
+    cpu_shares: 256
+    healthcheck:
+      <<: *app-healthcheck
+      test:
+        - CMD
+        - node
+        - -e
+        - "require('http').get({ socketPath: '/run/lakka/tool-host/tool-host.sock', path: '/healthz' }, (r) => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"
+
+  # The sandbox's only way out (NF-S4, ADR 0118): an HTTP proxy that lets a stdio server reach the
+  # origins an instance admin listed, with a token the api makes for each operation, and never
+  # Lakka's own services.
+  egress:
+    <<: *app
+    command: ['egress']
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    environment:
+      LAKKA_LOG_LEVEL: ${LAKKA_LOG_LEVEL:-info}
+    volumes:
+      - egress-keys:/run/lakka/egress:ro
+    networks: [default, sandbox]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    healthcheck:
+      <<: *app-healthcheck
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3128/healthz').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"
+
+  web:
+    <<: *app
+    command: ['web']
+    # web talks to api over HTTP only and never needs secrets (ADR 0006).
+    volumes: []
+    environment:
+      LAKKA_API_INTERNAL_URL: http://api:3000
+      # Where the AGPL notice links to (AD-6, ADR 0085). Set it if you run changed code; unset,
+      # it is the project repository at the revision the image was built from.
+      LAKKA_SOURCE_URL: ${LAKKA_SOURCE_URL:-}
+    healthcheck:
+      <<: *app-healthcheck
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"
+
+  caddy:
+    image: lakka/caddy:local
+    build:
+      context: ..
+      dockerfile: docker/caddy.Dockerfile
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    environment:
+      LAKKA_SITE_ADDRESS: ${LAKKA_DOMAIN:-:80}
+    ports:
+      # Loopback only by default, so session and key material never crosses a network in
+      # plain HTTP (NF-S6, ADR 0008).
+      - '${LAKKA_HTTP_BIND:-127.0.0.1}:${LAKKA_HTTP_PORT:-8080}:80'
+      - '${LAKKA_HTTPS_BIND:-127.0.0.1}:${LAKKA_HTTPS_PORT:-8443}:443'
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    healthcheck:
+      test: ['CMD', 'bash', '-c', 'exec 3<>/dev/tcp/127.0.0.1/80']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+networks:
+  # The sandbox's own network, with no route out: only the sandbox and the egress proxy are on it
+  # (ADR 0118).
+  sandbox:
+    internal: true
+
+volumes:
+  # Generated credentials. Back this up with the database (AD-2); losing it loses access to
+  # everything encrypted with it.
+  secrets:
+  # The sandbox's keys (ADR 0118). Not backed up: init makes new ones when they are missing.
+  sandbox-keys:
+  egress-keys:
+  # The tool host's socket, in memory; root:node 0750, so the api can connect and a slot cannot.
+  tool-host:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=1m,mode=0750,uid=0,gid=1000
+  postgres-data:
+  valkey-data:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,6 @@
+# `docker compose up` from the repository root runs the full stack. The definition lives in
+# docker/compose.yaml.
+name: lakka
+
+include:
+  - docker/compose.yaml

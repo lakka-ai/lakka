@@ -1,0 +1,50 @@
+name: Documentation problem
+description: The guide or another document is wrong, unclear or missing something.
+labels: [documentation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The guide is meant to be enough to install and run Lakka without help. A place where it
+        was wrong or left you guessing is worth reporting, even if you worked it out.
+
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The file or the address of the page, and the section if you can.
+      placeholder: docs/guide/install.md, "Serve it on a domain, with HTTPS"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong
+      options:
+        - It is wrong
+        - It is unclear
+        - Something is missing
+        - A link or example does not work
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What the page says, what happened when you followed it, and what you had to do instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested wording
+      description: Optional. How you would write it.
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The release or commit you followed, if it matters.

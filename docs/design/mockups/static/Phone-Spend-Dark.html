@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spend report, phone, dark</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500;600&amp;family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap" rel="stylesheet" data-dc-tpl="1">
+<style data-dc-tpl="2">
+body{margin:0}
+</style>
+<style data-dc-tpl="2">
+body{margin:0}
+.lk{--lk-cloudberry:#E3A33F;--background:#F3F5F4;--foreground:#212423;--surface:#FFFFFF;--surface-secondary:#EFF0F0;--surface-tertiary:#E6E8E7;--overlay:#FFFFFF;--muted:#5D615F;--border:#DEE1E0;--separator:#E6E8E7;--link:#2A5245;--default:#E6E8E7;--default-foreground:#212423;--accent:#2A5245;--accent-foreground:#FFFFFF;--accent-soft:#E2EDE8;--accent-soft-foreground:#2A5245;--success:#2F6B50;--success-soft:#E2EFE7;--success-soft-foreground:#285D45;--warning:#8A5D0C;--warning-soft:#FBF1DC;--warning-soft-foreground:#7A520A;--warning-edge:#E3C17E;--warning-track:#F0E3C4;--danger:#B03A2D;--danger-soft:#FBE9E6;--danger-soft-foreground:#A03427;--field-background:#FFFFFF;--field-border:#838886;--focus:#2F5B8A;--overlay-shadow:0 4px 12px rgba(33,36,35,.10),0 16px 32px rgba(33,36,35,.10);--lk-meter-track:#E6E8E7;--lk-bar:#8DB3A4;--chart:#2A5245;--grid:#E6E8E7;--backdrop:rgba(33,36,35,.55);font-family:"Atkinson Hyperlegible Next",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--foreground);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.lk.dark{--lk-cloudberry:#EDB45A;--background:#171918;--foreground:#EAECEB;--surface:#202221;--surface-secondary:#282B29;--surface-tertiary:#303331;--overlay:#282B29;--muted:#A7AAA8;--border:#353937;--separator:#303331;--link:#9CCBB8;--default:#303331;--default-foreground:#EAECEB;--accent:#9CCBB8;--accent-foreground:#171918;--accent-soft:#1F3A31;--accent-soft-foreground:#9CCBB8;--success:#7CC4A0;--success-soft:#1F3A2D;--success-soft-foreground:#7CC4A0;--warning:#E0A64A;--warning-soft:#33291A;--warning-soft-foreground:#E0A64A;--warning-edge:#5A4718;--warning-track:#4A3C18;--danger:#E8705F;--danger-soft:#3A1D19;--danger-soft-foreground:#E8705F;--field-background:#202221;--field-border:#777C7A;--focus:#8DB8E8;--overlay-shadow:0 4px 12px rgba(0,0,0,.45),0 16px 32px rgba(0,0,0,.45);--lk-meter-track:#303331;--lk-bar:#4E7D6C;--chart:#9CCBB8;--grid:#353937}
+.lk.dark{--backdrop:rgba(0,0,0,.65)}
+.lk,.lk *{box-sizing:border-box}
+.lk h1,.lk h2,.lk h3,.lk p,.lk ul,.lk ol,.lk fieldset{margin:0}
+.lk ul,.lk ol{padding:0;list-style:none}
+.mono{font-family:"Atkinson Hyperlegible Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+.num{font-variant-numeric:tabular-nums}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.i14{width:14px;height:14px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 14px;border-radius:8px;border:1px solid transparent;font:inherit;font-size:15px;font-weight:500;cursor:pointer;white-space:nowrap;text-decoration:none;line-height:1;color:var(--foreground);background:transparent}
+.btn-primary{background:var(--accent);color:var(--accent-foreground)}
+.btn-secondary{background:var(--default);color:var(--default-foreground)}
+.btn-outline{background:transparent;color:var(--foreground);border-color:var(--field-border)}
+.btn-icon{width:44px;padding:0}
+.btn-dg{color:var(--danger-soft-foreground);padding:0 4px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:999px;border:0;font-family:inherit;font-size:13px;font-weight:500;line-height:1;white-space:nowrap}
+.ok{background:var(--success-soft);color:var(--success-soft-foreground)}
+.low{background:var(--warning-soft);color:var(--warning-soft-foreground)}
+.out{background:var(--danger-soft);color:var(--danger-soft-foreground)}
+.none{background:var(--surface-secondary);color:var(--muted)}
+.desc{font-size:14px;color:var(--muted)}
+.label{font-size:14px;font-weight:500;color:var(--foreground)}
+.link{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;flex-shrink:0}
+.ct{font-size:17px;font-weight:600}
+.select{display:flex;align-items:center;justify-content:space-between;gap:8px;height:44px;padding:0 10px 0 12px;background:var(--field-background);border:1px solid var(--field-border);border-radius:8px;font:inherit;font-size:15px;color:var(--foreground);cursor:pointer;text-align:left}
+.input{display:block;width:100%;height:44px;padding:0 12px;background:var(--field-background);border:1px solid var(--field-border);border-radius:8px;font:inherit;font-size:15px;color:var(--foreground)}
+.ig{display:flex;align-items:stretch;height:44px;border:1px solid var(--field-border);border-radius:8px;background:var(--field-background);overflow:hidden}
+.ig:focus-within,.ig.fv{outline:2px solid var(--focus);outline-offset:2px}
+.ig-a{display:flex;align-items:center;padding:0 0 0 12px;color:var(--muted);font-size:15px;white-space:nowrap}
+.ig-a.end{padding:0 12px 0 0}.ig-a + .ig-i{padding-left:6px}.ig-i:not(:last-child){padding-right:6px}
+.ig-i{flex-grow:1;min-width:0;border:0;outline:0;padding:0 12px;font:inherit;font-size:15px;background:transparent;color:var(--foreground)}
+.cbx{width:22px;height:22px;margin:0;accent-color:var(--accent);flex-shrink:0}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);overflow-x:auto}
+.tabs button{font:inherit;font-size:15px;font-weight:500;border:0;background:none;color:var(--muted);padding:12px 12px;min-height:44px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--foreground);border-bottom-color:var(--accent);font-weight:600}
+.seg{display:inline-flex;gap:2px;padding:2px;border-radius:10px;background:var(--surface-secondary)}
+.seg button{font:inherit;font-size:14px;font-weight:500;border:0;background:transparent;color:var(--foreground);height:40px;padding:0 12px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.seg button[aria-selected="true"],.seg button[aria-pressed="true"]{background:var(--surface);box-shadow:inset 0 0 0 1px var(--muted);font-weight:600}
+.hscroll{overflow-x:auto;display:flex}
+.tscroll{overflow-x:auto;position:relative}
+.tscroll:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.tbl{border-collapse:separate;border-spacing:0;font-size:14px;width:100%}
+.tbl th{font-size:13px;font-weight:500;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--surface-secondary)}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--separator);vertical-align:middle;white-space:nowrap;background:var(--surface)}
+.tbl tr:last-child td{border-bottom:0}
+.tbl th:first-child,.tbl td:first-child{position:sticky;left:0;z-index:1;padding-left:16px;box-shadow:1px 0 0 var(--border)}
+.tbl th:last-child,.tbl td:last-child{padding-right:16px}
+.tbl .r{text-align:right}
+.bar{display:block;height:8px;border-radius:2px;background:var(--lk-bar)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-top:1px solid var(--separator)}
+.row.stack{flex-direction:column;align-items:stretch;gap:10px}
+.rl{display:flex;flex-direction:column;gap:2px;min-width:0}
+.note{display:flex;gap:8px;align-items:flex-start;font-size:14px;background:var(--surface-secondary);border-radius:10px;padding:10px 14px}
+.dnav a{display:flex;align-items:center;gap:12px;height:44px;padding:0 12px;border-radius:10px;color:var(--foreground);text-decoration:none;font-size:15px}
+.dnav a svg{color:var(--muted)}
+.dnav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent-soft-foreground);font-weight:600}
+.dnav a[aria-current="page"] svg{color:inherit}
+.dnav a.nav-chat{font-weight:600;padding:0 8px}
+.nav-chat-i{width:28px;height:28px;border-radius:8px;background:var(--accent);color:var(--accent-foreground);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dnav a .nav-chat-i svg{color:inherit}
+.navh{font-size:12px;font-weight:600;color:var(--muted);padding:16px 12px 4px}
+.dh{min-height:65px;padding:16px 16px 12px 20px;border-bottom:1px solid var(--separator);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dh h2{font-size:20px;font-weight:600;line-height:1.3}
+.db{padding:16px 20px;display:flex;flex-direction:column;gap:16px}
+.df{padding:12px 20px 28px;border-top:1px solid var(--separator);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.radio{display:flex;gap:10px;align-items:flex-start;min-height:44px}
+.dot{width:20px;height:20px;border-radius:50%;border:1px solid var(--field-border);background:var(--field-background);flex-shrink:0;margin-top:1px}
+.dot.on{border:6px solid var(--accent)}
+.select{width:100%}
+/* States, one pattern everywhere */
+button.chip{cursor:pointer}
+.btn:hover,.navt:hover{background-color:var(--surface-tertiary)}
+.btn-primary:hover{background:var(--accent);opacity:.9}
+.btn-danger:hover{opacity:.9}
+.btn:active{opacity:.8}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+[aria-disabled="true"],:disabled{opacity:.5;cursor:not-allowed}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div id="dc-root"><div class="sc-host"><div style="width: 390px; height: 1340px; overflow: hidden; background: rgb(23, 25, 24);"><div class="sc-host"><div class="lk dark" style="width: 390px; height: 1340px; background: var(--background); position: relative; overflow: hidden; display: flex; flex-direction: column;"><header style="height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 4px; padding: 0px 8px 0px 4px; background: var(--surface); border-bottom: 1px solid var(--border);"><button class="btn btn-icon" aria-label="Menu" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button><span style="flex-grow: 1; min-width: 0px; font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Spend and budgets</span></span><button aria-label="Workspace: Product. You are an admin. Switch workspace" style="width: 44px; height: 44px; border: 0px; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer;"><span aria-hidden="true" style="width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft); color: var(--accent-soft-foreground); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px;">P</span></button></header><main style="flex-grow: 1; padding: 20px 16px 8px; display: flex; flex-direction: column; gap: 16px;"><div style="display: flex; flex-direction: column; gap: 4px;"><h1 style="font-family: Newsreader, Georgia, &quot;Times New Roman&quot;, serif; font-size: 26px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2;">Spend and budgets</h1><p class="desc" style="font-size: 14px;">Product workspace. Sep 1 to Sep 28, 2026.</p></div><div class="hscroll"><div class="seg" role="group" aria-label="Date range"><button aria-pressed="true">This month</button><button aria-pressed="false">Last month</button><button aria-pressed="false">Last 7 days</button><button aria-pressed="false">Custom</button></div></div><div class="tabs" role="tablist" aria-label="Spend views"><button role="tab" aria-selected="true">Report</button><button role="tab" aria-selected="false">Budgets and alerts</button></div><section aria-label="Summary" style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 12px;"><div class="card" style="grid-column: 1 / -1; padding: 16px; display: flex; flex-direction: column; gap: 8px; border-color: var(--warning-edge);"><span class="desc">Spent</span><div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;"><span class="num" style="font-size: 30px; font-weight: 600; letter-spacing: -0.02em; line-height: 1;">$999.60</span><span class="desc num">of $1,000.00 workspace cap</span></div><span role="meter" aria-label="Workspace cap" aria-valuetext="$0.40 left of $1,000.00, resets Oct 1" style="display: block; height: 8px; border-radius: 999px; background: var(--warning-track); overflow: hidden;"><span style="display: block; height: 100%; width: 1%; background: var(--warning); border-radius: 999px;"></span></span><span style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--warning-soft-foreground); font-weight: 500;"><svg class="i i14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.8 19.5h18.4Z"></path><path d="M12 10v4.5M12 17v.5"></path></svg>Budget low. $0.40 left, resets Oct 1.</span></div><div class="card" style="padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;"><span class="desc"><span class="sc-interp">Requests</span></span><span class="num" style="font-size: 22px; font-weight: 600;"><span class="sc-interp">6,412</span></span><span class="desc" style="font-size: 13px;"><span class="sc-interp">Chat, API and MCP</span></span></div><div class="card" style="padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;"><span class="desc"><span class="sc-interp">Tool calls</span></span><span class="num" style="font-size: 22px; font-weight: 600;"><span class="sc-interp">386</span></span><span class="desc" style="font-size: 13px;"><span class="sc-interp">16 denied</span></span></div><div class="card" style="padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;"><span class="desc"><span class="sc-interp">Cheaper model used</span></span><span class="num" style="font-size: 22px; font-weight: 600;"><span class="sc-interp">41</span></span><span class="desc" style="font-size: 13px;"><span class="sc-interp">A budget did not cover the first choice</span></span></div><div class="card" style="padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;"><span class="desc"><span class="sc-interp">Refused</span></span><span class="num" style="font-size: 22px; font-weight: 600;"><span class="sc-interp">12</span></span><span class="desc" style="font-size: 13px;"><span class="sc-interp">Nothing was charged</span></span></div></section><section class="card" aria-labelledby="wm" style="padding: 16px 0px 0px; overflow: hidden;"><div style="display: flex; flex-direction: column; gap: 2px; padding: 0px 16px 12px;"><h2 id="wm" class="ct">Where the money went</h2><p class="desc num">$999.60 across 6,412 requests.</p></div><div class="hscroll" style="padding: 0px 16px 12px;"><div class="seg" role="tablist" aria-label="Break down spend by"><button role="tab" id="bd-person" aria-selected="true">By person</button><button role="tab" aria-selected="false">By model</button><button role="tab" aria-selected="false">By surface</button><button role="tab" aria-selected="false">By route</button></div></div><div class="tscroll" role="region" aria-label="Spend by person. Scrolls sideways." tabindex="0"><table class="tbl" role="tabpanel" aria-labelledby="bd-person" style="min-width: 520px;"><thead><tr><th scope="col">Person</th><th scope="col" class="r">Requests</th><th scope="col" class="r">Spend</th><th scope="col" class="r">Share</th><th scope="col" style="width: 120px;"></th></tr></thead><tbody><tr><td><span style="display: flex; flex-direction: column; line-height: 1.3;"><span style="font-weight: 500;"><span class="sc-interp">Maja Lind</span></span><span class="desc" style="font-size: 12px;"><span class="sc-interp">Admin</span></span></span></td><td class="num r"><span class="sc-interp">1,204</span></td><td class="num r" style="font-weight: 600;"><span class="sc-interp">$182.40</span></td><td class="num r"><span class="sc-interp">18.2%</span></td><td aria-hidden="true"><span class="bar" style="width: 64%;"></span></td></tr><tr><td><span style="display: flex; flex-direction: column; line-height: 1.3;"><span style="font-weight: 500;"><span class="sc-interp">Erik Holm</span></span><span class="desc" style="font-size: 12px;"><span class="sc-interp">Member</span></span></span></td><td class="num r"><span class="sc-interp">988</span></td><td class="num r" style="font-weight: 600;"><span class="sc-interp">$164.10</span></td><td class="num r"><span class="sc-interp">16.4%</span></td><td aria-hidden="true"><span class="bar" style="width: 57%;"></span></td></tr><tr><td><span style="display: flex; flex-direction: column; line-height: 1.3;"><span style="font-weight: 500;"><span class="sc-interp">Sara Nyberg</span></span><span class="desc" style="font-size: 12px;"><span class="sc-interp">Member</span></span></span></td><td class="num r"><span class="sc-interp">802</span></td><td class="num r" style="font-weight: 600;"><span class="sc-interp">$121.75</span></td><td class="num r"><span class="sc-interp">12.2%</span></td><td aria-hidden="true"><span class="bar" style="width: 43%;"></span></td></tr><tr><td><span style="display: flex; flex-direction: column; line-height: 1.3;"><span style="font-weight: 500;"><span class="sc-interp">Jonas Ek</span></span><span class="desc" style="font-size: 12px;"><span class="sc-interp">Member</span></span></span></td><td class="num r"><span class="sc-interp">611</span></td><td class="num r" style="font-weight: 600;"><span class="sc-interp">$96.30</span></td><td class="num r"><span class="sc-interp">9.6%</span></td><td aria-hidden="true"><span class="bar" style="width: 34%;"></span></td></tr><tr><td><span style="display: flex; flex-direction: column; line-height: 1.3;"><span style="font-weight: 500;"><span class="sc-interp">Lina Berg</span></span><span class="desc" style="font-size: 12px;"><span class="sc-interp">Member</span></span></span></td><td class="num r"><span class="sc-interp">540</span></td><td class="num r" style="font-weight: 600;"><span class="sc-interp">$88.05</span></td><td class="num r"><span class="sc-interp">8.8%</span></td><td aria-hidden="true"><span class="bar" style="width: 31%;"></span></td></tr><tr><td><span style="display: flex; flex-direction: column; line-height: 1.3;"><span style="font-weight: 500;"><span class="sc-interp">CI bot</span></span><span class="desc" style="font-size: 12px;"><span class="sc-interp">API key of Maja Lind</span></span></span></td><td class="num r"><span class="sc-interp">1,630</span></td><td class="num r" style="font-weight: 600;"><span class="sc-interp">$61.20</span></td><td class="num r"><span class="sc-interp">6.1%</span></td><td aria-hidden="true"><span class="bar" style="width: 21%;"></span></td></tr></tbody></table></div></section></main></div></div></div></div></div>
+</body>
+</html>

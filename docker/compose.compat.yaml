@@ -1,0 +1,91 @@
+# Open WebUI and LibreChat, unmodified, pointed at the stack (AC 14, API-6, ADR 0064). CI and
+# local compatibility checks only; never part of the product. Run through scripts/compat-apps.sh,
+# after `pnpm test:compat` has prepared the stack and a key:
+#   docker compose -f compose.yaml -f docker/compose.e2e.yaml -f docker/compose.compat.yaml ...
+# Both reach Lakka through Caddy on the compose network, as a deployment next to it would.
+# Pinned by digest. Neither needs the internet; update checks and telemetry are off.
+services:
+  open-webui:
+    # BSD-3 with a branding clause; the slim image has no bundled ML models.
+    image: ghcr.io/open-webui/open-webui:v0.11.4-slim@sha256:0487ad4a5a4b986062dedace806c3ef1e88fec38c10d1e64d6a5501c66671e5e
+    environment:
+      # One local admin, no sign-in: the checks drive its HTTP API.
+      WEBUI_AUTH: 'False'
+      WEBUI_SECRET_KEY: ${COMPAT_WEBUI_SECRET:?set by scripts/compat-apps.sh}
+      ENABLE_OLLAMA_API: 'False'
+      ENABLE_OPENAI_API: 'True'
+      OPENAI_API_BASE_URLS: http://caddy/v1
+      OPENAI_API_KEYS: ${LAKKA_COMPAT_KEY:?set by scripts/compat-apps.sh}
+      OFFLINE_MODE: 'True'
+      ENABLE_VERSION_UPDATE_CHECK: 'False'
+      ENABLE_EVALUATION_ARENA_MODELS: 'False'
+      ENABLE_TITLE_GENERATION: 'False'
+      ENABLE_FOLLOW_UP_GENERATION: 'False'
+      ENABLE_TAGS_GENERATION: 'False'
+      ENABLE_COMMUNITY_SHARING: 'False'
+      ENABLE_CODE_INTERPRETER: 'False'
+      ENABLE_CODE_EXECUTION: 'False'
+      SCARF_NO_ANALYTICS: 'true'
+      DO_NOT_TRACK: 'true'
+      ANONYMIZED_TELEMETRY: 'false'
+    depends_on:
+      caddy:
+        condition: service_healthy
+    ports:
+      - '127.0.0.1:${LAKKA_COMPAT_OPEN_WEBUI_PORT:-8181}:8080'
+    healthcheck:
+      test: ['CMD', 'curl', '-fsS', 'http://127.0.0.1:8080/ready']
+      interval: 3s
+      timeout: 3s
+      retries: 40
+
+  librechat-mongodb:
+    image: mongo:8.0.20@sha256:098862b1339f031900ca66cf8fef799e616d6324fa41b9a263f2ec899552c1ef
+    command: ['mongod', '--noauth', '--quiet']
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', 'db.adminCommand("ping").ok']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  librechat:
+    # MIT. An Alpine-based image, which our own no-Alpine rule does not cover: it is a third
+    # party's product, run only here.
+    image: ghcr.io/danny-avila/librechat-api:v0.8.7@sha256:f2fd315cc0c400d62889b4b7e0c4bedaaf6b21ff07dee198fb95f09b1078a466
+    environment:
+      HOST: 0.0.0.0
+      PORT: '3080'
+      MONGO_URI: mongodb://librechat-mongodb:27017/LibreChat
+      CONFIG_PATH: /app/librechat.yaml
+      LAKKA_API_KEY: ${LAKKA_COMPAT_KEY:?set by scripts/compat-apps.sh}
+      ENDPOINTS: custom
+      CREDS_KEY: ${COMPAT_LIBRECHAT_CREDS_KEY:?set by scripts/compat-apps.sh}
+      CREDS_IV: ${COMPAT_LIBRECHAT_CREDS_IV:?set by scripts/compat-apps.sh}
+      JWT_SECRET: ${COMPAT_LIBRECHAT_JWT_SECRET:?set by scripts/compat-apps.sh}
+      JWT_REFRESH_SECRET: ${COMPAT_LIBRECHAT_JWT_REFRESH_SECRET:?set by scripts/compat-apps.sh}
+      ALLOW_REGISTRATION: 'true'
+      ALLOW_EMAIL_LOGIN: 'true'
+      ALLOW_SOCIAL_LOGIN: 'false'
+      ALLOW_SOCIAL_REGISTRATION: 'false'
+      ALLOW_UNVERIFIED_EMAIL_LOGIN: 'true'
+      SEARCH: 'false'
+      BAN_VIOLATIONS: 'false'
+      LIMIT_MESSAGE_IP: 'false'
+      NO_INDEX: 'true'
+      TITLE_CONVO: 'false'
+      DOMAIN_CLIENT: http://localhost:3080
+      DOMAIN_SERVER: http://localhost:3080
+    volumes:
+      - ./docker/compat/librechat.yaml:/app/librechat.yaml:ro
+    depends_on:
+      caddy:
+        condition: service_healthy
+      librechat-mongodb:
+        condition: service_healthy
+    ports:
+      - '127.0.0.1:${LAKKA_COMPAT_LIBRECHAT_PORT:-3080}:3080'
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:3080/health']
+      interval: 3s
+      timeout: 3s
+      retries: 40

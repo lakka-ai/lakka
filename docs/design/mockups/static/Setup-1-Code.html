@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup 1: setup code</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500;600&amp;family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap" rel="stylesheet" data-dc-tpl="1">
+<style data-dc-tpl="2">
+body{margin:0}
+.lk{--lk-cloudberry:#E3A33F;--background:#F3F5F4;--foreground:#212423;--surface:#FFFFFF;--surface-secondary:#EFF0F0;--surface-tertiary:#E6E8E7;--muted:#5D615F;--border:#DEE1E0;--separator:#E6E8E7;--link:#2A5245;--default:#E6E8E7;--default-foreground:#212423;--accent:#2A5245;--accent-foreground:#FFFFFF;--accent-soft:#E2EDE8;--accent-soft-foreground:#2A5245;--success:#2F6B50;--success-soft:#E2EFE7;--warning:#8A5D0C;--warning-soft:#FBF1DC;--warning-soft-foreground:#7A520A;--field-background:#FFFFFF;--field-border:#838886;--focus:#2F5B8A;font-family:"Atkinson Hyperlegible Next",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--foreground);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.lk,.lk *{box-sizing:border-box}
+.lk h1,.lk h2,.lk p,.lk ol,.lk fieldset{margin:0}
+.lk ol{padding:0;list-style:none}
+.mono{font-family:"Atkinson Hyperlegible Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:8px;border:1px solid transparent;font:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;text-decoration:none;line-height:1;color:var(--foreground);background:transparent}
+.btn-primary{background:var(--accent);color:var(--accent-foreground)}
+.btn-secondary{background:var(--default);color:var(--default-foreground)}
+.focus{outline:2px solid var(--focus);outline-offset:2px}
+.label{font-size:13px;font-weight:500;color:var(--foreground)}
+.desc{font-size:13px;color:var(--muted)}
+.input{display:block;height:40px;padding:0 12px;background:var(--field-background);border:1px solid var(--field-border);border-radius:8px;font:inherit;font-size:14px;color:var(--foreground);width:100%}
+.field{display:flex;flex-direction:column;gap:6px}
+.link{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+.step{display:flex;align-items:center;gap:8px;font-size:14px}
+.dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+/* States, one pattern everywhere */
+button.chip{cursor:pointer}
+.btn:hover,.navt:hover{background-color:var(--surface-tertiary)}
+.btn-primary:hover{background:var(--accent);opacity:.9}
+.btn-danger:hover{opacity:.9}
+.btn:active{opacity:.8}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+[aria-disabled="true"],:disabled{opacity:.5;cursor:not-allowed}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div id="dc-root"><div class="sc-host"><div class="lk" style="width: 1280px; height: 960px; background: var(--background); display: flex; flex-direction: column; padding: 28px 40px 20px;"><div style="display: flex; align-items: center; gap: 8px;"><span aria-hidden="true" style="width: 11px; height: 11px; border-radius: 50%; background: var(--lk-cloudberry); flex-shrink: 0;"></span><span style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em;">lakka</span></div><main style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding-top: 28px; gap: 24px;"><nav aria-label="Setup progress" style="width: 560px;"><ol style="display: flex; align-items: center; gap: 12px;"><li class="step" aria-current="step"><span class="dot" style="background: var(--accent); color: var(--accent-foreground);">1</span><span style="font-weight: 600;">Setup code</span></li><li aria-hidden="true" style="flex-grow: 1; height: 1px; background: var(--border);"></li><li class="step" aria-current="false"><span class="dot" style="background: var(--surface); color: var(--muted); border: 1px solid var(--field-border);">2</span><span style="color: var(--muted);">Recovery key</span></li><li aria-hidden="true" style="flex-grow: 1; height: 1px; background: var(--border);"></li><li class="step" aria-current="false"><span class="dot" style="background: var(--surface); color: var(--muted); border: 1px solid var(--field-border);">3</span><span style="color: var(--muted);">Admin account</span></li></ol></nav><form aria-labelledby="h1a" style="width: 560px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 24px;"><div style="display: flex; flex-direction: column; gap: 8px;"><h1 id="h1a" style="font-family: Newsreader, Georgia, &quot;Times New Roman&quot;, serif; font-size: 30px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2;">Set up Lakka</h1><p style="font-size: 15px; color: var(--muted);">First, show that you run this server. Run this command on the server to get a setup code:</p></div><div style="display: flex; align-items: center; gap: 8px; background: rgb(33, 36, 35); color: rgb(234, 236, 235); border-radius: 10px; padding: 6px 6px 6px 16px;"><code class="mono" style="font-size: 14px; flex-grow: 1;">docker compose exec api lakka setup-code</code><button type="button" class="btn" style="height: 36px; color: rgb(234, 236, 235); border-color: rgb(119, 124, 122);"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2"></rect><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"></path></svg>Copy</button></div><div class="field"><label class="label" for="sc">Setup code</label><input id="sc" class="input mono focus" autocomplete="off" spellcheck="false" style="font-size: 16px; letter-spacing: 0.08em;"><span class="desc">The command prints it in the terminal. Paste it here.</span></div><div style="display: flex; justify-content: flex-end;"><button class="btn btn-primary">Continue</button></div></form><p class="desc" style="width: 560px; text-align: center;">Three steps: this code, a recovery key, then your admin account and first workspace.</p></main></div></div></div>
+</body>
+</html>

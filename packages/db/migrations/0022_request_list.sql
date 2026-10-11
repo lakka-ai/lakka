@@ -1,0 +1,1 @@
+CREATE INDEX "spans_requests_idx" ON "spans" USING btree ("workspace_id","started_at") WHERE "spans"."name" = 'request';

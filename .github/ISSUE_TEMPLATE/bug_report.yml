@@ -1,0 +1,128 @@
+name: Bug report
+description: Something in Lakka does not work as the guide says it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this.
+
+        A security vulnerability goes through the repository's **Security** tab, not here
+        (SECURITY.md).
+
+        Never paste a provider key, an API key, a setup or recovery code, a password, or the
+        text of prompts and replies. The diagnostics bundle and the logs hold none of these.
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: '`cat VERSION` in the release bundle, or the commit if you run from source.'
+      placeholder: v1.0.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install
+    attributes:
+      label: How it is installed
+      options:
+        - Release bundle
+        - From source (git clone)
+        - Development (pnpm dev)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: arch
+    attributes:
+      label: Architecture
+      options:
+        - amd64
+        - arm64
+    validations:
+      required: true
+
+  - type: input
+    id: host
+    attributes:
+      label: Host and Docker
+      description: The operating system, and the output of `docker version --format '{{.Server.Version}}'`.
+      placeholder: Ubuntu 24.04, Docker Engine 27.3.1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where it happens
+      multiple: true
+      options:
+        - Chat in the web app
+        - The OpenAI-compatible API
+        - Tools and MCP servers
+        - Budgets, caps and spend
+        - Routing
+        - Requests and traces
+        - Admin pages, people and sign-in
+        - Install, upgrade, backup or restore
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, including any error message in full.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: From a running instance, as few steps as it takes.
+      placeholder: |
+        1. As a workspace admin, open ...
+        2. ...
+    validations:
+      required: true
+
+  - type: input
+    id: request-id
+    attributes:
+      label: Request id
+      description: The `x-lakka-request-id` of a request that went wrong, if there is one.
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: 'The last lines that show the error, for example from `docker compose logs api worker --tail 100`.'
+      render: text
+
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics bundle
+      description: |
+        Make one with `docker compose exec -T api lakka diagnostics > lakka-diagnostics.tar.gz`
+        and drag it here. It holds no credentials, prompts, names or emails.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you send it
+      options:
+        - label: I searched the open and closed issues for this.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true

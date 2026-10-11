@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "description": "Route descriptions for routing-v1 (ADR 0122), written blind: none of the writers saw the evaluation set, so no description was fitted to its messages. Three sets, so a result does not rest on one wording. Each route is embedded as '<name>: <description>' (describedRouteText), the rendering ADR 0121 and ADR 0122 measured.",
+  "sets": [
+    {
+      "name": "blind1",
+      "provenance": "Written on 2026-10-09 by a separate agent that never saw the evaluation set. It was told only that it is the admin of a self-hosted AI chat product for a team of about 20, that each route has a name and a one-line description the router reads, that messages may be in English, German, French, Spanish or Swedish while descriptions are in English, and which routes use a cheaper model than the default. It was asked for one line of at most 20 words per route, written the way a busy admin would. Each of the three sets came from its own, independent agent.",
+      "routes": {
+        "code": "writing, debugging, reviewing or explaining code, scripts, SQL queries, error messages and stack traces",
+        "writing": "drafting or polishing emails, reports, blog posts, proposals, marketing copy and other prose",
+        "summarize": "condensing a pasted text, document, meeting notes or thread into a short summary or key points",
+        "translate": "translating text from one language into another, keeping meaning and tone",
+        "data": "analyzing numbers, spreadsheets, CSVs or tables; calculations, statistics, charts and spreadsheet formulas",
+        "brainstorm": "generating ideas, names, options or angles for a project, campaign, event or problem",
+        "legal": "questions about contracts, terms, compliance, GDPR, employment law or other legal matters"
+      }
+    },
+    {
+      "name": "blind2",
+      "provenance": "Written on 2026-10-09 by a separate agent that never saw the evaluation set. It was told only that it is the admin of a self-hosted AI chat product for a team of about 20, that each route has a name and a one-line description the router reads, that messages may be in English, German, French, Spanish or Swedish while descriptions are in English, and which routes use a cheaper model than the default. It was asked for one line of at most 20 words per route, written the way a busy admin would. Each of the three sets came from its own, independent agent.",
+      "routes": {
+        "code": "writing, fixing, reviewing or explaining code, scripts, SQL queries, error messages and stack traces",
+        "writing": "drafting or polishing emails, blog posts, marketing copy, reports and other original text",
+        "summarize": "shortening a long document, email thread, meeting notes or article into key points",
+        "translate": "translating text from one language into another, keeping meaning and tone",
+        "data": "analyzing spreadsheets, CSVs or numbers, building formulas, charts, statistics and calculations",
+        "brainstorm": "generating lots of ideas, names, slogans, angles or options quickly",
+        "legal": "questions about contracts, terms, compliance, GDPR, employment law or reviewing legal clauses"
+      }
+    },
+    {
+      "name": "blind3",
+      "provenance": "Written on 2026-10-09 by a separate agent that never saw the evaluation set. It was told only that it is the admin of a self-hosted AI chat product for a team of about 20, that each route has a name and a one-line description the router reads, that messages may be in English, German, French, Spanish or Swedish while descriptions are in English, and which routes use a cheaper model than the default. It was asked for one line of at most 20 words per route, written the way a busy admin would. Each of the three sets came from its own, independent agent.",
+      "routes": {
+        "code": "writing, reviewing, debugging or explaining code, scripts, SQL queries, config files, error messages and stack traces.",
+        "writing": "drafting or editing emails, posts, reports, proposals or other text, including rewording, tone and proofreading.",
+        "summarize": "shortening long text, documents, meeting notes or threads into key points, TL;DR or action items.",
+        "translate": "translating text between languages, e.g. English, German, French, Spanish, Swedish, keeping meaning and tone.",
+        "data": "analyzing numbers, spreadsheets, CSVs or tables; calculations, formulas, statistics, charts and finding trends.",
+        "brainstorm": "generating lots of ideas, names, slogans, angles or options quickly; open-ended creative suggestions.",
+        "legal": "contracts, terms, NDAs, GDPR, compliance or employment law questions; reviewing clauses and legal risks."
+      }
+    }
+  ]
+}

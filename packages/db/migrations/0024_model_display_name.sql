@@ -1,0 +1,2 @@
+ALTER TABLE "custom_models" ADD COLUMN "display_name" text;--> statement-breakpoint
+ALTER TABLE "custom_models" ADD CONSTRAINT "custom_models_display_name_check" CHECK ("custom_models"."display_name" is null or length("custom_models"."display_name") between 1 and 80);

@@ -1,0 +1,4435 @@
+{
+  "serial": 4,
+  "source": "https://github.com/BerriAI/litellm/blob/2a01fe6e5ca2ed67472ca0ed2909e66811ff8d35/model_prices_and_context_window.json",
+  "sourceCommit": "2a01fe6e5ca2ed67472ca0ed2909e66811ff8d35",
+  "license": "MIT, (c) Berri AI; converted to micro-USD per million tokens",
+  "generatedAt": "2026-10-11",
+  "models": [
+    {
+      "id": "anthropic:claude-fable-5",
+      "provider": "anthropic",
+      "model": "claude-fable-5",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 10000000,
+        "outputMicroUsdPerMtok": 50000000,
+        "cacheReadMicroUsdPerMtok": 1000000,
+        "cacheWriteMicroUsdPerMtok": 12500000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-fable-5-1",
+      "provider": "anthropic",
+      "model": "claude-fable-5-1",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 10000000,
+        "outputMicroUsdPerMtok": 50000000,
+        "cacheReadMicroUsdPerMtok": 250000,
+        "cacheWriteMicroUsdPerMtok": 12500000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-haiku-4-5",
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5",
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1000000,
+        "outputMicroUsdPerMtok": 5000000,
+        "cacheReadMicroUsdPerMtok": 100000,
+        "cacheWriteMicroUsdPerMtok": 1250000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-haiku-4-5-20251001",
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5-20251001",
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1000000,
+        "outputMicroUsdPerMtok": 5000000,
+        "cacheReadMicroUsdPerMtok": 100000,
+        "cacheWriteMicroUsdPerMtok": 1250000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-haiku-5-5",
+      "provider": "anthropic",
+      "model": "claude-haiku-5-5",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 100000,
+        "outputMicroUsdPerMtok": 500000,
+        "cacheReadMicroUsdPerMtok": 10000,
+        "cacheWriteMicroUsdPerMtok": 125000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 100000,
+          "prices": {
+            "inputMicroUsdPerMtok": 500000,
+            "outputMicroUsdPerMtok": 2500000,
+            "cacheReadMicroUsdPerMtok": 50000,
+            "cacheWriteMicroUsdPerMtok": 625000
+          }
+        }
+      ]
+    },
+    {
+      "id": "anthropic:claude-mythos-5",
+      "provider": "anthropic",
+      "model": "claude-mythos-5",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 10000000,
+        "outputMicroUsdPerMtok": 50000000,
+        "cacheReadMicroUsdPerMtok": 1000000,
+        "cacheWriteMicroUsdPerMtok": 12500000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-mythos-5-1",
+      "provider": "anthropic",
+      "model": "claude-mythos-5-1",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 10000000,
+        "outputMicroUsdPerMtok": 50000000,
+        "cacheReadMicroUsdPerMtok": 250000,
+        "cacheWriteMicroUsdPerMtok": 12500000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-opus-4-5",
+      "provider": "anthropic",
+      "model": "claude-opus-4-5",
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 25000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": 6250000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-opus-4-5-20251101",
+      "provider": "anthropic",
+      "model": "claude-opus-4-5-20251101",
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 25000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": 6250000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-opus-4-6",
+      "provider": "anthropic",
+      "model": "claude-opus-4-6",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 25000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": 6250000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-opus-4-6-20260205",
+      "provider": "anthropic",
+      "model": "claude-opus-4-6-20260205",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 25000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": 6250000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-opus-4-7",
+      "provider": "anthropic",
+      "model": "claude-opus-4-7",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 25000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": 6250000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-opus-4-7-20260416",
+      "provider": "anthropic",
+      "model": "claude-opus-4-7-20260416",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 25000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": 6250000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-opus-4-8",
+      "provider": "anthropic",
+      "model": "claude-opus-4-8",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 25000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": 6250000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-opus-5",
+      "provider": "anthropic",
+      "model": "claude-opus-5",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 25000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": 6250000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-opus-5-5",
+      "provider": "anthropic",
+      "model": "claude-opus-5-5",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 4000000,
+        "outputMicroUsdPerMtok": 20000000,
+        "cacheReadMicroUsdPerMtok": 200000,
+        "cacheWriteMicroUsdPerMtok": 5000000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-sonnet-4-5",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5",
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 3000000,
+        "outputMicroUsdPerMtok": 15000000,
+        "cacheReadMicroUsdPerMtok": 300000,
+        "cacheWriteMicroUsdPerMtok": 3750000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-sonnet-4-5-20250929",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5-20250929",
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 3000000,
+        "outputMicroUsdPerMtok": 15000000,
+        "cacheReadMicroUsdPerMtok": 300000,
+        "cacheWriteMicroUsdPerMtok": 3750000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-sonnet-4-6",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 3000000,
+        "outputMicroUsdPerMtok": 15000000,
+        "cacheReadMicroUsdPerMtok": 300000,
+        "cacheWriteMicroUsdPerMtok": 3750000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-sonnet-5",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 200000,
+        "cacheWriteMicroUsdPerMtok": 2500000
+      },
+      "tiers": []
+    },
+    {
+      "id": "anthropic:claude-sonnet-5-5",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5-5",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 100000,
+        "cacheWriteMicroUsdPerMtok": 2500000
+      },
+      "tiers": []
+    },
+    {
+      "id": "deepseek:deepseek-coder",
+      "provider": "deepseek",
+      "model": "deepseek-coder",
+      "contextWindow": 128000,
+      "maxOutputTokens": 4096,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 140000,
+        "outputMicroUsdPerMtok": 280000,
+        "cacheReadMicroUsdPerMtok": 14000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "deepseek:deepseek-flash",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 393216,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 300000,
+        "outputMicroUsdPerMtok": 1200000,
+        "cacheReadMicroUsdPerMtok": 6000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "deepseek:deepseek-r1",
+      "provider": "deepseek",
+      "model": "deepseek-r1",
+      "contextWindow": 65536,
+      "maxOutputTokens": 8192,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 550000,
+        "outputMicroUsdPerMtok": 2190000,
+        "cacheReadMicroUsdPerMtok": 140000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "deepseek:deepseek-v3",
+      "provider": "deepseek",
+      "model": "deepseek-v3",
+      "contextWindow": 65536,
+      "maxOutputTokens": 8192,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 270000,
+        "outputMicroUsdPerMtok": 1100000,
+        "cacheReadMicroUsdPerMtok": 70000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "deepseek:deepseek-v3.2",
+      "provider": "deepseek",
+      "model": "deepseek-v3.2",
+      "contextWindow": 163840,
+      "maxOutputTokens": 163840,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 280000,
+        "outputMicroUsdPerMtok": 400000,
+        "cacheReadMicroUsdPerMtok": 28000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "deepseek:deepseek-v4-flash",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 393216,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 300000,
+        "outputMicroUsdPerMtok": 1200000,
+        "cacheReadMicroUsdPerMtok": 6000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "deepseek:deepseek-v4-flash-vision-exp",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash-vision-exp",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 393216,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 300000,
+        "outputMicroUsdPerMtok": 1200000,
+        "cacheReadMicroUsdPerMtok": 6000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "deepseek:deepseek-v4-pro",
+      "provider": "deepseek",
+      "model": "deepseek-v4-pro",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 393216,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1320000,
+        "outputMicroUsdPerMtok": 3960000,
+        "cacheReadMicroUsdPerMtok": 44000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-2.5-flash",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 300000,
+        "outputMicroUsdPerMtok": 2500000,
+        "cacheReadMicroUsdPerMtok": 30000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-2.5-flash-lite",
+      "provider": "google",
+      "model": "gemini-2.5-flash-lite",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 100000,
+        "outputMicroUsdPerMtok": 400000,
+        "cacheReadMicroUsdPerMtok": 10000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-2.5-pro",
+      "provider": "google",
+      "model": "gemini-2.5-pro",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1250000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 125000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 200000,
+          "prices": {
+            "inputMicroUsdPerMtok": 2500000,
+            "outputMicroUsdPerMtok": 15000000,
+            "cacheReadMicroUsdPerMtok": 250000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "google:gemini-3-flash-preview",
+      "provider": "google",
+      "model": "gemini-3-flash-preview",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 500000,
+        "outputMicroUsdPerMtok": 3000000,
+        "cacheReadMicroUsdPerMtok": 50000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-3.1-flash-lite",
+      "provider": "google",
+      "model": "gemini-3.1-flash-lite",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 250000,
+        "outputMicroUsdPerMtok": 1500000,
+        "cacheReadMicroUsdPerMtok": 25000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-3.1-pro-preview",
+      "provider": "google",
+      "model": "gemini-3.1-pro-preview",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 12000000,
+        "cacheReadMicroUsdPerMtok": 200000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 200000,
+          "prices": {
+            "inputMicroUsdPerMtok": 4000000,
+            "outputMicroUsdPerMtok": 18000000,
+            "cacheReadMicroUsdPerMtok": 400000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "google:gemini-3.1-pro-preview-customtools",
+      "provider": "google",
+      "model": "gemini-3.1-pro-preview-customtools",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 12000000,
+        "cacheReadMicroUsdPerMtok": 200000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 200000,
+          "prices": {
+            "inputMicroUsdPerMtok": 4000000,
+            "outputMicroUsdPerMtok": 18000000,
+            "cacheReadMicroUsdPerMtok": 400000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "google:gemini-3.5-flash",
+      "provider": "google",
+      "model": "gemini-3.5-flash",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1500000,
+        "outputMicroUsdPerMtok": 9000000,
+        "cacheReadMicroUsdPerMtok": 150000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-3.5-flash-lite",
+      "provider": "google",
+      "model": "gemini-3.5-flash-lite",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 300000,
+        "outputMicroUsdPerMtok": 2500000,
+        "cacheReadMicroUsdPerMtok": 30000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-3.6-flash",
+      "provider": "google",
+      "model": "gemini-3.6-flash",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 750000,
+        "outputMicroUsdPerMtok": 3750000,
+        "cacheReadMicroUsdPerMtok": 75000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-3.7-flash",
+      "provider": "google",
+      "model": "gemini-3.7-flash",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 750000,
+        "outputMicroUsdPerMtok": 3750000,
+        "cacheReadMicroUsdPerMtok": 75000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-3.8-flash",
+      "provider": "google",
+      "model": "gemini-3.8-flash",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 750000,
+        "outputMicroUsdPerMtok": 3750000,
+        "cacheReadMicroUsdPerMtok": 75000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-exp-1206",
+      "provider": "google",
+      "model": "gemini-exp-1206",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65535,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 300000,
+        "outputMicroUsdPerMtok": 2500000,
+        "cacheReadMicroUsdPerMtok": 30000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-flash-latest",
+      "provider": "google",
+      "model": "gemini-flash-latest",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 750000,
+        "outputMicroUsdPerMtok": 3750000,
+        "cacheReadMicroUsdPerMtok": 75000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-flash-lite-latest",
+      "provider": "google",
+      "model": "gemini-flash-lite-latest",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 300000,
+        "outputMicroUsdPerMtok": 2500000,
+        "cacheReadMicroUsdPerMtok": 30000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-omni-1.1-flash",
+      "provider": "google",
+      "model": "gemini-omni-1.1-flash",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": false,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1500000,
+        "outputMicroUsdPerMtok": 9000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-omni-flash-preview",
+      "provider": "google",
+      "model": "gemini-omni-flash-preview",
+      "contextWindow": 131072,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": false,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1500000,
+        "outputMicroUsdPerMtok": 9000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "google:gemini-pro-latest",
+      "provider": "google",
+      "model": "gemini-pro-latest",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 12000000,
+        "cacheReadMicroUsdPerMtok": 200000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 200000,
+          "prices": {
+            "inputMicroUsdPerMtok": 4000000,
+            "outputMicroUsdPerMtok": 18000000,
+            "cacheReadMicroUsdPerMtok": 400000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "moonshot:kimi-k2.5",
+      "provider": "moonshot",
+      "model": "kimi-k2.5",
+      "contextWindow": 262144,
+      "maxOutputTokens": 262144,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 600000,
+        "outputMicroUsdPerMtok": 3000000,
+        "cacheReadMicroUsdPerMtok": 100000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "moonshot:kimi-k2.6",
+      "provider": "moonshot",
+      "model": "kimi-k2.6",
+      "contextWindow": 262144,
+      "maxOutputTokens": 262144,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 950000,
+        "outputMicroUsdPerMtok": 4000000,
+        "cacheReadMicroUsdPerMtok": 160000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "moonshot:kimi-k2.7-code",
+      "provider": "moonshot",
+      "model": "kimi-k2.7-code",
+      "contextWindow": 262144,
+      "maxOutputTokens": 262144,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 950000,
+        "outputMicroUsdPerMtok": 4000000,
+        "cacheReadMicroUsdPerMtok": 190000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "moonshot:kimi-k3",
+      "provider": "moonshot",
+      "model": "kimi-k3",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 1048576,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 3000000,
+        "outputMicroUsdPerMtok": 15000000,
+        "cacheReadMicroUsdPerMtok": 300000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "moonshot:moonshot-v1-128k",
+      "provider": "moonshot",
+      "model": "moonshot-v1-128k",
+      "contextWindow": 131072,
+      "maxOutputTokens": 131072,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 5000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "moonshot:moonshot-v1-128k-vision-preview",
+      "provider": "moonshot",
+      "model": "moonshot-v1-128k-vision-preview",
+      "contextWindow": 131072,
+      "maxOutputTokens": 131072,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 5000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "moonshot:moonshot-v1-32k",
+      "provider": "moonshot",
+      "model": "moonshot-v1-32k",
+      "contextWindow": 32768,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1000000,
+        "outputMicroUsdPerMtok": 3000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "moonshot:moonshot-v1-32k-vision-preview",
+      "provider": "moonshot",
+      "model": "moonshot-v1-32k-vision-preview",
+      "contextWindow": 32768,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1000000,
+        "outputMicroUsdPerMtok": 3000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "moonshot:moonshot-v1-8k",
+      "provider": "moonshot",
+      "model": "moonshot-v1-8k",
+      "contextWindow": 8192,
+      "maxOutputTokens": 8192,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 200000,
+        "outputMicroUsdPerMtok": 2000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "moonshot:moonshot-v1-8k-vision-preview",
+      "provider": "moonshot",
+      "model": "moonshot-v1-8k-vision-preview",
+      "contextWindow": 8192,
+      "maxOutputTokens": 8192,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 200000,
+        "outputMicroUsdPerMtok": 2000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "moonshot:moonshot-v1-auto",
+      "provider": "moonshot",
+      "model": "moonshot-v1-auto",
+      "contextWindow": 131072,
+      "maxOutputTokens": 131072,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 5000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:chat-latest",
+      "provider": "openai",
+      "model": "chat-latest",
+      "contextWindow": 400000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 30000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:daybreak-blue-latest",
+      "provider": "openai",
+      "model": "daybreak-blue-latest",
+      "contextWindow": 922000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 4000000,
+        "outputMicroUsdPerMtok": 20000000,
+        "cacheReadMicroUsdPerMtok": 400000,
+        "cacheWriteMicroUsdPerMtok": 5000000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 8000000,
+            "outputMicroUsdPerMtok": 30000000,
+            "cacheReadMicroUsdPerMtok": 800000,
+            "cacheWriteMicroUsdPerMtok": 10000000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:daybreak-red-latest",
+      "provider": "openai",
+      "model": "daybreak-red-latest",
+      "contextWindow": 400000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 12500000,
+        "outputMicroUsdPerMtok": 75000000,
+        "cacheReadMicroUsdPerMtok": 1250000,
+        "cacheWriteMicroUsdPerMtok": 15625000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 25000000,
+            "outputMicroUsdPerMtok": 112500000,
+            "cacheReadMicroUsdPerMtok": 2500000,
+            "cacheWriteMicroUsdPerMtok": 31250000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-3.5-turbo",
+      "provider": "openai",
+      "model": "gpt-3.5-turbo",
+      "contextWindow": 16385,
+      "maxOutputTokens": 4096,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 500000,
+        "outputMicroUsdPerMtok": 1500000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-3.5-turbo-0125",
+      "provider": "openai",
+      "model": "gpt-3.5-turbo-0125",
+      "contextWindow": 16385,
+      "maxOutputTokens": 4096,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 500000,
+        "outputMicroUsdPerMtok": 1500000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-3.5-turbo-16k",
+      "provider": "openai",
+      "model": "gpt-3.5-turbo-16k",
+      "contextWindow": 16385,
+      "maxOutputTokens": 4096,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": false,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 3000000,
+        "outputMicroUsdPerMtok": 4000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4",
+      "provider": "openai",
+      "model": "gpt-4",
+      "contextWindow": 8192,
+      "maxOutputTokens": 4096,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 30000000,
+        "outputMicroUsdPerMtok": 60000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4-0613",
+      "provider": "openai",
+      "model": "gpt-4-0613",
+      "contextWindow": 8192,
+      "maxOutputTokens": 4096,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 30000000,
+        "outputMicroUsdPerMtok": 60000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4-1106-preview",
+      "provider": "openai",
+      "model": "gpt-4-1106-preview",
+      "contextWindow": 128000,
+      "maxOutputTokens": 4096,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 10000000,
+        "outputMicroUsdPerMtok": 30000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4-turbo",
+      "provider": "openai",
+      "model": "gpt-4-turbo",
+      "contextWindow": 128000,
+      "maxOutputTokens": 4096,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 10000000,
+        "outputMicroUsdPerMtok": 30000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4-turbo-2024-04-09",
+      "provider": "openai",
+      "model": "gpt-4-turbo-2024-04-09",
+      "contextWindow": 128000,
+      "maxOutputTokens": 4096,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 10000000,
+        "outputMicroUsdPerMtok": 30000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4.1",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "contextWindow": 1047576,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 8000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4.1-2025-04-14",
+      "provider": "openai",
+      "model": "gpt-4.1-2025-04-14",
+      "contextWindow": 1047576,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 8000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4.1-mini",
+      "provider": "openai",
+      "model": "gpt-4.1-mini",
+      "contextWindow": 1047576,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 400000,
+        "outputMicroUsdPerMtok": 1600000,
+        "cacheReadMicroUsdPerMtok": 100000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4.1-mini-2025-04-14",
+      "provider": "openai",
+      "model": "gpt-4.1-mini-2025-04-14",
+      "contextWindow": 1047576,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 400000,
+        "outputMicroUsdPerMtok": 1600000,
+        "cacheReadMicroUsdPerMtok": 100000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4.1-nano",
+      "provider": "openai",
+      "model": "gpt-4.1-nano",
+      "contextWindow": 1047576,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 100000,
+        "outputMicroUsdPerMtok": 400000,
+        "cacheReadMicroUsdPerMtok": 25000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4.1-nano-2025-04-14",
+      "provider": "openai",
+      "model": "gpt-4.1-nano-2025-04-14",
+      "contextWindow": 1047576,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 100000,
+        "outputMicroUsdPerMtok": 400000,
+        "cacheReadMicroUsdPerMtok": 25000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4o",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "contextWindow": 128000,
+      "maxOutputTokens": 16384,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2500000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 1250000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4o-2024-05-13",
+      "provider": "openai",
+      "model": "gpt-4o-2024-05-13",
+      "contextWindow": 128000,
+      "maxOutputTokens": 4096,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 15000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4o-2024-08-06",
+      "provider": "openai",
+      "model": "gpt-4o-2024-08-06",
+      "contextWindow": 128000,
+      "maxOutputTokens": 16384,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2500000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 1250000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4o-2024-11-20",
+      "provider": "openai",
+      "model": "gpt-4o-2024-11-20",
+      "contextWindow": 128000,
+      "maxOutputTokens": 16384,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2500000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 1250000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4o-mini",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "contextWindow": 128000,
+      "maxOutputTokens": 16384,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 150000,
+        "outputMicroUsdPerMtok": 600000,
+        "cacheReadMicroUsdPerMtok": 75000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-4o-mini-2024-07-18",
+      "provider": "openai",
+      "model": "gpt-4o-mini-2024-07-18",
+      "contextWindow": 128000,
+      "maxOutputTokens": 16384,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 150000,
+        "outputMicroUsdPerMtok": 600000,
+        "cacheReadMicroUsdPerMtok": 75000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5",
+      "provider": "openai",
+      "model": "gpt-5",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1250000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 125000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5-2025-08-07",
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1250000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 125000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5-mini",
+      "provider": "openai",
+      "model": "gpt-5-mini",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 250000,
+        "outputMicroUsdPerMtok": 2000000,
+        "cacheReadMicroUsdPerMtok": 25000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5-mini-2025-08-07",
+      "provider": "openai",
+      "model": "gpt-5-mini-2025-08-07",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 250000,
+        "outputMicroUsdPerMtok": 2000000,
+        "cacheReadMicroUsdPerMtok": 25000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5-nano",
+      "provider": "openai",
+      "model": "gpt-5-nano",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 50000,
+        "outputMicroUsdPerMtok": 400000,
+        "cacheReadMicroUsdPerMtok": 5000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5-nano-2025-08-07",
+      "provider": "openai",
+      "model": "gpt-5-nano-2025-08-07",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 50000,
+        "outputMicroUsdPerMtok": 400000,
+        "cacheReadMicroUsdPerMtok": 5000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5-pro",
+      "provider": "openai",
+      "model": "gpt-5-pro",
+      "contextWindow": 400000,
+      "maxOutputTokens": 272000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 15000000,
+        "outputMicroUsdPerMtok": 120000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5-pro-2025-10-06",
+      "provider": "openai",
+      "model": "gpt-5-pro-2025-10-06",
+      "contextWindow": 400000,
+      "maxOutputTokens": 272000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 15000000,
+        "outputMicroUsdPerMtok": 120000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.1",
+      "provider": "openai",
+      "model": "gpt-5.1",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1250000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 125000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.1-2025-11-13",
+      "provider": "openai",
+      "model": "gpt-5.1-2025-11-13",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1250000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 125000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.2",
+      "provider": "openai",
+      "model": "gpt-5.2",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1750000,
+        "outputMicroUsdPerMtok": 14000000,
+        "cacheReadMicroUsdPerMtok": 175000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.2-2025-12-11",
+      "provider": "openai",
+      "model": "gpt-5.2-2025-12-11",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1750000,
+        "outputMicroUsdPerMtok": 14000000,
+        "cacheReadMicroUsdPerMtok": 175000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.2-pro",
+      "provider": "openai",
+      "model": "gpt-5.2-pro",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 21000000,
+        "outputMicroUsdPerMtok": 168000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.2-pro-2025-12-11",
+      "provider": "openai",
+      "model": "gpt-5.2-pro-2025-12-11",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 21000000,
+        "outputMicroUsdPerMtok": 168000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.3-codex",
+      "provider": "openai",
+      "model": "gpt-5.3-codex",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1750000,
+        "outputMicroUsdPerMtok": 14000000,
+        "cacheReadMicroUsdPerMtok": 175000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.4",
+      "provider": "openai",
+      "model": "gpt-5.4",
+      "contextWindow": 1050000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2500000,
+        "outputMicroUsdPerMtok": 15000000,
+        "cacheReadMicroUsdPerMtok": 250000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 5000000,
+            "outputMicroUsdPerMtok": 22500000,
+            "cacheReadMicroUsdPerMtok": 500000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.4-2026-03-05",
+      "provider": "openai",
+      "model": "gpt-5.4-2026-03-05",
+      "contextWindow": 1050000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2500000,
+        "outputMicroUsdPerMtok": 15000000,
+        "cacheReadMicroUsdPerMtok": 250000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 5000000,
+            "outputMicroUsdPerMtok": 22500000,
+            "cacheReadMicroUsdPerMtok": 500000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.4-mini",
+      "provider": "openai",
+      "model": "gpt-5.4-mini",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 750000,
+        "outputMicroUsdPerMtok": 4500000,
+        "cacheReadMicroUsdPerMtok": 75000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.4-mini-2026-03-17",
+      "provider": "openai",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 750000,
+        "outputMicroUsdPerMtok": 4500000,
+        "cacheReadMicroUsdPerMtok": 75000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.4-nano",
+      "provider": "openai",
+      "model": "gpt-5.4-nano",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 200000,
+        "outputMicroUsdPerMtok": 1250000,
+        "cacheReadMicroUsdPerMtok": 20000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.4-nano-2026-03-17",
+      "provider": "openai",
+      "model": "gpt-5.4-nano-2026-03-17",
+      "contextWindow": 272000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 200000,
+        "outputMicroUsdPerMtok": 1250000,
+        "cacheReadMicroUsdPerMtok": 20000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:gpt-5.4-pro",
+      "provider": "openai",
+      "model": "gpt-5.4-pro",
+      "contextWindow": 1050000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 30000000,
+        "outputMicroUsdPerMtok": 180000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 60000000,
+            "outputMicroUsdPerMtok": 270000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.4-pro-2026-03-05",
+      "provider": "openai",
+      "model": "gpt-5.4-pro-2026-03-05",
+      "contextWindow": 1050000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 30000000,
+        "outputMicroUsdPerMtok": 180000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 60000000,
+            "outputMicroUsdPerMtok": 270000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.5",
+      "provider": "openai",
+      "model": "gpt-5.5",
+      "contextWindow": 1050000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 30000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 10000000,
+            "outputMicroUsdPerMtok": 45000000,
+            "cacheReadMicroUsdPerMtok": 1000000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.5-2026-04-23",
+      "provider": "openai",
+      "model": "gpt-5.5-2026-04-23",
+      "contextWindow": 1050000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 5000000,
+        "outputMicroUsdPerMtok": 30000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 10000000,
+            "outputMicroUsdPerMtok": 45000000,
+            "cacheReadMicroUsdPerMtok": 1000000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.5-pro",
+      "provider": "openai",
+      "model": "gpt-5.5-pro",
+      "contextWindow": 1050000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 30000000,
+        "outputMicroUsdPerMtok": 180000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 60000000,
+            "outputMicroUsdPerMtok": 270000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.5-pro-2026-04-23",
+      "provider": "openai",
+      "model": "gpt-5.5-pro-2026-04-23",
+      "contextWindow": 1050000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 30000000,
+        "outputMicroUsdPerMtok": 180000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 60000000,
+            "outputMicroUsdPerMtok": 270000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.6",
+      "provider": "openai",
+      "model": "gpt-5.6",
+      "contextWindow": 922000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 4000000,
+        "outputMicroUsdPerMtok": 20000000,
+        "cacheReadMicroUsdPerMtok": 400000,
+        "cacheWriteMicroUsdPerMtok": 5000000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 8000000,
+            "outputMicroUsdPerMtok": 30000000,
+            "cacheReadMicroUsdPerMtok": 800000,
+            "cacheWriteMicroUsdPerMtok": 10000000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.6-cyber",
+      "provider": "openai",
+      "model": "gpt-5.6-cyber",
+      "contextWindow": 400000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 12500000,
+        "outputMicroUsdPerMtok": 75000000,
+        "cacheReadMicroUsdPerMtok": 1250000,
+        "cacheWriteMicroUsdPerMtok": 15625000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 25000000,
+            "outputMicroUsdPerMtok": 112500000,
+            "cacheReadMicroUsdPerMtok": 2500000,
+            "cacheWriteMicroUsdPerMtok": 31250000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.6-luna",
+      "provider": "openai",
+      "model": "gpt-5.6-luna",
+      "contextWindow": 922000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 200000,
+        "outputMicroUsdPerMtok": 1200000,
+        "cacheReadMicroUsdPerMtok": 20000,
+        "cacheWriteMicroUsdPerMtok": 250000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 400000,
+            "outputMicroUsdPerMtok": 1800000,
+            "cacheReadMicroUsdPerMtok": 40000,
+            "cacheWriteMicroUsdPerMtok": 500000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.6-sol",
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "contextWindow": 922000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 4000000,
+        "outputMicroUsdPerMtok": 20000000,
+        "cacheReadMicroUsdPerMtok": 400000,
+        "cacheWriteMicroUsdPerMtok": 5000000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 8000000,
+            "outputMicroUsdPerMtok": 30000000,
+            "cacheReadMicroUsdPerMtok": 800000,
+            "cacheWriteMicroUsdPerMtok": 10000000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-5.6-terra",
+      "provider": "openai",
+      "model": "gpt-5.6-terra",
+      "contextWindow": 922000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 12000000,
+        "cacheReadMicroUsdPerMtok": 200000,
+        "cacheWriteMicroUsdPerMtok": 2500000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 4000000,
+            "outputMicroUsdPerMtok": 18000000,
+            "cacheReadMicroUsdPerMtok": 400000,
+            "cacheWriteMicroUsdPerMtok": 5000000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-6-astra",
+      "provider": "openai",
+      "model": "gpt-6-astra",
+      "contextWindow": 922000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 10000000,
+        "outputMicroUsdPerMtok": 50000000,
+        "cacheReadMicroUsdPerMtok": 1000000,
+        "cacheWriteMicroUsdPerMtok": 12500000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 20000000,
+            "outputMicroUsdPerMtok": 75000000,
+            "cacheReadMicroUsdPerMtok": 2000000,
+            "cacheWriteMicroUsdPerMtok": 25000000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-6-luna",
+      "provider": "openai",
+      "model": "gpt-6-luna",
+      "contextWindow": 922000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 100000,
+        "outputMicroUsdPerMtok": 500000,
+        "cacheReadMicroUsdPerMtok": 10000,
+        "cacheWriteMicroUsdPerMtok": 125000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 200000,
+            "outputMicroUsdPerMtok": 750000,
+            "cacheReadMicroUsdPerMtok": 20000,
+            "cacheWriteMicroUsdPerMtok": 250000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-6-sol",
+      "provider": "openai",
+      "model": "gpt-6-sol",
+      "contextWindow": 922000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 200000,
+        "cacheWriteMicroUsdPerMtok": 2500000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 4000000,
+            "outputMicroUsdPerMtok": 15000000,
+            "cacheReadMicroUsdPerMtok": 400000,
+            "cacheWriteMicroUsdPerMtok": 5000000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-6.1-sol",
+      "provider": "openai",
+      "model": "gpt-6.1-sol",
+      "contextWindow": 922000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 10000000,
+        "cacheReadMicroUsdPerMtok": 100000,
+        "cacheWriteMicroUsdPerMtok": 2500000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 4000000,
+            "outputMicroUsdPerMtok": 15000000,
+            "cacheReadMicroUsdPerMtok": 200000,
+            "cacheWriteMicroUsdPerMtok": 5000000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-daybreak-blue-latest",
+      "provider": "openai",
+      "model": "gpt-daybreak-blue-latest",
+      "contextWindow": 922000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 4000000,
+        "outputMicroUsdPerMtok": 20000000,
+        "cacheReadMicroUsdPerMtok": 400000,
+        "cacheWriteMicroUsdPerMtok": 5000000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 8000000,
+            "outputMicroUsdPerMtok": 30000000,
+            "cacheReadMicroUsdPerMtok": 800000,
+            "cacheWriteMicroUsdPerMtok": 10000000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:gpt-daybreak-red-latest",
+      "provider": "openai",
+      "model": "gpt-daybreak-red-latest",
+      "contextWindow": 400000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 12500000,
+        "outputMicroUsdPerMtok": 75000000,
+        "cacheReadMicroUsdPerMtok": 1250000,
+        "cacheWriteMicroUsdPerMtok": 15625000
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 272000,
+          "prices": {
+            "inputMicroUsdPerMtok": 25000000,
+            "outputMicroUsdPerMtok": 112500000,
+            "cacheReadMicroUsdPerMtok": 2500000,
+            "cacheWriteMicroUsdPerMtok": 31250000
+          }
+        }
+      ]
+    },
+    {
+      "id": "openai:o1",
+      "provider": "openai",
+      "model": "o1",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 15000000,
+        "outputMicroUsdPerMtok": 60000000,
+        "cacheReadMicroUsdPerMtok": 7500000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o1-2024-12-17",
+      "provider": "openai",
+      "model": "o1-2024-12-17",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 15000000,
+        "outputMicroUsdPerMtok": 60000000,
+        "cacheReadMicroUsdPerMtok": 7500000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o1-pro",
+      "provider": "openai",
+      "model": "o1-pro",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 150000000,
+        "outputMicroUsdPerMtok": 600000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o1-pro-2025-03-19",
+      "provider": "openai",
+      "model": "o1-pro-2025-03-19",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 150000000,
+        "outputMicroUsdPerMtok": 600000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o3",
+      "provider": "openai",
+      "model": "o3",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 8000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o3-2025-04-16",
+      "provider": "openai",
+      "model": "o3-2025-04-16",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 8000000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o3-mini",
+      "provider": "openai",
+      "model": "o3-mini",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1100000,
+        "outputMicroUsdPerMtok": 4400000,
+        "cacheReadMicroUsdPerMtok": 550000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o3-mini-2025-01-31",
+      "provider": "openai",
+      "model": "o3-mini-2025-01-31",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1100000,
+        "outputMicroUsdPerMtok": 4400000,
+        "cacheReadMicroUsdPerMtok": 550000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o3-pro",
+      "provider": "openai",
+      "model": "o3-pro",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 20000000,
+        "outputMicroUsdPerMtok": 80000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o3-pro-2025-06-10",
+      "provider": "openai",
+      "model": "o3-pro-2025-06-10",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 20000000,
+        "outputMicroUsdPerMtok": 80000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o4-mini",
+      "provider": "openai",
+      "model": "o4-mini",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1100000,
+        "outputMicroUsdPerMtok": 4400000,
+        "cacheReadMicroUsdPerMtok": 275000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "openai:o4-mini-2025-04-16",
+      "provider": "openai",
+      "model": "o4-mini-2025-04-16",
+      "contextWindow": 200000,
+      "maxOutputTokens": 100000,
+      "capabilities": {
+        "vision": true,
+        "pdf": true,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1100000,
+        "outputMicroUsdPerMtok": 4400000,
+        "cacheReadMicroUsdPerMtok": 275000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:deepseek-v4-flash",
+      "provider": "qwencloud",
+      "model": "deepseek-v4-flash",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 393216,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 200000,
+        "outputMicroUsdPerMtok": 400000,
+        "cacheReadMicroUsdPerMtok": 40000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:deepseek-v4-flash-0731",
+      "provider": "qwencloud",
+      "model": "deepseek-v4-flash-0731",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 393216,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 200000,
+        "outputMicroUsdPerMtok": 400000,
+        "cacheReadMicroUsdPerMtok": 40000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:deepseek-v4-pro",
+      "provider": "qwencloud",
+      "model": "deepseek-v4-pro",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 393216,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2400000,
+        "outputMicroUsdPerMtok": 4800000,
+        "cacheReadMicroUsdPerMtok": 200000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:glm-5.1",
+      "provider": "qwencloud",
+      "model": "glm-5.1",
+      "contextWindow": 202745,
+      "maxOutputTokens": 131072,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1400000,
+        "outputMicroUsdPerMtok": 4400000,
+        "cacheReadMicroUsdPerMtok": 260000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:glm-5.2",
+      "provider": "qwencloud",
+      "model": "glm-5.2",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 131072,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1400000,
+        "outputMicroUsdPerMtok": 4400000,
+        "cacheReadMicroUsdPerMtok": 280000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:kimi-k2.7-code",
+      "provider": "qwencloud",
+      "model": "kimi-k2.7-code",
+      "contextWindow": 229376,
+      "maxOutputTokens": 16384,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 950000,
+        "outputMicroUsdPerMtok": 4000000,
+        "cacheReadMicroUsdPerMtok": 190000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen-coder",
+      "provider": "qwencloud",
+      "model": "qwen-coder",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 16384,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 300000,
+        "outputMicroUsdPerMtok": 1500000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen-flash",
+      "provider": "qwencloud",
+      "model": "qwen-flash",
+      "contextWindow": 997952,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 50000,
+        "outputMicroUsdPerMtok": 400000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 256000,
+          "prices": {
+            "inputMicroUsdPerMtok": 250000,
+            "outputMicroUsdPerMtok": 2000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen-flash-2025-07-28",
+      "provider": "qwencloud",
+      "model": "qwen-flash-2025-07-28",
+      "contextWindow": 997952,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 50000,
+        "outputMicroUsdPerMtok": 400000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 256000,
+          "prices": {
+            "inputMicroUsdPerMtok": 250000,
+            "outputMicroUsdPerMtok": 2000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen-max",
+      "provider": "qwencloud",
+      "model": "qwen-max",
+      "contextWindow": 30720,
+      "maxOutputTokens": 8192,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1600000,
+        "outputMicroUsdPerMtok": 6400000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen-plus",
+      "provider": "qwencloud",
+      "model": "qwen-plus",
+      "contextWindow": 129024,
+      "maxOutputTokens": 16384,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 400000,
+        "outputMicroUsdPerMtok": 1200000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen-plus-2025-01-25",
+      "provider": "qwencloud",
+      "model": "qwen-plus-2025-01-25",
+      "contextWindow": 129024,
+      "maxOutputTokens": 8192,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 400000,
+        "outputMicroUsdPerMtok": 1200000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen-turbo-2024-11-01",
+      "provider": "qwencloud",
+      "model": "qwen-turbo-2024-11-01",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 8192,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 50000,
+        "outputMicroUsdPerMtok": 200000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen3-coder-flash",
+      "provider": "qwencloud",
+      "model": "qwen3-coder-flash",
+      "contextWindow": 997952,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 300000,
+        "outputMicroUsdPerMtok": 1500000,
+        "cacheReadMicroUsdPerMtok": 80000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 32000,
+          "prices": {
+            "inputMicroUsdPerMtok": 500000,
+            "outputMicroUsdPerMtok": 2500000,
+            "cacheReadMicroUsdPerMtok": 120000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 128000,
+          "prices": {
+            "inputMicroUsdPerMtok": 800000,
+            "outputMicroUsdPerMtok": 4000000,
+            "cacheReadMicroUsdPerMtok": 200000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 256000,
+          "prices": {
+            "inputMicroUsdPerMtok": 1600000,
+            "outputMicroUsdPerMtok": 9600000,
+            "cacheReadMicroUsdPerMtok": 400000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen3-coder-flash-2025-07-28",
+      "provider": "qwencloud",
+      "model": "qwen3-coder-flash-2025-07-28",
+      "contextWindow": 997952,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 300000,
+        "outputMicroUsdPerMtok": 1500000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 32000,
+          "prices": {
+            "inputMicroUsdPerMtok": 500000,
+            "outputMicroUsdPerMtok": 2500000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 128000,
+          "prices": {
+            "inputMicroUsdPerMtok": 800000,
+            "outputMicroUsdPerMtok": 4000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 256000,
+          "prices": {
+            "inputMicroUsdPerMtok": 1600000,
+            "outputMicroUsdPerMtok": 9600000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen3-coder-plus",
+      "provider": "qwencloud",
+      "model": "qwen3-coder-plus",
+      "contextWindow": 997952,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1000000,
+        "outputMicroUsdPerMtok": 5000000,
+        "cacheReadMicroUsdPerMtok": 100000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 32000,
+          "prices": {
+            "inputMicroUsdPerMtok": 1800000,
+            "outputMicroUsdPerMtok": 9000000,
+            "cacheReadMicroUsdPerMtok": 180000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 128000,
+          "prices": {
+            "inputMicroUsdPerMtok": 3000000,
+            "outputMicroUsdPerMtok": 15000000,
+            "cacheReadMicroUsdPerMtok": 300000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 256000,
+          "prices": {
+            "inputMicroUsdPerMtok": 6000000,
+            "outputMicroUsdPerMtok": 60000000,
+            "cacheReadMicroUsdPerMtok": 600000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen3-coder-plus-2025-07-22",
+      "provider": "qwencloud",
+      "model": "qwen3-coder-plus-2025-07-22",
+      "contextWindow": 997952,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1000000,
+        "outputMicroUsdPerMtok": 5000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 32000,
+          "prices": {
+            "inputMicroUsdPerMtok": 1800000,
+            "outputMicroUsdPerMtok": 9000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 128000,
+          "prices": {
+            "inputMicroUsdPerMtok": 3000000,
+            "outputMicroUsdPerMtok": 15000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 256000,
+          "prices": {
+            "inputMicroUsdPerMtok": 6000000,
+            "outputMicroUsdPerMtok": 60000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen3-max",
+      "provider": "qwencloud",
+      "model": "qwen3-max",
+      "contextWindow": 258048,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1200000,
+        "outputMicroUsdPerMtok": 6000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 32000,
+          "prices": {
+            "inputMicroUsdPerMtok": 2400000,
+            "outputMicroUsdPerMtok": 12000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 128000,
+          "prices": {
+            "inputMicroUsdPerMtok": 3000000,
+            "outputMicroUsdPerMtok": 15000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen3-max-2026-01-23",
+      "provider": "qwencloud",
+      "model": "qwen3-max-2026-01-23",
+      "contextWindow": 258048,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1200000,
+        "outputMicroUsdPerMtok": 6000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 32000,
+          "prices": {
+            "inputMicroUsdPerMtok": 2400000,
+            "outputMicroUsdPerMtok": 12000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 128000,
+          "prices": {
+            "inputMicroUsdPerMtok": 3000000,
+            "outputMicroUsdPerMtok": 15000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen3-max-preview",
+      "provider": "qwencloud",
+      "model": "qwen3-max-preview",
+      "contextWindow": 258048,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1200000,
+        "outputMicroUsdPerMtok": 6000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 32000,
+          "prices": {
+            "inputMicroUsdPerMtok": 2400000,
+            "outputMicroUsdPerMtok": 12000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 128000,
+          "prices": {
+            "inputMicroUsdPerMtok": 3000000,
+            "outputMicroUsdPerMtok": 15000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen3-next-80b-a3b-instruct",
+      "provider": "qwencloud",
+      "model": "qwen3-next-80b-a3b-instruct",
+      "contextWindow": 262144,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 150000,
+        "outputMicroUsdPerMtok": 1200000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen3-next-80b-a3b-thinking",
+      "provider": "qwencloud",
+      "model": "qwen3-next-80b-a3b-thinking",
+      "contextWindow": 262144,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 150000,
+        "outputMicroUsdPerMtok": 1200000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen3-vl-235b-a22b-instruct",
+      "provider": "qwencloud",
+      "model": "qwen3-vl-235b-a22b-instruct",
+      "contextWindow": 131072,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 400000,
+        "outputMicroUsdPerMtok": 1600000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen3-vl-235b-a22b-thinking",
+      "provider": "qwencloud",
+      "model": "qwen3-vl-235b-a22b-thinking",
+      "contextWindow": 131072,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 400000,
+        "outputMicroUsdPerMtok": 4000000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen3-vl-32b-instruct",
+      "provider": "qwencloud",
+      "model": "qwen3-vl-32b-instruct",
+      "contextWindow": 131072,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 160000,
+        "outputMicroUsdPerMtok": 640000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen3-vl-32b-thinking",
+      "provider": "qwencloud",
+      "model": "qwen3-vl-32b-thinking",
+      "contextWindow": 131072,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 160000,
+        "outputMicroUsdPerMtok": 2870000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen3-vl-plus",
+      "provider": "qwencloud",
+      "model": "qwen3-vl-plus",
+      "contextWindow": 260096,
+      "maxOutputTokens": 32768,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 200000,
+        "outputMicroUsdPerMtok": 1600000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 32000,
+          "prices": {
+            "inputMicroUsdPerMtok": 300000,
+            "outputMicroUsdPerMtok": 2400000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        },
+        {
+          "aboveInputTokens": 128000,
+          "prices": {
+            "inputMicroUsdPerMtok": 600000,
+            "outputMicroUsdPerMtok": 4800000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen3.5-plus",
+      "provider": "qwencloud",
+      "model": "qwen3.5-plus",
+      "contextWindow": 991808,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 400000,
+        "outputMicroUsdPerMtok": 2400000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 256000,
+          "prices": {
+            "inputMicroUsdPerMtok": 500000,
+            "outputMicroUsdPerMtok": 3000000,
+            "cacheReadMicroUsdPerMtok": null,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen3.7-max",
+      "provider": "qwencloud",
+      "model": "qwen3.7-max",
+      "contextWindow": 991808,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2500000,
+        "outputMicroUsdPerMtok": 7500000,
+        "cacheReadMicroUsdPerMtok": 500000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwen3.7-plus",
+      "provider": "qwencloud",
+      "model": "qwen3.7-plus",
+      "contextWindow": 991808,
+      "maxOutputTokens": 65536,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 400000,
+        "outputMicroUsdPerMtok": 1600000,
+        "cacheReadMicroUsdPerMtok": 80000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": [
+        {
+          "aboveInputTokens": 256000,
+          "prices": {
+            "inputMicroUsdPerMtok": 1200000,
+            "outputMicroUsdPerMtok": 4800000,
+            "cacheReadMicroUsdPerMtok": 240000,
+            "cacheWriteMicroUsdPerMtok": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwencloud:qwen3.8-max",
+      "provider": "qwencloud",
+      "model": "qwen3.8-max",
+      "contextWindow": 991808,
+      "maxOutputTokens": 131072,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2000000,
+        "outputMicroUsdPerMtok": 6000000,
+        "cacheReadMicroUsdPerMtok": 250000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "qwencloud:qwq-plus",
+      "provider": "qwencloud",
+      "model": "qwq-plus",
+      "contextWindow": 98304,
+      "maxOutputTokens": 8192,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 800000,
+        "outputMicroUsdPerMtok": 2400000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "xiaomi-mimo:mimo-v2.6-flash",
+      "provider": "xiaomi-mimo",
+      "model": "mimo-v2.6-flash",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 131072,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 140000,
+        "outputMicroUsdPerMtok": 280000,
+        "cacheReadMicroUsdPerMtok": 2800,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "xiaomi-mimo:mimo-v2.6-pro",
+      "provider": "xiaomi-mimo",
+      "model": "mimo-v2.6-pro",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 131072,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": true,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 435000,
+        "outputMicroUsdPerMtok": 870000,
+        "cacheReadMicroUsdPerMtok": 3600,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-4-32b-0414-128k",
+      "provider": "zai",
+      "model": "glm-4-32b-0414-128k",
+      "contextWindow": 128000,
+      "maxOutputTokens": 32000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 100000,
+        "outputMicroUsdPerMtok": 100000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-4.5",
+      "provider": "zai",
+      "model": "glm-4.5",
+      "contextWindow": 128000,
+      "maxOutputTokens": 32000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 600000,
+        "outputMicroUsdPerMtok": 2200000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-4.5-air",
+      "provider": "zai",
+      "model": "glm-4.5-air",
+      "contextWindow": 128000,
+      "maxOutputTokens": 32000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 200000,
+        "outputMicroUsdPerMtok": 1100000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-4.5-airx",
+      "provider": "zai",
+      "model": "glm-4.5-airx",
+      "contextWindow": 128000,
+      "maxOutputTokens": 32000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1100000,
+        "outputMicroUsdPerMtok": 4500000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-4.5-x",
+      "provider": "zai",
+      "model": "glm-4.5-x",
+      "contextWindow": 128000,
+      "maxOutputTokens": 32000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 2200000,
+        "outputMicroUsdPerMtok": 8900000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-4.5v",
+      "provider": "zai",
+      "model": "glm-4.5v",
+      "contextWindow": 128000,
+      "maxOutputTokens": 32000,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": false,
+        "reasoning": false
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 600000,
+        "outputMicroUsdPerMtok": 1800000,
+        "cacheReadMicroUsdPerMtok": null,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-4.6",
+      "provider": "zai",
+      "model": "glm-4.6",
+      "contextWindow": 200000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 600000,
+        "outputMicroUsdPerMtok": 2200000,
+        "cacheReadMicroUsdPerMtok": 110000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-4.7",
+      "provider": "zai",
+      "model": "glm-4.7",
+      "contextWindow": 200000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 600000,
+        "outputMicroUsdPerMtok": 2200000,
+        "cacheReadMicroUsdPerMtok": 110000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-5",
+      "provider": "zai",
+      "model": "glm-5",
+      "contextWindow": 200000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1000000,
+        "outputMicroUsdPerMtok": 3200000,
+        "cacheReadMicroUsdPerMtok": 200000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-5-code",
+      "provider": "zai",
+      "model": "glm-5-code",
+      "contextWindow": 200000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1200000,
+        "outputMicroUsdPerMtok": 5000000,
+        "cacheReadMicroUsdPerMtok": 300000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-5.1",
+      "provider": "zai",
+      "model": "glm-5.1",
+      "contextWindow": 200000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1400000,
+        "outputMicroUsdPerMtok": 4400000,
+        "cacheReadMicroUsdPerMtok": 260000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-5.2",
+      "provider": "zai",
+      "model": "glm-5.2",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1400000,
+        "outputMicroUsdPerMtok": 4400000,
+        "cacheReadMicroUsdPerMtok": 260000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-5.3",
+      "provider": "zai",
+      "model": "glm-5.3",
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": false,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 1400000,
+        "outputMicroUsdPerMtok": 4400000,
+        "cacheReadMicroUsdPerMtok": 260000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    },
+    {
+      "id": "zai:glm-5.3-flash",
+      "provider": "zai",
+      "model": "glm-5.3-flash",
+      "contextWindow": 1048576,
+      "maxOutputTokens": 128000,
+      "capabilities": {
+        "vision": true,
+        "pdf": false,
+        "tools": true,
+        "structuredOutput": false,
+        "promptCaching": true,
+        "reasoning": true
+      },
+      "prices": {
+        "inputMicroUsdPerMtok": 150000,
+        "outputMicroUsdPerMtok": 500000,
+        "cacheReadMicroUsdPerMtok": 30000,
+        "cacheWriteMicroUsdPerMtok": null
+      },
+      "tiers": []
+    }
+  ]
+}

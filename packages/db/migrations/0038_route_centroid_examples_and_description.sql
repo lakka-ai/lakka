@@ -1,0 +1,2 @@
+ALTER TABLE "route_centroids" DROP CONSTRAINT "route_centroids_source_check";--> statement-breakpoint
+ALTER TABLE "route_centroids" ADD CONSTRAINT "route_centroids_source_check" CHECK (("route_centroids"."source" in ('examples', 'examples_and_description') and "route_centroids"."example_count" > 0) or ("route_centroids"."source" = 'description' and "route_centroids"."example_count" = 0));

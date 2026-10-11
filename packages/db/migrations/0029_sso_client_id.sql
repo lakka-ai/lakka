@@ -1,0 +1,1 @@
+ALTER TABLE "sso_provider_policies" ADD COLUMN "client_id" text;

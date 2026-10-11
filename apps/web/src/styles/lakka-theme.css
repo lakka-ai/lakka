@@ -1,0 +1,227 @@
+/*
+  Lakka theme for HeroUI v3, Spruce palette.
+  Load after the HeroUI styles import. Values are hex so contrast ratios can be
+  checked with any tool; HeroUI accepts any CSS color here.
+  Contrast ratios in the design canvas were computed with the WCAG 2.1 formula.
+  Soft variants are set by hand because HeroUI derives them with color-mix(),
+  and the derived foregrounds were not checked for 4.5:1.
+*/
+
+:root,
+.light,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Surfaces */
+  --background: #F3F5F4;
+  --foreground: #212423;
+  --surface: #FFFFFF;
+  --surface-foreground: var(--foreground);
+  --surface-secondary: #EFF0F0;
+  --surface-secondary-foreground: var(--foreground);
+  --surface-tertiary: #E6E8E7;
+  --surface-tertiary-foreground: var(--foreground);
+  --overlay: #FFFFFF;
+  --overlay-foreground: var(--foreground);
+  --backdrop: rgba(33, 36, 35, 0.55);
+
+  /* Text and lines */
+  --muted: #5D615F;
+  --border: #DEE1E0;
+  --separator: #E6E8E7;
+  --link: #2A5245;
+
+  /* Neutral buttons, segments */
+  --default: #E6E8E7;
+  --default-foreground: #212423;
+  --segment: #FFFFFF;
+  --segment-foreground: #212423;
+
+  /* Brand */
+  --accent: #2A5245;
+  --accent-foreground: #FFFFFF;
+  --accent-soft: #E2EDE8;
+  --accent-soft-foreground: #2A5245;
+  /* Brand dot in the wordmark. Decorative only: never text, never a state */
+  --lk-cloudberry: #E3A33F;
+
+  /* Status */
+  --success: #2F6B50;
+  --success-foreground: #FFFFFF;
+  --success-soft: #E2EFE7;
+  --success-soft-foreground: #285D45;
+  --warning: #8A5D0C;
+  --warning-foreground: #FFFFFF;
+  --warning-soft: #FBF1DC;
+  --warning-soft-foreground: #7A520A;
+  --danger: #B03A2D;
+  --danger-foreground: #FFFFFF;
+  --danger-soft: #FBE9E6;
+  --danger-soft-foreground: #A03427;
+
+  /* Fields: a visible border so inputs pass WCAG 1.4.11 (3:1) */
+  --field-background: #FFFFFF;
+  --field-foreground: #212423;
+  --field-placeholder: #5D615F;
+  --field-border: #838886;
+  --field-border-width: 1px;
+
+  /* Focus: blue, not spruce, so the ring never blends into a primary button */
+  --focus: #2F5B8A;
+  --ring-offset-width: 2px;
+
+  /* Shape */
+  --radius: 0.5rem;
+  --field-radius: 0.5rem;
+
+  /* Elevation: borders first, shadows only for things that float */
+  --surface-shadow: 0 1px 2px 0 rgba(16, 19, 18, 0.06);
+  --overlay-shadow: 0 4px 12px 0 rgba(16, 19, 18, 0.10), 0 16px 32px 0 rgba(16, 19, 18, 0.10);
+  --field-shadow: none;
+
+  /* Lakka semantics: money */
+  --lk-money-healthy: var(--success);
+  --lk-money-healthy-soft: var(--success-soft);
+  --lk-money-low: var(--warning);
+  --lk-money-low-soft: var(--warning-soft);
+  --lk-money-exhausted: var(--danger);
+  --lk-money-exhausted-soft: var(--danger-soft);
+  --lk-meter-track: #E6E8E7;
+
+  /* Lakka semantics: why this model */
+  --lk-decision-routed: #2A5245;
+  --lk-decision-routed-soft: #E2EDE8;
+  --lk-decision-chosen: #212423;
+  --lk-decision-chosen-soft: #E6E8E7;
+  --lk-decision-default: #5D615F;
+  --lk-decision-default-soft: #EFF0F0;
+  --lk-decision-fallback: var(--warning-soft-foreground);
+  --lk-decision-fallback-soft: var(--warning-soft);
+  --lk-decision-refused: var(--danger-soft-foreground);
+  --lk-decision-refused-soft: var(--danger-soft);
+
+  /* Decorative bars in tables (aria-hidden, no contrast rule applies) */
+  --lk-bar: #8DB3A4;
+
+  /* Edges and tracks for low and used-up states */
+  --lk-warning-edge: #E3C17E;
+  --lk-warning-track: #F0E3C4;
+  --lk-danger-edge: #E9B3AA;
+  --lk-danger-track: #F6D5D0;
+
+  /* Code blocks in chat and traces */
+  --lk-code-background: #EFF0F0;
+
+  /* Optional spend chart (a table view always exists) */
+  --lk-chart: #2A5245;
+  --lk-chart-grid: #E6E8E7;
+
+  /* Trace timeline bars (aria-hidden, times are text) */
+  --lk-trace-run: #2A5245;
+  --lk-trace-wait: #C7CAC9;
+}
+
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: #171918;
+  --foreground: #EAECEB;
+  --surface: #202221;
+  --surface-foreground: var(--foreground);
+  --surface-secondary: #282B29;
+  --surface-secondary-foreground: var(--foreground);
+  --surface-tertiary: #303331;
+  --surface-tertiary-foreground: var(--foreground);
+  --overlay: #282B29;
+  --overlay-foreground: var(--foreground);
+  --backdrop: rgba(0, 0, 0, 0.65);
+
+  --muted: #A7AAA8;
+  --border: #353937;
+  --separator: #303331;
+  --link: #9CCBB8;
+
+  --default: #303331;
+  --default-foreground: #EAECEB;
+  --segment: #303331;
+  --segment-foreground: #EAECEB;
+
+  --accent: #9CCBB8;
+  --accent-foreground: #171918;
+  --accent-soft: #1F3A31;
+  --accent-soft-foreground: #9CCBB8;
+  --lk-cloudberry: #EDB45A;
+
+  --success: #7CC4A0;
+  --success-foreground: #171918;
+  --success-soft: #1F3A2D;
+  --success-soft-foreground: #7CC4A0;
+  --warning: #E0A64A;
+  --warning-foreground: #171918;
+  --warning-soft: #33291A;
+  --warning-soft-foreground: #E0A64A;
+  --danger: #E8705F;
+  --danger-foreground: #171918;
+  --danger-soft: #3A1D19;
+  --danger-soft-foreground: #E8705F;
+
+  --field-background: #202221;
+  --field-foreground: #EAECEB;
+  --field-placeholder: #A7AAA8;
+  --field-border: #777C7A;
+
+  --focus: #8DB8E8;
+
+  --surface-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --overlay-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.45), 0 16px 32px 0 rgba(0, 0, 0, 0.45);
+
+  --lk-meter-track: #303331;
+
+  --lk-decision-routed: #9CCBB8;
+  --lk-decision-routed-soft: #1F3A31;
+  --lk-decision-chosen: #EAECEB;
+  --lk-decision-chosen-soft: #303331;
+  --lk-decision-default: #A7AAA8;
+  --lk-decision-default-soft: #282B29;
+
+  --lk-bar: #4E7D6C;
+
+  --lk-warning-edge: #5A4718;
+  --lk-warning-track: #4A3C18;
+  --lk-danger-edge: #5C2A24;
+  --lk-danger-track: #4A2420;
+
+  --lk-code-background: #171918;
+
+  --lk-chart: #9CCBB8;
+  --lk-chart-grid: #353937;
+
+  /* Not drawn in dark on the canvas: check these on the trace screen */
+  --lk-trace-run: #9CCBB8;
+  --lk-trace-wait: #515453;
+}
+
+/* Type. Fonts are bundled with the app (OFL licensed), never loaded from a CDN. */
+:root {
+  --font-sans: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: Newsreader, Georgia, "Times New Roman", serif;
+  --font-mono: "Atkinson Hyperlegible Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* Amounts, token counts and durations line up in columns */
+.lk-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+  Selected pill (segmented Tabs): a fill change alone is about 1.2:1 against
+  the track, which fails WCAG 1.4.11. Mark the selected pill with an inset
+  outline in --muted and bold text. Apply this to HeroUI Tabs in the
+  pill style; adjust the selector to the class names your HeroUI version uses.
+*/
+.lk-pill[aria-selected="true"],
+.lk-pill[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 1px var(--muted);
+  font-weight: 600;
+}

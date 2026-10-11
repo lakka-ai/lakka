@@ -1,0 +1,39 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.output/
+.tanstack/
+.vinxi/
+*.tsbuildinfo
+storybook-static/
+
+# test output
+coverage/
+test-results/
+playwright-report/
+test/e2e/.auth/
+test/compat/.state.json
+
+# classifier model files: fetched by `pnpm models:fetch`, never committed
+models/*
+!models/manifest.json
+!models/reference/
+!models/licenses/
+
+# local environment
+.dev-secrets/
+.env
+.env.*
+!.env.example
+
+# editors and OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# project site (VitePress)
+apps/site/.vitepress/cache/
+apps/site/.vitepress/dist/

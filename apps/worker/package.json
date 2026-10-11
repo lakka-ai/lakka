@@ -1,0 +1,16 @@
+{
+  "name": "@lakka/worker",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch --env-file=../../docker/dev.env src/main.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@lakka/contracts": "workspace:*",
+    "@lakka/core": "workspace:*",
+    "@lakka/db": "workspace:*"
+  }
+}

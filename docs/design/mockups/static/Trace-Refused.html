@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request trace, refused</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500;600&amp;family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap" rel="stylesheet" data-dc-tpl="1">
+<style data-dc-tpl="2">
+body{margin:0}
+.lk{--accent:#2A5245;--focus:#2F5B8A;--surface-tertiary:#E6E8E7;--lk-cloudberry:#E3A33F;--background:#F3F5F4;--foreground:#212423;--surface:#FFFFFF;--surface-secondary:#EFF0F0;--muted:#5D615F;--border:#DEE1E0;--separator:#E6E8E7;--link:#2A5245;--success:#2F6B50;--success-soft:#E2EFE7;--danger:#B03A2D;--danger-soft:#FBE9E6;--danger-soft-foreground:#A03427;--danger-edge:#E9B3AA;--run:#2A5245;font-family:"Atkinson Hyperlegible Next",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--foreground);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.lk,.lk *{box-sizing:border-box}
+.lk h1,.lk h2,.lk p,.lk ol,.lk dl,.lk dd{margin:0}
+.lk ol{padding:0;list-style:none}
+.mono{font-family:"Atkinson Hyperlegible Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+.num{font-variant-numeric:tabular-nums}
+.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.i14{width:14px;height:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 8px;border-radius:999px;border:0;font-family:inherit;font-size:12px;font-weight:500;line-height:1;white-space:nowrap}
+.desc{font-size:13px;color:var(--muted)}
+.link{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;flex-shrink:0}
+.step{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:12px 20px 12px 16px;border-top:1px solid var(--separator)}
+.step:first-child{border-top:0}
+.dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:4px}
+.sb{font:inherit;color:inherit;background:none;border:0;padding:2px 0;width:100%;display:grid;grid-template-columns:minmax(0,1fr) 220px 72px;gap:16px;align-items:center;cursor:pointer;text-align:left}
+.nm{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px}
+.oc{font-weight:400;color:var(--muted);font-size:14px}
+.wf{position:relative;height:8px;background:var(--surface-secondary);border-radius:2px}
+.wf span{position:absolute;top:0;bottom:0;border-radius:2px;min-width:3px}
+.det{margin-top:10px;padding:14px 16px;border-radius:10px;background:var(--background);border:1px solid var(--border);display:flex;flex-direction:column;gap:12px}
+/* States, one pattern everywhere */
+.link{padding-block:4px}
+button.chip{cursor:pointer}
+.btn:hover,.navt:hover{background-color:var(--surface-tertiary)}
+.btn-primary:hover{background:var(--accent);opacity:.9}
+.btn-danger:hover{opacity:.9}
+.btn:active{opacity:.8}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+[aria-disabled="true"],:disabled{opacity:.5;cursor:not-allowed}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div id="dc-root"><div class="sc-host"><div class="lk" style="width: 1440px; height: 520px; background: var(--background); padding: 40px 64px; display: flex; flex-direction: column; gap: 20px;"><nav aria-label="Breadcrumb"><ol style="display: flex; gap: 8px; font-size: 14px; align-items: center;"><li><a class="link" href="#">Requests</a></li><li aria-hidden="true" class="desc">/</li><li aria-current="page">Sep 28, 14:21:33</li></ol></nav><header style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;"><div style="display: flex; flex-direction: column; gap: 8px;"><h1 style="font-family: Newsreader, Georgia, &quot;Times New Roman&quot;, serif; font-size: 30px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.2;">Request trace</h1><p style="font-size: 15px; max-width: 760px;">Refused before any model was called. Lakka could not check the budgets, and it never sends a request it cannot price and hold. Nothing was charged.</p></div><span class="chip" style="background: var(--danger-soft); color: var(--danger-soft-foreground);"><svg class="i i14" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M6 6l12 12"></path></svg>Refused</span></header><section class="card" aria-label="Steps" style="overflow: hidden; max-width: 1000px;"><ol><li class="step"><span class="dot" aria-hidden="true" style="background: var(--success-soft); color: var(--success);"><svg class="i" viewBox="0 0 24 24" style="width: 12px; height: 12px; stroke-width: 2.5;"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><button class="sb" aria-expanded="false"><span class="nm"><svg class="i i14" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>Checking access<span class="oc">Allowed</span></span><span class="wf" aria-hidden="true"><span style="left: 0px; width: 0.2%; background: var(--run);"></span></span><span class="num desc" style="text-align: right;">3 ms</span></button></li><li class="step"><span class="dot" aria-hidden="true" style="background: var(--success-soft); color: var(--success);"><svg class="i" viewBox="0 0 24 24" style="width: 12px; height: 12px; stroke-width: 2.5;"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><button class="sb" aria-expanded="false"><span class="nm"><svg class="i i14" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>Choosing the model<span class="oc">Default model, no route matched</span></span><span class="wf" aria-hidden="true"><span style="left: 0.2%; width: 0.5%; background: var(--run);"></span></span><span class="num desc" style="text-align: right;">11 ms</span></button></li><li class="step"><span class="dot" aria-hidden="true" style="background: var(--danger-soft); color: var(--danger);"><svg class="i" viewBox="0 0 24 24" style="width: 12px; height: 12px; stroke-width: 2.5;"><path d="M6 6l12 12M18 6 6 18"></path></svg></span><div><button class="sb" aria-expanded="true"><span class="nm"><svg class="i i14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>Holding the budget<span class="oc" style="color: var(--danger-soft-foreground);">Could not check, refused</span></span><span class="wf" aria-hidden="true"><span style="left: 0.7%; width: 99.3%; background: var(--danger);"></span></span><span class="num desc" style="text-align: right; font-weight: 600; color: var(--foreground);">2.0 s</span></button><div class="det" style="border-color: var(--danger-edge);"><p style="font-size: 14px;">The budget store did not answer within 2 seconds, so the request was refused. The model was never called.</p><p class="desc" style="font-size: 13px;">To check: open <a class="link" href="#">Diagnostics</a> to see whether the budget store is reachable. Other requests at the same time were refused the same way.</p></div></div></li></ol></section></div></div></div>
+</body>
+</html>

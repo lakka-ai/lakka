@@ -1,0 +1,85 @@
+diff --git a/dist/client/theme-default/components/VPLocalSearchBox.vue b/dist/client/theme-default/components/VPLocalSearchBox.vue
+index 2ee186c1fe2625304f603ec4ef6e5f44f42209fe..2612d02ef8c685350b345e1a0358ccf780841741 100644
+--- a/dist/client/theme-default/components/VPLocalSearchBox.vue
++++ b/dist/client/theme-default/components/VPLocalSearchBox.vue
+@@ -26,11 +26,14 @@ if (import.meta.hot) {
+ 	});
+ }
+ const vitePressData = useData();
++// What had focus when search opened, the search button as a rule: focus goes back there on close.
++const opener = typeof document === "undefined" ? null : document.activeElement;
+ const { activate } = useFocusTrap(el, {
+ 	immediate: true,
+ 	allowOutsideClick: true,
+ 	clickOutsideDeactivates: true,
+-	escapeDeactivates: true
++	escapeDeactivates: true,
++	setReturnFocus: () => opener instanceof HTMLElement && opener.isConnected ? opener : false
+ });
+ const { localeIndex, theme } = vitePressData;
+ const isSearchIndexLoading = ref(false);
+@@ -336,10 +339,8 @@ function onMouseMove(e) {
+   <Teleport to="body">
+     <div
+       ref="el"
+-      role="button"
+-      :aria-owns="results?.length ? 'localsearch-list' : undefined"
+-      aria-expanded="true"
+-      aria-haspopup="listbox"
++      role="dialog"
++      aria-modal="true"
+       aria-labelledby="localsearch-label"
+       class="VPLocalSearchBox"
+     >
+@@ -429,11 +430,12 @@ function onMouseMove(e) {
+           <li
+             v-for="(p, index) in results"
+             :key="p.id"
+-            :id="'localsearch-item-' + index"
+-            :aria-selected="selectedIndex === index ? 'true' : 'false'"
+-            role="option"
++            role="none"
+           >
+             <a
++              :id="'localsearch-item-' + index"
++              :aria-selected="selectedIndex === index ? 'true' : 'false'"
++              role="option"
+               :href="withBase(p.id)"
+               class="result"
+               :class="{ selected: selectedIndex === index }"
+@@ -479,22 +481,28 @@ function onMouseMove(e) {
+ 
+         <div class="search-keyboard-shortcuts">
+           <span>
+-            <kbd :aria-label="translate('modal.footer.navigateUpKeyAriaLabel')">
+-              <span class="vpi-arrow-up navigate-icon" />
++            <kbd>
++              <span class="vpi-arrow-up navigate-icon" aria-hidden="true" />
++              <span class="visually-hidden">{{ translate('modal.footer.navigateUpKeyAriaLabel') }}</span>
+             </kbd>
+-            <kbd :aria-label="translate('modal.footer.navigateDownKeyAriaLabel')">
+-              <span class="vpi-arrow-down navigate-icon" />
++            <kbd>
++              <span class="vpi-arrow-down navigate-icon" aria-hidden="true" />
++              <span class="visually-hidden">{{ translate('modal.footer.navigateDownKeyAriaLabel') }}</span>
+             </kbd>
+             {{ translate("modal.footer.navigateText") }}
+           </span>
+           <span>
+-            <kbd :aria-label="translate('modal.footer.selectKeyAriaLabel')">
+-              <span class="vpi-corner-down-left navigate-icon" />
++            <kbd>
++              <span class="vpi-corner-down-left navigate-icon" aria-hidden="true" />
++              <span class="visually-hidden">{{ translate('modal.footer.selectKeyAriaLabel') }}</span>
+             </kbd>
+             {{ translate("modal.footer.selectText") }}
+           </span>
+           <span>
+-            <kbd :aria-label="translate('modal.footer.closeKeyAriaLabel')">esc</kbd>
++            <kbd>
++              <span aria-hidden="true">esc</span>
++              <span class="visually-hidden">{{ translate('modal.footer.closeKeyAriaLabel') }}</span>
++            </kbd>
+             {{ translate("modal.footer.closeText") }}
+           </span>
+         </div>

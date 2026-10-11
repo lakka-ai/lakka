@@ -1,0 +1,4 @@
+# Backups written by `docker compose run --rm backup` (ADR 0084). They hold every secret
+# of the instance: never commit them.
+*
+!.gitignore

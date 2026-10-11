@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["es2024", "dom", "dom.iterable"],
+    "types": ["node", "vitepress/client"],
+    "module": "esnext",
+    "moduleResolution": "bundler"
+  },
+  "include": [".vitepress/config.ts", ".vitepress/theme"]
+}

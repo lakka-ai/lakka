@@ -1,0 +1,1249 @@
+@import 'tailwindcss';
+@import '@heroui/styles';
+
+/*
+ * The approved theme (docs/design/theme), copied here because the image build does not see
+ * docs/. test/theme.test.ts keeps the two identical. It sets the HeroUI variables for light
+ * and dark with contrast measured for WCAG 2.1 AA (NF-A1), so it loads after HeroUI's own.
+ */
+@import './lakka-theme.css';
+
+/*
+ * Bundled with the app, never from a CDN (NF-P1). All three are OFL-1.1. Newsreader is only
+ * ever regular (tokens.md), so it needs one weight.
+ */
+@import '@fontsource/atkinson-hyperlegible-next/400.css';
+@import '@fontsource/atkinson-hyperlegible-next/500.css';
+@import '@fontsource/atkinson-hyperlegible-next/600.css';
+@import '@fontsource/atkinson-hyperlegible-next/700.css';
+@import '@fontsource/atkinson-hyperlegible-mono/400.css';
+@import '@fontsource/atkinson-hyperlegible-mono/500.css';
+@import '@fontsource/newsreader/400.css';
+
+/*
+ * Corners from docs/design/docs/tokens.md: fields and buttons 8px, cards and popovers 12px,
+ * dialogs 16px, chips full, alerts 10px. HeroUI sets its own in its component styles, which
+ * the theme's variables do not reach. These sit in the same layer, after HeroUI's, so they win
+ * over its defaults and a utility class on one element still wins over them.
+ */
+/*
+ * Text is drawn as the boards draw it: greyscale antialiasing, which on macOS renders lighter
+ * than the default subpixel smoothing. Without it every weight reads a step heavier.
+ */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .button,
+  .toggle-button {
+    border-radius: var(--radius-lg);
+  }
+  /*
+   * The button sizes, from tokens (HeroUI makes each one step taller on a phone). md is the
+   * design's button (patterns.md, Controls; ADR 0108): 32px, 14px in, with 14px text at every
+   * width, phone included, where body text steps up to 15px. lg is the main action of a page,
+   * card, list or empty state, and a button beside a field (ADR 0108), so it is a field's height:
+   * 40px, and 44px on a phone (ADR 0111). sm keeps the scale below md. An icon-only button is as
+   * wide as its size is tall. Toggle buttons have the same heights; their md is the segmented
+   * control's button, 12px in with small text. A button that reads as a link keeps body text.
+   */
+  :root {
+    --lk-button-height-sm: 1.75rem;
+    --lk-button-height-md: 2rem;
+    --lk-button-height-lg: var(--lk-field-height);
+  }
+  .button--sm {
+    height: var(--lk-button-height-sm);
+    padding-inline: 10px;
+    font-size: var(--lk-text-small);
+  }
+  .button--md {
+    height: var(--lk-button-height-md);
+    padding-inline: 14px;
+    font-size: 0.875rem;
+  }
+  .button--lg {
+    height: var(--lk-button-height-lg);
+    padding-inline: 16px;
+    font-size: var(--lk-text-body);
+  }
+  .button--icon-only.button--sm {
+    width: var(--lk-button-height-sm);
+    padding: 0;
+  }
+  .button--icon-only.button--md {
+    width: var(--lk-button-height-md);
+    padding: 0;
+  }
+  .button--icon-only.button--lg {
+    width: var(--lk-button-height-lg);
+    padding: 0;
+  }
+  /*
+   * A button that shows only its icon below 1024px and its words from there (the composer's
+   * Attach, Send and Stop): below 1024px it takes its size's icon-only shape.
+   */
+  @media (width < 64rem) {
+    .button--sm.lk-icon-only-phone {
+      width: var(--lk-button-height-sm);
+      padding: 0;
+    }
+    .button--md.lk-icon-only-phone {
+      width: var(--lk-button-height-md);
+      padding: 0;
+    }
+    .button--lg.lk-icon-only-phone {
+      width: var(--lk-button-height-lg);
+      padding: 0;
+    }
+  }
+  .toggle-button--sm {
+    height: var(--lk-button-height-sm);
+    padding-inline: 10px;
+    font-size: var(--lk-text-small);
+  }
+  .toggle-button--md {
+    height: var(--lk-button-height-md);
+    padding-inline: 12px;
+    font-size: var(--lk-text-small);
+  }
+  .toggle-button--lg {
+    height: var(--lk-button-height-lg);
+    padding-inline: 16px;
+    font-size: var(--lk-text-body);
+  }
+  /*
+   * Icons are 16px, and 18px below 1024px (phone.md). Icon's default size reads it; an icon
+   * that is smaller on purpose, in a chip or an inline row, names its own size.
+   */
+  :root {
+    --lk-icon: 1rem;
+  }
+  @media (width < 64rem) {
+    :root {
+      --lk-icon: 1.125rem;
+    }
+  }
+  /*
+   * Fields, selects, input groups and search boxes are 40px, 44px on a phone (patterns.md,
+   * Controls; phone.md). Below 640px HeroUI keeps their text at 16px, so a phone does not zoom
+   * in when one takes focus.
+   */
+  :root {
+    --lk-field-height: 2.5rem;
+  }
+  @media (width < 64rem) {
+    :root {
+      --lk-field-height: 2.75rem;
+    }
+  }
+  input.input,
+  .input-group,
+  .search-field__group,
+  .select__trigger,
+  .autocomplete__trigger {
+    min-height: var(--lk-field-height);
+  }
+  /*
+   * HeroUI also rings an invalid field with a 1px --danger outline, which made the app's 2px
+   * edge (below, outside the layers) 3px. It goes here, inside the layer, so the focus ring,
+   * which is outside the layers, still shows on a focused field.
+   */
+  .input[data-invalid='true'],
+  .textarea[data-invalid='true'],
+  .input-group[data-invalid='true'],
+  .search-field__group[data-invalid='true'],
+  .select[data-invalid='true'] .select__trigger {
+    outline: none;
+  }
+  /*
+   * The chat header's two controls, the model picker and the cap meter, are one height: the
+   * meter's two rows (what is left, and its bar) inside 8px of padding and its border.
+   */
+  :root {
+    --lk-chat-control-height: 3.125rem;
+  }
+  /*
+   * The shell's widths from 1024px (ADR 0090, ADR 0107): the side menu; the rail, 64px inside its
+   * 1px border, so its 40px items keep the full menu's 12px on either side; and chat's
+   * conversation column, wider from 1280px. The chat header is 64px above its border, so its row
+   * lines up with the side menu's brand row and the conversation list's heading.
+   */
+  :root {
+    --lk-menu-width: 232px;
+    --lk-rail-width: 65px;
+    --lk-conversations-width: 232px;
+    --lk-header-height: 65px;
+  }
+  @media (width >= 80rem) {
+    :root {
+      --lk-conversations-width: 288px;
+    }
+  }
+  .lk-chat-control {
+    height: var(--lk-chat-control-height);
+  }
+  /*
+   * Field help is the small style (13px, 14 on a phone), muted, as .desc is on the boards;
+   * HeroUI's Description is 12px. A field's error message is the same size in --danger, under
+   * the field (patterns.md, States). A radio's own description and error are sized by a more
+   * specific HeroUI rule (text-xs, under the label), so they are named here too.
+   */
+  .description,
+  .field-error,
+  .radio > :is([data-slot='description'], [data-slot='field-error']) {
+    font-size: var(--lk-text-small);
+    line-height: var(--lk-leading-small);
+  }
+  .field-error {
+    padding-inline: 0;
+  }
+  .description {
+    font-weight: 400;
+  }
+  /*
+   * A disabled radio is dimmed once, its control and label at 50 percent (patterns.md, States).
+   * HeroUI dims the whole radio and then its description again, to 25 percent, where the
+   * description says why the option cannot be chosen. That has to be read, so it is not dimmed
+   * (ADR 0112).
+   */
+  .radio:is(:disabled, [data-disabled='true'], [aria-disabled='true']) {
+    opacity: 1;
+  }
+  .radio:is(:disabled, [data-disabled='true'], [aria-disabled='true']) > .radio__content {
+    opacity: var(--disabled-opacity);
+  }
+  .radio:is(:disabled, [data-disabled='true'], [aria-disabled='true'])
+    :is([data-slot='description'], [data-slot='field-error'], .label) {
+    opacity: 1;
+  }
+  /* An option's label beside its box or dot is body text, not a 500 field label. */
+  .checkbox__content,
+  .radio__content {
+    font-size: var(--lk-text-body);
+    line-height: var(--lk-leading-body);
+    font-weight: 400;
+  }
+  /*
+   * The focus ring (patterns.md, States), for what HeroUI does not ring itself: links, scroll
+   * areas, code blocks. 2px --focus, 2px out, on keyboard focus only. lk-focus-inset draws it 2px
+   * inside instead, for rows 2px apart or touching (the side menu, the conversation list), so a
+   * ring never covers a neighbour.
+   */
+  :is(.lk-focus, .lk-link, .lk-table-scroll, .lk-skip-link):is(
+    :focus-visible,
+    [data-focus-visible='true']
+  ) {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .lk-focus-inset:is(:focus-visible, [data-focus-visible='true']) {
+    outline: 2px solid var(--focus);
+    outline-offset: -2px;
+  }
+  /*
+   * A skip link: hidden until it takes keyboard focus, then a small box over the page's top left
+   * corner, with the focus ring.
+   */
+  .lk-skip-link {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 50;
+    padding: 0.5rem;
+    border-radius: var(--radius-lg);
+    background-color: var(--surface);
+  }
+  .lk-skip-link:not(:focus) {
+    @apply sr-only;
+  }
+  /*
+   * Links (patterns.md, States and Controls): the link color, underlined, the line 2px thick on
+   * hover, and the focus ring. A link that stands alone, such as View trace or Show all, gets
+   * 4px of block padding (lk-link-alone), so its hit area is at least 24px tall without moving
+   * its text. A button that reads as a link (Show all, Show routes) drops the button's height,
+   * padding, fill and weight.
+   */
+  .lk-link {
+    color: var(--link);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    border-radius: 2px;
+  }
+  .lk-link:hover {
+    text-decoration-thickness: 2px;
+  }
+  .lk-link-alone {
+    padding-block: 4px;
+  }
+  .button.lk-link {
+    --button-bg: transparent;
+    --button-bg-hover: transparent;
+    --button-bg-pressed: transparent;
+    --button-fg: var(--link);
+    height: auto;
+    min-height: 0;
+    padding: 4px 0;
+    font-size: var(--lk-text-body);
+    font-weight: 400;
+  }
+  /*
+   * A danger text button (patterns.md, Pattern 13; Remove, Revoke, Delete in rows): a ghost
+   * button, of whatever size, in --danger-soft-foreground, that takes the danger soft fill on
+   * hover.
+   */
+  .button--ghost.lk-danger-text {
+    --button-fg: var(--danger-soft-foreground);
+    --button-bg-hover: var(--danger-soft);
+    --button-bg-pressed: var(--danger-soft);
+  }
+  /*
+   * A button on an inverse surface, such as setup's command block: outlined in the text color
+   * of that surface, with no fill on hover, where the usual fills would not read.
+   */
+  .button.lk-on-inverse {
+    --button-fg: var(--background);
+    --button-bg-hover: transparent;
+    --button-bg-pressed: transparent;
+    border-color: currentColor;
+  }
+  /* The open page tab is semibold, as on the boards. */
+  .label {
+    font-size: var(--lk-text-label);
+    line-height: var(--lk-leading-label);
+  }
+  .tabs--secondary > .tabs__list-container .tabs__tab[data-selected='true'] {
+    font-weight: 600;
+  }
+  /*
+   * Cards and popovers are 12px. HeroUI rounds them, and every other overlay, with
+   * min(32px, var(--radius-3xl)), read when the page runs; the dialogs and alerts that also read
+   * it set their own corners below. Utilities that @apply rounded-3xl were compiled with
+   * HeroUI's value, so this does not reach them.
+   */
+  :root {
+    --radius-3xl: var(--radius-xl);
+  }
+  /*
+   * A card (tokens.md): a 1px --border edge, 12px corners and the --surface fill, flat. A card in
+   * a low or used-up state names its edge color with a utility, which wins over this.
+   */
+  .lk-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background-color: var(--surface);
+  }
+  /*
+   * A popover wider than a phone (the caps, why this model, the chat model picker) keeps the
+   * phone's 16px gutter on either side.
+   */
+  .lk-popover-fit {
+    max-width: calc(100vw - 2rem);
+  }
+  /* A highlighted menu or list item has the same corners as its popover. */
+  .menu-item,
+  .list-box-item {
+    border-radius: var(--radius-xl);
+  }
+  /*
+   * A menu's checkmark sits at the end of the item, where a select's does (the workspace
+   * switcher). HeroUI puts it at the start of menu items only.
+   */
+  .menu-item:has(.menu-item__indicator):not([data-has-submenu='true']) {
+    padding-inline: 0.5rem 1.75rem;
+  }
+  .menu-item:not([data-has-submenu='true']) .menu-item__indicator {
+    inset-inline: auto 0.5rem;
+  }
+  .modal__dialog,
+  .alert-dialog__dialog {
+    border-radius: var(--radius-2xl);
+  }
+  .alert {
+    border-radius: var(--radius-note);
+  }
+  /*
+   * Newsreader (--font-serif), always regular, for page titles, the sign-in and setup headings,
+   * the conversation title and the Spent headline (docs/design/docs/tokens.md, type scale): the
+   * title and display styles.
+   */
+  .lk-title {
+    font-family: var(--font-serif);
+    font-size: var(--lk-text-title);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: var(--lk-leading-title);
+  }
+  .lk-headline {
+    font-family: var(--font-serif);
+    font-size: var(--lk-text-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: var(--lk-leading-display);
+  }
+  /*
+   * The setup recovery key, shown once: larger mono with open letter spacing, as the
+   * Setup-2-Recovery board draws it, so it can be copied by hand. Not part of the type scale.
+   */
+  .lk-key {
+    font-family: var(--font-mono);
+    font-size: 17px;
+    line-height: 28px;
+    letter-spacing: 0.04em;
+  }
+  /*
+   * The md chip is the design's one chip (patterns.md, Controls): 24px, 12px 500 text, 8px in
+   * from each side, 6px to its icon, full corners; 28px with 13px text on a phone. Every chip
+   * uses it (StatusChip, and the decision chip through the same classes); HeroUI's sm and lg
+   * are left as they are. An outlined chip is a neutral role (StatusChip tone="outline").
+   */
+  :root {
+    --lk-chip-height-md: 24px;
+    --lk-chip-padding-md: 8px;
+    --lk-chip-text-md: 12px;
+  }
+  @media (width < 64rem) {
+    :root {
+      --lk-chip-height-md: 28px;
+      --lk-chip-padding-md: 10px;
+      --lk-chip-text-md: 13px;
+    }
+  }
+  .chip {
+    border-radius: 9999px;
+  }
+  .chip--md {
+    gap: 6px;
+    height: var(--lk-chip-height-md);
+    padding: 0 var(--lk-chip-padding-md);
+    font-size: var(--lk-chip-text-md);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  /* A button drawn as a chip (the decision chip) takes these too: they come after .button--md. */
+  .lk-chip-outline {
+    background-color: var(--surface);
+    color: var(--foreground);
+    box-shadow: inset 0 0 0 1px var(--field-border);
+  }
+  /*
+   * The md tag is the design's tag, a removable value such as an allowed domain or an alert
+   * threshold (patterns.md, Controls): 28px, 13px, full corners, with a 24 by 24 Remove button.
+   * Every tag outside a field uses it; the sm tag below sits inside one, and HeroUI's lg is left
+   * as it is. The default tag sits on the secondary surface, as drawn.
+   */
+  :root {
+    --lk-tag-height-md: 28px;
+    --lk-tag-remove-md: 24px;
+  }
+  .tag--default {
+    background-color: var(--surface-secondary);
+  }
+  .tag--md {
+    gap: 4px;
+    height: var(--lk-tag-height-md);
+    padding: 0 2px 0 10px;
+    border-radius: 9999px;
+    font-size: var(--lk-text-small);
+  }
+  .tag--md .tag__remove-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--lk-tag-remove-md);
+    height: var(--lk-tag-remove-md);
+    border-radius: 9999px;
+  }
+  .tag--md .tag__remove-button svg {
+    width: 12px;
+    height: 12px;
+  }
+  /*
+   * The sm tag is a value inside a field (the alert percentages, ADR 0109): it fills the field's
+   * content box, its height less 8px of padding and a 1px border on each side, so a field of tags
+   * is as tall as any other field. On a phone the field and its tags are a step larger.
+   */
+  :root {
+    --lk-tag-height-sm: 22px;
+    --lk-tag-remove-sm: 20px;
+    --lk-tag-text-sm: var(--lk-text-caption);
+  }
+  @media (width < 64rem) {
+    :root {
+      --lk-tag-height-sm: 26px;
+      --lk-tag-remove-sm: 24px;
+      --lk-tag-text-sm: var(--lk-text-small);
+    }
+  }
+  .tag--sm {
+    gap: 2px;
+    height: var(--lk-tag-height-sm);
+    padding: 0 1px 0 8px;
+    border-radius: 9999px;
+    font-size: var(--lk-tag-text-sm);
+  }
+  .tag--sm .tag__remove-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--lk-tag-remove-sm);
+    height: var(--lk-tag-remove-sm);
+    border-radius: 9999px;
+  }
+  .tag--sm .tag__remove-button svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  /*
+   * Pattern 13, the dialog anatomy, shared by form dialogs, confirmations and the one-time
+   * secret dialog (Modal and AlertDialog alike): a header with the title, a divider, the body,
+   * a divider, the footer with its buttons on the right. A destructive action sits bottom left.
+   * Every dialog is the lg size, which is 720px wide here (ADR 0108); HeroUI's is 512px. HeroUI
+   * sizes it with max-w-lg, read from --container-lg, which nothing else in the app uses.
+   */
+  :root {
+    --container-lg: 720px;
+  }
+  .lk-dialog {
+    padding: 0;
+    color: var(--foreground);
+  }
+  .lk-dialog-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 69px;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--separator);
+  }
+  .lk-dialog-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 20px 24px;
+    overflow-y: auto;
+    color: var(--foreground);
+  }
+  .lk-dialog-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 16px 24px 20px;
+    border-top: 1px solid var(--separator);
+  }
+  .lk-dialog-footer > [data-destructive] {
+    margin-inline-end: auto;
+  }
+  /*
+   * HeroUI spaces a dialog's parts with margins between siblings (8px above the body, 20px above
+   * the footer). Here the dividers and each part's padding do that, as Pattern 13 draws it.
+   */
+  .lk-dialog-header + .lk-dialog-body,
+  .lk-dialog-body + .lk-dialog-footer {
+    margin-top: 0;
+  }
+
+  /*
+   * Patterns 7 and 14, tables: body text, a --surface-secondary header row in caption-sized
+   * muted text (HeroUI's secondary table draws the header so), 20px at the outer edges, cells
+   * 10px 12px with a separator. `framed` is the inner table next to other content in a card: a
+   * border, 10px corners and the --surface background.
+   */
+  /*
+   * HeroUI sets text-sm on the table and on every cell, so the body style goes on the table and
+   * the cells inherit it: 14/22, and 15px on a phone.
+   */
+  .lk-table .table__content {
+    font-size: var(--lk-text-body);
+    line-height: var(--lk-leading-body);
+  }
+  .lk-table .table__column {
+    padding: 8px 12px;
+    white-space: nowrap;
+  }
+  .lk-table .table__column::after {
+    display: none;
+  }
+  .lk-table .table__cell {
+    padding: 10px 12px;
+    font-size: inherit;
+    line-height: inherit;
+    border-radius: 0;
+  }
+  /* As specific as HeroUI's secondary row rule, which draws a fainter line, and after it. */
+  .lk-table .table__row .table__cell {
+    border-bottom: 1px solid var(--separator);
+  }
+  .lk-table .table__row:last-child .table__cell {
+    border-bottom: 0;
+  }
+  .lk-table :is(.table__column, .table__cell):first-child {
+    padding-inline-start: 20px;
+  }
+  .lk-table :is(.table__column, .table__cell):last-child {
+    padding-inline-end: 20px;
+  }
+  @media (width < 64rem) {
+    /*
+     * On a phone a cell keeps its text on one line ("No cap", not "No" over "cap"), so each
+     * column is as wide as what it holds and a table wider than its card scrolls sideways in it.
+     */
+    .lk-table .table__cell {
+      white-space: nowrap;
+    }
+    /*
+     * The pinned first column stays in view while the rest scroll under it, so it has a width
+     * limit, about half the card, and its text ends in an ellipsis (TwoLine truncates each line).
+     */
+    .lk-pinned {
+      max-width: 10rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lk-table :is(.table__column, .table__cell):first-child {
+      padding-inline-start: 16px;
+    }
+    .lk-table :is(.table__column, .table__cell):last-child {
+      padding-inline-end: 16px;
+    }
+  }
+  .lk-table-framed {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-note);
+    background: var(--surface);
+  }
+  .lk-table-framed .table__column {
+    border-bottom: 1px solid var(--border);
+  }
+  /* Wide tables scroll inside their card, with the first column pinned. */
+  .lk-table-scroll {
+    overflow-x: auto;
+  }
+  .lk-table :is(.table__column, .table__cell):first-child {
+    position: sticky;
+    inset-inline-start: 0;
+    z-index: 1;
+  }
+  .lk-table .table__cell:first-child {
+    background: var(--surface);
+    white-space: nowrap;
+  }
+  /*
+   * HeroUI tints a hovered row with --default at half strength. The pinned cell keeps an opaque
+   * fill under that same tint, so the cells scrolling under it never show through.
+   */
+  @media (hover: hover) {
+    .lk-table .table__row:is(:hover, [data-hovered='true']) .table__cell:first-child {
+      background-color: var(--surface);
+      background-image: linear-gradient(
+        color-mix(in oklab, var(--default) 50%, transparent),
+        color-mix(in oklab, var(--default) 50%, transparent)
+      );
+    }
+  }
+  .lk-pinned {
+    display: block;
+  }
+  .lk-share-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+  .lk-share-amount {
+    min-width: 5.5rem;
+    text-align: end;
+  }
+  .lk-share-space {
+    flex: 0 0 13rem;
+  }
+  .lk-share {
+    display: block;
+    height: 8px;
+  }
+  .lk-share > span {
+    display: block;
+    height: 100%;
+    min-width: 3px;
+    border-radius: 2px;
+    background: var(--lk-bar);
+  }
+  @media (width < 40rem) {
+    .lk-share-space {
+      flex-basis: 6rem;
+    }
+  }
+
+  /*
+   * Pattern 12, settings rows. A row that is a field (UnitField or Select with `lk-setting`)
+   * is laid out by its own slots: label and description on the left, the control on the
+   * right; on a phone the control moves under them at full width. Checkbox rows keep their
+   * box on the right everywhere.
+   */
+  .lk-setting-row,
+  .lk-setting {
+    padding-block: 16px;
+    border-bottom: 1px solid var(--separator);
+  }
+  /* A setting's name is a body-sized semibold heading for its row, not a field label. */
+  .lk-setting-row .label,
+  .lk-setting .label {
+    font-size: var(--lk-text-body);
+    line-height: var(--lk-leading-body);
+    font-weight: 600;
+  }
+  .lk-setting {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'label control' 'desc control';
+    column-gap: 24px;
+    row-gap: 2px;
+    align-items: start;
+  }
+  .lk-setting > [data-slot='label'] {
+    grid-area: label;
+  }
+  .lk-setting > [data-slot='description'] {
+    grid-area: desc;
+  }
+  .lk-setting > :not([data-slot='label'], [data-slot='description']) {
+    grid-area: control;
+    justify-self: end;
+    width: 12.5rem;
+  }
+  /* A model select: names and ids are long, so it is wider than other controls, 280px as drawn. */
+  .lk-setting-wide > :not([data-slot='label'], [data-slot='description']) {
+    width: 17.5rem;
+  }
+  @media (width < 40rem) {
+    .lk-setting {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: 'label' 'desc' 'control';
+    }
+    .lk-setting > :not([data-slot='label'], [data-slot='description']) {
+      justify-self: stretch;
+      width: auto;
+      margin-top: 8px;
+    }
+  }
+
+  /*
+   * Pattern 15, underline tabs (PageTabs): 14px 500, 10px 12px, 4px apart over the 2px accent
+   * underline, so each is 44px tall; the open one is 600. Only the page's own tab list, as
+   * HeroUI scopes its rules: pill tabs inside a page tab's panel keep their 32px.
+   */
+  .tabs--secondary > .tabs__list-container .tabs__list {
+    gap: 4px;
+  }
+  .tabs--secondary > .tabs__list-container .tabs__tab {
+    height: auto;
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: var(--lk-text-body);
+  }
+  /*
+   * Pattern 15, pills and the segmented control (patterns.md, Controls): a --surface-secondary
+   * group with 2px padding, 2px gaps and 10px corners, around 32px buttons with 8px corners, 12px
+   * in from each side, in the text color. They scroll sideways in their own row on a phone.
+   */
+  .lk-pills {
+    align-self: flex-start;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-radius: var(--radius-note);
+    background-color: var(--surface-secondary);
+  }
+  .lk-pills,
+  .lk-pills .tabs__list {
+    gap: 2px;
+    padding: 2px;
+  }
+  .lk-pills .tabs__list {
+    padding: 0;
+  }
+  /*
+   * Pill tabs look and move as the toggle pills do: a button's corners, and the selected tab
+   * itself takes the surface fill and the theme's outline, which fade across in 100ms. HeroUI's
+   * sliding indicator is not used for pills; it slides from where it measured the old tab, which
+   * in a card header can be above the row.
+   */
+  .lk-pills .tabs__tab {
+    padding: 0 12px;
+    color: var(--foreground);
+    font-size: var(--lk-text-small);
+    border-radius: var(--radius-lg);
+    transition:
+      color 100ms var(--ease-out),
+      background-color 100ms var(--ease-out),
+      box-shadow 100ms var(--ease-out);
+  }
+  .lk-pills .tabs__tab[data-selected='true'] {
+    background-color: var(--surface);
+  }
+  /*
+   * Hover, as for any button (patterns.md, Hover): a pill that is not selected takes
+   * --surface-tertiary, tab or toggle alike. HeroUI fades a tab to 70 percent instead, and
+   * gives a toggle its own hover fill.
+   */
+  @media (hover: hover) {
+    .lk-pills .tabs__tab:not([data-selected='true'], [data-disabled='true']):hover,
+    .lk-pills .tabs__tab[data-hovered='true']:not([data-selected='true'], [data-disabled='true']) {
+      opacity: 1;
+      background-color: var(--surface-tertiary);
+    }
+  }
+  /* A pill tab's panel starts 16px under the pills, flush with the card's sides. */
+  .lk-pill-panel {
+    padding: 1rem 0 0;
+  }
+  /*
+   * In a list under a search field (the model picker), the focused option's ring is drawn inside
+   * it. HeroUI's outward ring, 2px out and 2px wide, ran into the search field's own ring above.
+   */
+  /*
+   * A list item's checkmark sits at its end, over what ends the row: a long model name or id, or
+   * the chat picker's icons. HeroUI's autocomplete list gives it no room. It takes no pointer, so
+   * while unseen it hides no tooltip, and the chosen row, where it shows, keeps it room.
+   */
+  .list-box-item__indicator {
+    pointer-events: none;
+  }
+  .autocomplete__popover [data-slot='list-box-item'][aria-selected='true'] {
+    padding-inline-end: 1.75rem;
+    background-color: var(--accent-soft);
+    color: var(--accent-soft-foreground);
+  }
+  .autocomplete__popover [data-slot='list-box-item'][data-focus-visible='true'] {
+    --tw-ring-inset: inset;
+    --tw-ring-offset-width: 0px;
+  }
+  /*
+   * A list's empty state (no model matches, a percentage the api would refuse) is muted text, as
+   * elsewhere. HeroUI's foreground at 60 percent is 4.2:1 on the popover, under AA's 4.5:1.
+   */
+  .autocomplete__popover [data-slot='empty-state'] {
+    color: var(--muted);
+  }
+  /*
+   * A disclosure trigger inside a bordered box (trace steps, a recorded prompt, a tool call):
+   * HeroUI's ring is drawn 2px outside the trigger, over the box's border or what sits under it.
+   * Inset, it stays inside; the trigger's corners follow the box's, 1px in.
+   */
+  .lk-inset-focus[data-focus-visible='true'] {
+    --tw-ring-inset: inset;
+    --tw-ring-offset-width: 0px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lk-pills .tabs__tab {
+      transition: none;
+    }
+  }
+  /*
+   * A card whose pills switch the table under them (Where the money went): the table runs edge
+   * to edge, and from 1024px the pills sit at the right of the card's title row, as drawn. The
+   * card is positioned so they can.
+   */
+  .lk-card-tabs > [data-slot='tabs-list-container'] {
+    margin-inline: 1.25rem;
+    /* The pills' own full width would count the margins in. */
+    max-width: calc(100% - 2.5rem);
+  }
+  @media (width >= 64rem) {
+    .lk-card-tabs > [data-slot='tabs-list-container'] {
+      position: absolute;
+      top: 1rem;
+      right: 0;
+    }
+    .lk-card-tabs > [data-slot='tabs-panel'] {
+      padding-top: 0;
+    }
+  }
+  /*
+   * A selected toggle pill looks like a selected tab pill: the surface, not the accent, in the
+   * text color. Its corners are a button's (the rule at the top).
+   */
+  .toggle-button.lk-pill {
+    --toggle-button-fg: var(--foreground);
+    --toggle-button-bg: transparent;
+    --toggle-button-bg-hover: var(--surface-tertiary);
+    --toggle-button-bg-pressed: var(--surface-tertiary);
+    --toggle-button-bg-selected: var(--surface);
+    --toggle-button-bg-selected-hover: var(--surface);
+    --toggle-button-bg-selected-pressed: var(--surface);
+    --toggle-button-fg-selected: var(--foreground);
+  }
+
+  /*
+   * Below 640px HeroUI's `auto` placement puts a dialog at the bottom; there it is a sheet
+   * (docs/design/docs/phone.md): full width, rounded on top only, with a decorative handle,
+   * and the Phone-Sheet board's tighter padding.
+   */
+  @media (width < 40rem) {
+    .lk-sheet {
+      padding: 0;
+    }
+    .lk-dialog {
+      width: 100%;
+      max-height: 92dvh;
+      border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+    }
+    .lk-dialog-header {
+      min-height: 0;
+      padding: 16px 16px 12px 20px;
+    }
+    .lk-dialog-body {
+      padding: 16px 20px;
+    }
+    .lk-dialog-footer {
+      padding: 12px 20px 28px;
+    }
+    .lk-dialog::before {
+      content: '';
+      align-self: center;
+      width: 36px;
+      height: 4px;
+      margin-top: 8px;
+      border-radius: 9999px;
+      background: var(--field-border);
+    }
+  }
+
+  /*
+   * Checkboxes are squares with small corners: 4px (tokens.md radius). HeroUI rounds them with
+   * rounded-md, three quarters of --radius, which on a 16px box reads as a radio button. The
+   * ::before is the fill shown when ticked, so it takes the same corners.
+   */
+  .checkbox__control,
+  .checkbox__control::before {
+    border-radius: var(--radius-sm);
+  }
+  /* Checkboxes are 18px, 22px on a phone, as the boards draw them. */
+  :root {
+    --lk-checkbox-size: 18px;
+  }
+  @media (width < 64rem) {
+    :root {
+      --lk-checkbox-size: 22px;
+    }
+  }
+  .checkbox__control {
+    width: var(--lk-checkbox-size);
+    height: var(--lk-checkbox-size);
+  }
+  /*
+   * A ghost icon button has no edge until it is hovered, so its ring floated round empty space
+   * with no gap to see. With keyboard focus it takes its hover fill, and the ring sits 2px out
+   * from a visible edge, as on every other control.
+   */
+  .button--ghost.button--icon-only:is([data-focus-visible='true'], :focus-visible) {
+    background-color: var(--button-bg-hover);
+  }
+}
+
+/*
+ * Cards and notes are flat (tokens.md, Shadows): only menus, popovers, dialogs and drawers cast
+ * a shadow, and "--surface-shadow exists in the theme but no screen uses it". HeroUI draws it
+ * under every Card, Alert and tab indicator, so the token is set to none here, in light and
+ * dark; the theme file stays the design's.
+ */
+:root,
+.light,
+.dark,
+[data-theme='light'],
+[data-theme='dark'] {
+  --surface-shadow: none;
+}
+
+/*
+ * The hover fill of a danger-soft button, such as Pick another model in an error notice. HeroUI
+ * derives it with color-mix(), which left the button's text at 4.45:1; like the theme's other soft
+ * colors it is set by hand and measured instead (tokens.md): the danger track in light, 5.09:1,
+ * and one step lighter than --danger-soft in dark, 4.59:1.
+ */
+:root,
+.light,
+[data-theme='light'] {
+  --danger-soft-hover: var(--lk-danger-track);
+}
+.dark,
+[data-theme='dark'] {
+  --danger-soft-hover: #46221e;
+}
+
+/*
+ * The 10px corner of tokens.md's radius scale, between a button's 8 and a card's 12: alerts,
+ * notes, inner tables, segmented control groups and the phone drawer's items (rounded-note).
+ */
+@theme inline {
+  --radius-note: 10px;
+}
+
+/*
+ * The type scale (docs/design/docs/tokens.md): every screen uses only these styles, as
+ * text-display, text-title, text-stat, ... Each sets its size and line height together. Below
+ * 1024px, where the phone layout starts (ADR 0090), the reading styles step up one size
+ * (docs/design/docs/phone.md). A style whose weight is not the body's carries it, so
+ * text-heading is 600 without a weight utility. Tailwind lets a weight utility win over a style's
+ * own weight, and so does any HeroUI part that applies one: the dialog headings (font-medium)
+ * still name font-semibold. Caption has no weight of its own: chips and table headers are 500,
+ * secondary lines 400 (tokens.md). The serif styles are set by lk-title and lk-headline.
+ */
+:root {
+  --lk-text-display: 34px;
+  --lk-leading-display: 40px;
+  --lk-text-title: 30px;
+  --lk-leading-title: 36px;
+  --lk-text-stat: 26px;
+  --lk-leading-stat: 32px;
+  --lk-text-dialog-title: 20px;
+  --lk-leading-dialog-title: 26px;
+  --lk-text-chat: 16px;
+  --lk-leading-chat: 26px;
+  --lk-text-heading: 15px;
+  --lk-leading-heading: 22px;
+  --lk-text-body: 14px;
+  --lk-leading-body: 22px;
+  --lk-text-small: 13px;
+  --lk-leading-small: 20px;
+  --lk-text-label: 13px;
+  --lk-leading-label: 18px;
+  --lk-text-caption: 12px;
+  --lk-leading-caption: 16px;
+}
+@media (width < 64rem) {
+  :root {
+    --lk-text-title: 26px;
+    --lk-leading-title: 32px;
+    --lk-text-stat: 22px;
+    --lk-leading-stat: 28px;
+    --lk-text-heading: 17px;
+    --lk-leading-heading: 24px;
+    --lk-text-body: 15px;
+    --lk-text-small: 14px;
+    --lk-text-label: 14px;
+    --lk-leading-label: 20px;
+  }
+}
+@theme inline {
+  --text-display: var(--lk-text-display);
+  --text-display--line-height: var(--lk-leading-display);
+  --text-title: var(--lk-text-title);
+  --text-title--line-height: var(--lk-leading-title);
+  --text-stat: var(--lk-text-stat);
+  --text-stat--line-height: var(--lk-leading-stat);
+  --text-stat--font-weight: 600;
+  --text-dialog-title: var(--lk-text-dialog-title);
+  --text-dialog-title--line-height: var(--lk-leading-dialog-title);
+  --text-dialog-title--font-weight: 600;
+  --text-chat: var(--lk-text-chat);
+  --text-chat--line-height: var(--lk-leading-chat);
+  --text-heading: var(--lk-text-heading);
+  --text-heading--line-height: var(--lk-leading-heading);
+  --text-heading--font-weight: 600;
+  --text-body: var(--lk-text-body);
+  --text-body--line-height: var(--lk-leading-body);
+  --text-small: var(--lk-text-small);
+  --text-small--line-height: var(--lk-leading-small);
+  --text-label: var(--lk-text-label);
+  --text-label--line-height: var(--lk-leading-label);
+  --text-label--font-weight: 500;
+  --text-caption: var(--lk-text-caption);
+  --text-caption--line-height: var(--lk-leading-caption);
+}
+body {
+  font-size: var(--lk-text-body);
+  line-height: var(--lk-leading-body);
+}
+
+/*
+ * The Lakka tokens as Tailwind colors (bg-lk-routed-soft, border-lk-danger-edge, ...).
+ * `inline`, so each utility reads the variable and follows light and dark.
+ */
+@theme inline {
+  --color-lk-routed: var(--lk-decision-routed);
+  --color-lk-routed-soft: var(--lk-decision-routed-soft);
+  --color-lk-chosen: var(--lk-decision-chosen);
+  --color-lk-chosen-soft: var(--lk-decision-chosen-soft);
+  --color-lk-default: var(--lk-decision-default);
+  --color-lk-default-soft: var(--lk-decision-default-soft);
+  --color-lk-fallback: var(--lk-decision-fallback);
+  --color-lk-fallback-soft: var(--lk-decision-fallback-soft);
+  --color-lk-refused: var(--lk-decision-refused);
+  --color-lk-refused-soft: var(--lk-decision-refused-soft);
+  --color-lk-meter-track: var(--lk-meter-track);
+  --color-lk-warning-edge: var(--lk-warning-edge);
+  --color-lk-warning-track: var(--lk-warning-track);
+  --color-lk-danger-edge: var(--lk-danger-edge);
+  --color-lk-danger-track: var(--lk-danger-track);
+  --color-lk-code: var(--lk-code-background);
+  --color-lk-chart: var(--lk-chart);
+  --color-lk-chart-grid: var(--lk-chart-grid);
+  --color-lk-trace-run: var(--lk-trace-run);
+  --color-lk-trace-wait: var(--lk-trace-wait);
+  --color-lk-cloudberry: var(--lk-cloudberry);
+}
+
+/*
+ * A ticked checkbox is one solid square. HeroUI's hover rule outranks its ticked rule, so
+ * hovering one gave it a grey border with the white field showing round the fill; ticked, the
+ * box stays accent and only darkens on hover.
+ */
+.checkbox[data-selected='true'] .checkbox__control {
+  border-color: transparent;
+  background-color: var(--accent);
+}
+.checkbox[data-selected='true']:is(:hover, :has([data-hovered='true'])) .checkbox__control {
+  background-color: var(--accent-hover);
+}
+
+/*
+ * The switch (patterns.md, Controls). Its colors, at any size: the track is the surface with a
+ * --field-border edge, so it reaches 3:1 when off, and the knob is --field-border when off and
+ * --accent-foreground on the accent when on (HeroUI's white pill thumb on --default is 1.2:1
+ * against a card). The md switch is the design's: a track as tall as a checkbox, 18 by 32 or
+ * 22 by 38 on a phone, and a round knob 2px inside its 1px edge. Every switch uses it; HeroUI's
+ * sm and lg keep their own sizes.
+ */
+.switch {
+  --switch-control-bg: var(--surface);
+  --switch-control-bg-hover: var(--surface-secondary);
+  --switch-control-bg-pressed: var(--surface-secondary);
+}
+.switch__control {
+  border: 1px solid var(--field-border);
+}
+.switch[data-selected='true'] .switch__control {
+  border-color: var(--accent);
+}
+.switch__thumb {
+  background-color: var(--field-border);
+  box-shadow: none;
+}
+.switch[data-selected='true'] .switch__thumb,
+.switch[aria-checked='true'] .switch__thumb {
+  background-color: var(--accent-foreground);
+  box-shadow: none;
+}
+:root {
+  --lk-switch-width: 32px;
+}
+@media (width < 64rem) {
+  :root {
+    --lk-switch-width: 38px;
+  }
+}
+.switch--md {
+  --lk-switch-knob: calc(var(--lk-checkbox-size) - 6px);
+}
+.switch--md .switch__control {
+  box-sizing: border-box;
+  width: var(--lk-switch-width);
+  height: var(--lk-checkbox-size);
+  padding: 2px;
+  border-radius: 9999px;
+}
+.switch--md .switch__thumb {
+  width: var(--lk-switch-knob);
+  height: var(--lk-switch-knob);
+  margin-inline-start: 0;
+  border-radius: 9999px;
+}
+.switch--md[data-selected='true'] .switch__thumb,
+.switch--md[aria-checked='true'] .switch__thumb {
+  margin-inline-start: calc(100% - var(--lk-switch-knob));
+}
+
+/*
+ * A field with an error has a 2px --danger edge (patterns.md, States): its 1px border turns
+ * --danger and an inset 1px line doubles it, so the layout does not move.
+ */
+.input[aria-invalid='true'],
+.textarea[aria-invalid='true'],
+.input-group:has([aria-invalid='true']),
+.search-field__group:has([aria-invalid='true']),
+.select[data-invalid='true'] .select__trigger {
+  border-color: var(--danger);
+  box-shadow: inset 0 0 0 1px var(--danger);
+}
+
+/*
+ * A radio drawn as an option card (Tools-Add): a 10px card with a --border edge, which takes a
+ * 2px accent edge and the accent-soft fill when chosen. The second pixel is an inset line, so
+ * nothing moves.
+ */
+.radio.lk-option {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-note);
+}
+.radio.lk-option[data-selected='true'] {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+  background-color: var(--accent-soft);
+}
+
+/*
+ * Focus and read-only states (NF-A1), outside the layers so they win over HeroUI's component
+ * styles. Text fields, input groups, selects, the model picker and search boxes show the same 2px
+ * focus ring, 2px out, as every other control (patterns.md, States), a select or the picker also
+ * while its list is open. It is the only ring: HeroUI's own box-shadow ring on a search box or a
+ * trigger would double it. Disabled controls are HeroUI's own: 50 percent opacity and a
+ * not-allowed cursor (ADR 0108). A read-only field reads as a value, not as an empty input: the
+ * secondary surface, muted text and a solid --border edge, since dashed lines mark optional steps
+ * only (tokens.md, Borders).
+ */
+.input:focus,
+.input[data-focused='true'],
+.textarea:focus,
+.textarea[data-focused='true'],
+.search-field__group:focus-within,
+.input-group:focus-within,
+.select__trigger:focus,
+.select__trigger[data-focused='true'],
+.select[data-open='true'] .select__trigger,
+.autocomplete__trigger:focus-within,
+.autocomplete__trigger[data-focused='true'],
+.autocomplete[data-open='true'] .autocomplete__trigger {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+.autocomplete__trigger button:focus {
+  outline: none;
+}
+/*
+ * Checkboxes, radios and switches: the keyboard focus lands on HeroUI's clickable Content,
+ * whose own ring never shows on the control; the control gets the app's ring instead, and only
+ * that one. HeroUI's ring is a box-shadow. On checkboxes and radios it composes with the theme's
+ * --field-shadow, and none makes the whole shadow invalid, so it never draws; the switch track
+ * does not use --field-shadow, so its ring drew under the app's, on the same 2px.
+ */
+.checkbox__content[data-focus-visible='true'] .checkbox__control,
+.radio__content[data-focus-visible='true'] .radio__control,
+.switch__content[data-focus-visible='true'] .switch__control {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+.input[readonly],
+.textarea[readonly],
+.input-group:has(input[readonly]) {
+  background: var(--surface-secondary);
+  color: var(--muted);
+  border-color: var(--border);
+  box-shadow: none;
+}
+.input-group:has(input[readonly]) .input-group__input {
+  color: var(--muted);
+}
