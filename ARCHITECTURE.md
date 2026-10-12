@@ -1,6 +1,6 @@
 # Architecture
 
-This document describes how Lakka is built, with milestones M1 to M8 complete. It is a map of
+This document describes how Lakka is built, with milestones M1 to M10 complete. It is a map of
 the implementation: which process does what, which function a request passes through, where each
 rule is enforced, and where the data lives.
 
@@ -128,14 +128,18 @@ apps/
   api/         Fastify: routes that parse input, build a Principal and call core; CLI commands
   worker/      pg-boss and timers that call core
   web/         TanStack Start app; talks to the api over HTTP only
+  site/        the project site (VitePress); not part of the product or its image (ADR 0119)
 docker/        Dockerfiles, compose files, Caddyfile, entrypoint, backup script
-scripts/       CI and release helpers (bundle, scan, compat, upgrade, copy check, ci:local),
-               the model fetch, and the price catalogue's update, keys and signing
+scripts/       CI and release helpers (bundle, scan, compat, upgrade, copy check, DCO check,
+               site check, ci:local), the model fetch, and the price catalogue's update, keys
+               and signing
 test/          cross-package tests: boundaries, integration fixtures, e2e, pattern gallery,
-               compat, upgrade
+               compat, upgrade, sandbox, site
 models/        classifier weights (fetched, not committed; manifest and reference are committed)
-patches/       pnpm patches to dependencies (react-aria, ADR 0103)
-docs/          specs, ADRs, gates, the operator guide, the approved UI design
+feed/          the signed price feed, `catalogue-v1.json` (ADR 0116)
+patches/       pnpm patches to dependencies (react-aria, ADR 0103; VitePress, ADR 0120)
+docs/          specs, ADRs, gates, the operator guide, the site's landing page, the approved UI
+               design
 ```
 
 The dependency graph points one way:
@@ -151,6 +155,10 @@ contracts  <---  db  <---  core  <---  api, worker
 - `db` and `contracts` import nothing above them and no provider SDK.
 - `api` and `worker` never import a provider SDK; providers are reached only through `core`.
 - `web` never imports `core`, `db`, `pg`, Valkey or pino. It is an HTTP client of the api (ADR 0006).
+- `site` imports no workspace package. It reads `docs/index.md` and `docs/guide/` in place and the
+  theme file from `docs/design/theme/`. `.dockerignore` keeps it out of the image's build context,
+  and an override in `pnpm-workspace.yaml` keeps its Vue out of the product's dependencies
+  (ADR 0119).
 
 Two checks enforce this (ADR 0007): `no-restricted-imports` overrides in
 [`.oxlintrc.json`](.oxlintrc.json), and [`test/boundaries.test.ts`](test/boundaries.test.ts), which
@@ -462,9 +470,10 @@ one route.
 
 **Two thresholds.** `directionOf` compares the route's model with the workspace default by
 `blendedPrice` (3 parts input to 1 part output). A cheaper target must clear `threshold_down`
-(default 0.35); the same or a pricier one must clear `threshold_up` (default 0.25). The schema
+(default 0.35); the same or a pricier one must clear `threshold_up` (default 0.30). The schema
 requires `threshold_down >= threshold_up` (RT-5). The defaults come from the evaluation set
-(ADR 0045, retuned in ADR 0088). Each route stores its own.
+(ADR 0045, retuned in ADR 0088 and ADR 0123), and are the same for both bundled models. Each
+route stores its own.
 
 **One decision per conversation.** The decision is stored on `conversations.routed_model` and
 `route_id` only while it is still empty, and reused as `sticky` afterwards (RT-7). A considered "not
@@ -485,21 +494,33 @@ is derived when read, from `usage`, `messages` and unexpired `span_content`
 - Saving a route calls [`compileWorkspacePolicy`](packages/core/src/routing/compile.ts): embed any
   example not yet embedded with the current model, then store each route's centroid (normalized
   mean) in `route_centroids`.
+- **A route's description counts as one of its examples** (RT-12, ADR 0122, ADR 0125). A route
+  with a non-empty description has `<name>: <description>` embedded and added to its example
+  embeddings with the weight of one example. A route with only a description can therefore be
+  chosen from the moment it is saved; one with neither has no centroid and is never chosen.
+  [`scoringBasis`](packages/core/src/routing/score.ts) says what a centroid should come from, and
+  `route_centroids.source` records what it did come from: `examples`, `description` or
+  `examples_and_description`. Changing a route's name or description drops a centroid that used
+  it. Thresholds are the route's own whatever the source.
 - Scoring ([`scoreRoutes`](packages/core/src/routing/score.ts)) is a dot product in JavaScript over
   the snapshot. pgvector is only storage: there is no vector index and no SQL distance operator.
   The dimension is not fixed in the schema, because every vector records the model that made it.
 - If the embedding model changed (its id includes a hash of the weights), stale routes score nothing
-  and one background recompile per workspace is started. The request in hand is not held up.
+  and one background recompile per workspace is started. The request in hand is not held up. A
+  centroid whose source is not what the route now calls for (`centroidStale`), such as one made
+  before descriptions were blended in, is recompiled the same way but keeps scoring until the new
+  one is in.
 - `centroid` is the default match mode; `nearest_example` and `calibrated` exist for evaluation.
 
 ### The classifier runtime
 
 - [`loadOnnxEmbedder`](packages/core/src/classifier/embedder.ts) dynamically imports
   `onnxruntime-node` and `@huggingface/tokenizers` on first use. It runs the INT8
-  `paraphrase-multilingual-MiniLM-L12-v2` model (ADR 0088), or the larger
-  `paraphrase-multilingual-mpnet-base-v2` an operator can choose (ADR 0123), on the CPU, then
-  mean-pools and L2-normalizes to the size the model declares: 384 or 768 dimensions. ONNX Runtime
-  telemetry is disabled in code (ADR 0024).
+  `paraphrase-multilingual-MiniLM-L12-v2` model by default (ADR 0088), or the larger
+  `paraphrase-multilingual-mpnet-base-v2` (ADR 0123), which the image also carries and an operator
+  chooses with `LAKKA_CLASSIFIER_MODEL_DIR`. It runs on the CPU, then mean-pools and
+  L2-normalizes to the size the model's output declares: 384 or 768 dimensions. A model that
+  declares no fixed size is refused. ONNX Runtime telemetry is disabled in code (ADR 0024).
 - [`lazyClassifierRuntime`](packages/core/src/classifier/runtime.ts) shares one load between
   concurrent callers. After a failure it reports `unavailable` for 60 seconds and then retries.
   `cachingEmbedder` keeps an in-memory LRU of 1000 query embeddings, never persisted or logged.
@@ -517,8 +538,17 @@ is derived when read, from `usage`, `messages` and unexpired `span_content`
 `lakka classifier-eval` ([`routing/evaluation.ts`](packages/core/src/routing/evaluation.ts))
 runs [`packages/core/eval/routing-v1.json`](packages/core/eval) (7 routes of 40 messages, and 60
 "unsure" messages; with German, Spanish, French and Swedish translations) over 20 seeded splits and
-reports mean and spread. It uses the production `decideRoute`. CI fails below 0.80 accuracy in
-English and 0.75 in the other languages.
+reports mean and spread. It uses the production `decideRoute`.
+
+- `--fallback` adds the description scenarios with the three blind description sets in
+  `routing-v1.descriptions.json`: each route in turn with only its description, then with 1, 2
+  and 4 examples and its description, and every route described at 12 examples. It fails if a
+  description ever lowers accuracy or raises misroutes against examples alone (ADR 0122,
+  ADR 0125).
+- CI gates both models in the image, with no network: 0.80 accuracy in English, and in the other
+  languages 0.75 for MiniLM and 0.78 for mpnet, with same-language and English examples
+  ([`scripts/classifier-eval-languages.sh`](scripts/classifier-eval-languages.sh)), plus the
+  description scenarios in all five languages.
 
 ---
 
@@ -681,11 +711,17 @@ recording (ADR 0036, 0040).
 - [`languageModel`](packages/core/src/gateway/providers.ts) builds the adapter: Anthropic, OpenAI
   (Responses API), Google, or an OpenAI-compatible endpoint. API keys and base URLs are always passed
   explicitly and never read from the environment.
+- **First-party kinds.** Besides Anthropic, OpenAI and Google, five hosted providers are
+  first-party: DeepSeek, Moonshot AI, Qwen Cloud, Xiaomi MiMo and Z.ai
+  (`COMPATIBLE_FIRST_PARTY_KINDS` in [`contracts/gateway.ts`](packages/contracts/src/gateway.ts),
+  ADR 0126). Each goes through `@ai-sdk/openai-compatible` at a fixed default address, with a key
+  required and usage on the stream. Their names are reserved, so an OpenAI-compatible endpoint
+  cannot take one, and the Postgres checks on `provider_configs` are built from the same constants.
 - Credentials come from `provider_configs`, encrypted at rest.
   [`resolveProviderConnection`](packages/core/src/providers/service.ts) prefers the workspace's own
-  credential over the instance's (PR-8). A workspace credential must be first-party at the standard
-  address; only instance admins may add an OpenAI-compatible endpoint (an SSRF guard, also enforced
-  by a CHECK constraint).
+  credential over the instance's (PR-8). A workspace credential must be one of the eight
+  first-party kinds at its standard address; only instance admins may add an OpenAI-compatible
+  endpoint, local or online (an SSRF guard, also enforced by a CHECK constraint).
 
 ### Dispatch
 
@@ -742,11 +778,15 @@ status. An error after it is one SSE error frame (`stream_interrupted`, `budget_
 ### The catalogue
 
 - [`packages/core/catalogue/models.json`](packages/core/catalogue/models.json) ships in the image.
-  It is generated from LiteLLM's price list at a pinned commit by `pnpm catalogue:update` and
-  reviewed by hand. It currently lists 111 models across Anthropic, OpenAI and Google.
+  It is generated from LiteLLM's price list at a pinned commit of its main branch by
+  `pnpm catalogue:update` and reviewed by hand. It currently lists 179 models across the eight
+  first-party providers. The update leaves out models whose reasoning is priced apart from their
+  output, since usage counts reasoning as output and a cap could be overspent; a zero cache price
+  is read as unknown (ADR 0126).
 - Each entry has a context window, maximum output, capabilities (`vision`, `pdf`, `tools`,
   `structuredOutput`, `promptCaching`, `reasoning`), prices in micro-USD per million tokens (input,
-  output, cache read, cache write) and optional long-context tiers.
+  output, cache read, cache write) and optional long-context tiers. Qwen's price brackets by input
+  size become those tiers.
 - The api refuses to start if the file is invalid (ADR 0037).
 - Instance admins add **custom models** (`custom_models`) for anything else, including
   OpenAI-compatible endpoints. A custom model cannot reuse a catalogue id.
@@ -765,14 +805,19 @@ charged at (ADR 0039).
 ### The signed price feed
 
 Opt-in and off by default (PR-6, ADR 0116). `models.json` carries a `serial`, which
-`pnpm catalogue:update` raises; `pnpm catalogue:sign` signs it as `feed/catalogue-v1.json`.
+`pnpm catalogue:update` raises; `pnpm catalogue:sign` signs it as
+[`feed/catalogue-v1.json`](feed/catalogue-v1.json), committed to main. An instance with price
+updates on fetches it from the repository's raw URL on main, or from the mirror
+`LAKKA_CATALOGUE_FEED_URL` names.
 
 - [`feed.ts`](packages/core/src/models/feed.ts) checks a feed file: Ed25519 over
   `"lakka-catalogue-feed-v1\n"` and the payload bytes, against the public keys in
-  [`feed-keys.ts`](packages/core/src/models/feed-keys.ts) (empty in this build, so the feed cannot be
-  turned on). Then `mergeFeed` refuses the whole feed for a provider that is not first-party, a zero
-  price, a tier that lowers a price, more than 2000 models, or a cut below a quarter of a bundled
-  price. A feed never removes a model; models only it lists rank below custom models.
+  [`feed-keys.ts`](packages/core/src/models/feed-keys.ts): the project owner's primary key, which
+  signs every feed, and a backup key. Their private halves are held offline by the owner; a build
+  with an empty list cannot turn the feed on. Then `mergeFeed` refuses the whole feed for a
+  provider that is not first-party, a zero price, a tier that lowers a price, more than 2000
+  models, or a cut below a quarter of a bundled price. A feed never removes a model; models only
+  it lists rank below custom models.
 - [`feed-check.ts`](packages/core/src/models/feed-check.ts) is the worker's `catalogue-feed` job:
   nothing while the row says off, else once a day at the instance's minute or on Check now. https
   only, no redirects, 10 s, 1 MB, `user-agent: lakka`. A serial below the last applied is a
@@ -987,7 +1032,9 @@ requires one and never falls back to running a server in process.
     deadline, or a key is missing, the operation fails as `unreachable`.
   - The tool host ([`apps/api/src/sandbox/tool-host.ts`](apps/api/src/sandbox/tool-host.ts),
     [`slots.ts`](apps/api/src/sandbox/slots.ts)) takes a free slot, a uid from 61000 up, and
-    starts `lakka tool-runner` as that uid under prlimit. Afterwards, or when the api goes
+    starts `lakka tool-runner` as that uid under prlimit (64 processes, 1 GiB of data, 120 s of
+    CPU, 256 files). The data limit counts reserved memory too, and Node needs 1 GiB of it to
+    start on amd64. Afterwards, or when the api goes
     away, it kills everything the uid owns and empties its home, running the cleanup as the uid.
   - The runner hands the server `HTTPS_PROXY`, `HTTP_PROXY` and `NODE_USE_ENV_PROXY=1`.
   - The egress proxy ([`apps/api/src/sandbox/egress-proxy.ts`](apps/api/src/sandbox/egress-proxy.ts))
@@ -1142,7 +1189,7 @@ enforces invariant 9 structurally (ADR 0005). Only `logger.ts` may import pino.
 
 Schema: [`packages/db/src/schema/`](packages/db/src/schema). Queries:
 [`packages/db/src/queries/`](packages/db/src/queries). Migrations:
-[`packages/db/migrations/`](packages/db/migrations) (`0000` to `0036`).
+[`packages/db/migrations/`](packages/db/migrations) (`0000` to `0039`).
 
 ### Tables by domain
 
@@ -1153,7 +1200,7 @@ Schema: [`packages/db/src/schema/`](packages/db/src/schema). Queries:
 | SSO                  | `sso_providers` (Better Auth plugin), `sso_provider_policies` (ours)                                                                                                |
 | Onboarding           | `instance_setup` (single row), `invites`, `password_resets`                                                                                                         |
 | Providers and models | `provider_configs` (instance or workspace), `custom_models`, `catalogue_feed` (single row: the price feed switch and the last feed applied)                         |
-| Routing              | `routes`, `route_examples`, `route_centroids` (pgvector columns), `route_candidate_decisions` (no text)                                                             |
+| Routing              | `routes`, `route_examples`, `route_centroids` (pgvector columns, and their source), `route_candidate_decisions` (no text)                                           |
 | Conversations        | `conversations`, `messages`, `attachments`                                                                                                                          |
 | Budgets              | `budgets`, `budget_spend`, `reservations`, `reservation_lines`, `alert_webhooks`, `budget_alerts`                                                                   |
 | Usage                | `usage` (partitioned monthly, no foreign keys)                                                                                                                      |
@@ -1394,10 +1441,13 @@ It has no privileged access: it is an HTTP client of the api, like any other.
 - **Pages** ([`routes/`](apps/web/src/routes)).
   - Signed in, under `_app`: the workspace list at `/workspaces`, and for each workspace its
     settings at `/workspaces/$id`, then chat, Your connections, Requests and a trace, Routing
-    (with a dialog per route to review the messages people moved away from it, ADR 0114), Spend
-    (a report tab and a budgets tab) and Tools.
-  - The Admin group: Workspaces, People and sign-in, Models and providers (with the Price updates
-    card, ADR 0116), Tool servers (the MCP origin allowlist, ADR 0117), Instance spend (with a
+    (a route dialog with its description, ADR 0122; Try a phrase, which says whether a route
+    scored from its examples, its description or both; and a dialog per route to review the
+    messages people moved away from it, ADR 0114), Spend (a report tab and a budgets tab) and
+    Tools.
+  - The Admin group: Workspaces, People and sign-in, Models and providers (a row per first-party
+    provider, Add a provider for any OpenAI-compatible server, and the Price updates card,
+    ADR 0116), Tool servers (the MCP origin allowlist, ADR 0117), Instance spend (with a
     full report), Retention and Diagnostics. A page with tabs is a layout route with one nested
     route per tab, so the tab list stays mounted (ADR 0100).
   - Signed out: `/sign-in`, `/setup` in three steps, `/invite` and `/reset`. Invite and reset
@@ -1467,8 +1517,8 @@ It has no privileged access: it is an HTTP client of the api, like any other.
   pages and in the footer of the signed-out ones (ADR 0107).
 - **Text.** All UI copy is in [`i18n/en.ts`](apps/web/src/i18n/en.ts), typed by key and checked to
   be ASCII. `pnpm check:copy` also bans non-ASCII characters and `+` used as "and" anywhere in
-  `apps/web/src`. Money is formatted from micro-USD strings with BigInt, never floats. Dates are
-  shown in UTC so server and client render the same.
+  `apps/web/src`, and in the site's pages and source. Money is formatted from micro-USD strings
+  with BigInt, never floats. Dates are shown in UTC so server and client render the same.
 
 ---
 
@@ -1581,7 +1631,8 @@ because onnxruntime-node has no musl build.
 3. `build`: installs everything and builds web
 4. `prod-deps`: production dependencies; prunes the ONNX Runtime binaries to the target
    architecture and removes build tools the scanner flags
-5. `models`: fetches and verifies the classifier weights
+5. `models`: fetches and verifies both classifiers' weights, the files for the target
+   architecture only
 6. `runtime`: runs `apt-get upgrade` at build time, so a fix Debian has released is in the next
    build whatever the base image's age (ADR 0099); without npm, npx or corepack; runs as
    `USER node`
@@ -1591,9 +1642,9 @@ subcommands are `api`, `worker`, `web`, `init`, `migrate`, `create-user`, `setup
 `recovery-key`, `credential-key`, `diagnostics`, `tool-runner`, `tool-host`, `egress`,
 `classifier-eval` and `embed-bench`.
 
-**Size and start time.** At the M8 gate the two images together were 276 MB against a 1 GB budget,
-and cold start reached the setup screen in about 15 seconds against a 30-second limit (AC 3). CI
-checks both limits on every run.
+**Size and start time.** At the M10 gate, with both classifiers, the two images together were
+502 MB on amd64 against a 1 GB budget, and cold start reached the setup screen in about 15
+seconds against a 30-second limit (AC 3). CI checks both limits on every run.
 
 ### Offline start
 
@@ -1623,8 +1674,9 @@ checks both limits on every run.
 - **Trigger.** [`release.yml`](.github/workflows/release.yml) runs on a `v*.*.*` tag.
 - **Build.** It builds both images natively for amd64 and arm64 and pushes them by digest with
   provenance and SBOM.
-- **Checks.** It pulls the pushed bytes back and runs the scan, size budget, offline embedding and
-  bundle smoke test on them.
+- **Images.** `ghcr.io/lakka-ai/lakka` and `ghcr.io/lakka-ai/lakka-caddy`.
+- **Checks.** It pulls the pushed bytes back and runs the scan, size budget, offline embedding
+  with both classifiers and bundle smoke test on them.
 - **Publish.** It then:
   - joins the digests into manifest lists;
   - signs them with cosign (keyless, GitHub OIDC);
@@ -1632,6 +1684,17 @@ checks both limits on every run.
     ([`scripts/release-bundle.ts`](scripts/release-bundle.ts));
   - signs the bundle, and attaches it to a GitHub release.
 - **Procedure.** See [`docs/releasing.md`](docs/releasing.md) (ADR 0086).
+
+### The project site
+
+The landing page and the operator guide are published as a static site (ADR 0119). VitePress 2,
+pinned exactly, reads `docs/index.md` and `docs/guide/` in place, so the guide has one source
+that renders on GitHub and on the site. Search is a local index built with the site, and the
+fonts are the app's own `@fontsource` packages: nothing loads from a third party. The theme maps
+the app's theme tokens onto VitePress's variables, and VitePress's search dialog is patched for
+its roles and focus (ADR 0120). [`pages.yml`](.github/workflows/pages.yml) builds and deploys it
+to GitHub Pages on a push to main that changes it; the base path comes from Pages, `/lakka/` by
+default.
 
 ---
 
@@ -1649,7 +1712,9 @@ checks both limits on every run.
 | Bundle          | `pnpm test:bundle`                                           | A release bundle: first run, cold start time, offline start                                                                                                                     |
 | Upgrade         | `pnpm test:upgrade`                                          | The previous release filled with data, upgraded in place                                                                                                                        |
 | Scan            | `pnpm scan`                                                  | Trivy on the lockfile and the images; a HIGH or CRITICAL with a fix fails                                                                                                       |
-| Copy            | `pnpm check:copy`                                            | Banned characters in web UI source: non-ASCII, and `+` used as "and"                                                                                                            |
+| Copy            | `pnpm check:copy`                                            | Banned characters in web UI and site text: non-ASCII, and `+` used as "and"                                                                                                     |
+| Site            | `pnpm site:check`                                            | The built site: links and anchors, no third-party requests, every page at ten sizes in light and dark, menus, search and keyboard, in Chromium, WebKit and Firefox              |
+| DCO             | `pnpm check:dco`                                             | Every commit in a range signed off by its author (ADR 0002)                                                                                                                     |
 
 - **Budget tests.** The budget engine's failure-injection tests were written first. They run on real
   stores: 50 concurrent requests against room for 10, SIGKILL mid-stream, a Valkey flush, Postgres
@@ -1658,22 +1723,25 @@ checks both limits on every run.
   its behaviour from the model name (`slow`, `status-429-ra2`, `drop-after-2`, `stall`,
   `tool-a.b`, and so on). The same fake runs in the e2e stack.
 
-[CI](.github/workflows/ci.yml) runs six jobs:
+[CI](.github/workflows/ci.yml) runs eight jobs:
 
 - `check`: typecheck, lint, workflow lint, format, the copy check, unit tests, the pattern gallery,
   and migrations in step with the schema;
+- `dco`, on pull requests only;
+- `site`, one leg per browser engine;
 - `integration`, on Postgres 16 and 18;
 - `out-of-process`;
-- `image`, on amd64 and arm64: embedding budget, routing evaluation in five languages, size, scan,
-  and bundle smoke test;
+- `image`, on amd64 and arm64: the embedding budget for both classifiers (MiniLM 100 ms p95 at one
+  and two threads, mpnet 200 ms at two), routing evaluation in five languages for both, size,
+  scan, and bundle smoke test;
 - `upgrade`;
 - `stack`, on amd64 and arm64: e2e, the compat suites, the stdio sandbox, the diagnostics bundle,
   backup and restore, and graceful shutdown.
 
 `pnpm ci:local` runs the same jobs from a clean clone of `HEAD` on the host architecture (ADR 0065).
 The M7 gate in [`docs/gates/m7.md`](docs/gates/m7.md) maps each of the 21 acceptance criteria to
-the test that proves it, and the M8 gate in [`docs/gates/m8.md`](docs/gates/m8.md) does the same
-for each M8 item.
+the test that proves it, and the later gates in [`docs/gates/`](docs/gates) do the same for each
+milestone's exit criteria.
 
 ---
 
@@ -1687,6 +1755,7 @@ for each M8 item.
 | Reservations and the Lua scripts         | [`packages/core/src/budgets/engine.ts`](packages/core/src/budgets/engine.ts), [`maintenance.ts`](packages/core/src/budgets/maintenance.ts)                                                                                                             |
 | The per-person rate limit                | [`packages/core/src/pipeline/rate-limit.ts`](packages/core/src/pipeline/rate-limit.ts)                                                                                                                                                                 |
 | The resolution order                     | [`packages/core/src/routing/resolve.ts`](packages/core/src/routing/resolve.ts)                                                                                                                                                                         |
+| What a route is scored from              | [`packages/core/src/routing/score.ts`](packages/core/src/routing/score.ts) (`scoringBasis`, `centroidStale`), [`compile.ts`](packages/core/src/routing/compile.ts)                                                                                     |
 | Route example candidates                 | [`packages/core/src/routing/candidates.ts`](packages/core/src/routing/candidates.ts), [`packages/db/src/queries/routing.ts`](packages/db/src/queries/routing.ts)                                                                                       |
 | Prices and the price feed                | [`packages/core/catalogue/models.json`](packages/core/catalogue/models.json), [`packages/core/src/models/`](packages/core/src/models)                                                                                                                  |
 | Who may do what                          | [`packages/core/src/authz/policy.ts`](packages/core/src/authz/policy.ts)                                                                                                                                                                               |
@@ -1707,4 +1776,6 @@ for each M8 item.
 | The compose stack                        | [`docker/compose.yaml`](docker/compose.yaml), [`docker/Caddyfile`](docker/Caddyfile)                                                                                                                                                                   |
 | A shared UI pattern and its story        | [`apps/web/src/components/patterns/`](apps/web/src/components/patterns)                                                                                                                                                                                |
 | Deleting a workspace                     | [`packages/core/src/workspaces/`](packages/core/src/workspaces), [`packages/db/src/queries/workspace-deletion.ts`](packages/db/src/queries/workspace-deletion.ts)                                                                                      |
+| A provider kind                          | [`packages/contracts/src/gateway.ts`](packages/contracts/src/gateway.ts), [`packages/core/src/gateway/providers.ts`](packages/core/src/gateway/providers.ts), then a migration for the `provider_configs` checks                                       |
+| The project site                         | [`apps/site/.vitepress/`](apps/site/.vitepress), [`docs/guide/`](docs/guide), [`test/site/`](test/site)                                                                                                                                                |
 | A page                                   | [`apps/web/src/routes/`](apps/web/src/routes), data in [`apps/web/src/lib/queries.ts`](apps/web/src/lib/queries.ts)                                                                                                                                    |
