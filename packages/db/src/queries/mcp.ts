@@ -31,9 +31,11 @@ export interface NewMcpServer {
   createdByPrincipalId: string;
 }
 
+// Qualified by hand: in the fields of a select from one table, Drizzle writes columns bare, and
+// a bare "id" inside this subquery would be the credential's own id, so it would never match.
 const hasShared = sql<boolean>`exists (
-  select 1 from ${mcpCredentials}
-  where ${mcpCredentials.mcpServerId} = ${mcpServers.id} and ${mcpCredentials.kind} = 'shared'
+  select 1 from ${mcpCredentials} c
+  where c.mcp_server_id = ${mcpServers}.${sql.identifier(mcpServers.id.name)} and c.kind = 'shared'
 )`;
 
 function selectServers(db: Db) {
