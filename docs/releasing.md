@@ -1,8 +1,8 @@
 # Releasing
 
 A release is a tag such as `v1.2.0` (or `v1.3.0-rc.1` for a prerelease) on a commit of `main`
-whose CI has passed. Pushing the tag runs `.github/workflows/release.yml` (ADR 0086). No release
-has been tagged yet, so the first tag is also the first run of `release.yml`.
+whose CI has passed. Pushing the tag runs `.github/workflows/release.yml` (ADR 0086). The first
+release was `v1.0.0-beta.1`.
 
 1. Check that the commit's CI passed on both architectures, and that the gate for the milestone,
    if it is a milestone release, is recorded in `docs/gates/`.
@@ -85,8 +85,7 @@ GitHub Actions is the source of truth. When it cannot run, `pnpm ci:local` runs 
 this machine's architecture:
 
 - the scan and the bundle's cold and offline start, in the image job;
-- the upgrade from the previous release (before the first release, from main's previous merge),
-  in the upgrade job.
+- the upgrade from the previous release, in the upgrade job.
 
 It cannot push, sign or test the other architecture.
 

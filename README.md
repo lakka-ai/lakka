@@ -2,10 +2,10 @@
 
 Lakka is a self-hosted AI control plane for teams of 10 to 50 people: one install, your own model keys, and one identity and policy model applied across web chat, an OpenAI-compatible API and MCP. Spend cannot exceed a cap, every request is attributed and traced, and a tool can never do what the requesting user is not allowed to do.
 
-Status: v1 is complete. Its seven milestones, M1 to M7, have passed their gates (`docs/gates/`),
-and so have M8, which closed what v1 left open, M9, the project site, and M10, routing accuracy.
-No release has been tagged yet; [`docs/releasing.md`](docs/releasing.md) describes how one is
-made.
+Status: the v1 milestones are done; [`docs/roadmap.md`](docs/roadmap.md) lists them and their
+gates. The first release,
+[v1.0.0-beta.1](https://github.com/lakka-ai/lakka/releases/tag/v1.0.0-beta.1), is a beta;
+[`docs/releasing.md`](docs/releasing.md) describes how a release is made.
 
 ## Run it
 
