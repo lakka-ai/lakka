@@ -200,7 +200,7 @@ This is the product's promise, so it's a requirement, not a goal.
 | NF-D1 | `docker compose up` on a clean machine reaches a working first-run screen with no prior configuration | built |
 | NF-D2 | Time from that command to the first successful model call: **under 10 minutes**, including the operator reading the setup screens | built |
 | NF-D3 | The compose file needs no editing for a default deployment; every setting has a working default | built |
-| NF-D4 | Images published for `linux/amd64` and `linux/arm64`, both tested in CI | partial: not yet published (docs/gates/m7.md), and M8 tested on arm64 only (docs/gates/m8.md) |
+| NF-D4 | Images published for `linux/amd64` and `linux/arm64`, both tested in CI | built: published for both from v1.0.0-beta.1, and CI tests both (docs/gates/m8.md) |
 | NF-D5 | Model weights bundled in the image, not downloaded at boot, so the product can start with no internet access | built |
 | NF-D6 | Total pulled image size under 1 GB | built (ADR 0023) |
 | NF-D7 | Cold start to serving requests in under 30 seconds on modest hardware | built |

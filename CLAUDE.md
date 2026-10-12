@@ -18,7 +18,7 @@ Read the relevant spec section before changing behavior. If code and spec disagr
 
 Put requirement IDs in test names, commit bodies and PR descriptions, e.g. `BG-3: concurrent reservations never exceed the cap`.
 
-Current milestone: **none; M1 to M10 are done, and v1.x is reserved for what the first release brings (docs/roadmap.md)** (update this line when a milestone starts or its gate passes). Gates passed: `docs/gates/m1.md`, `docs/gates/m2.md`, `docs/gates/m3.md`, `docs/gates/m4.md`, `docs/gates/m5.md`, `docs/gates/m6.md`, `docs/gates/m7.md`, `docs/gates/m8.md`, `docs/gates/m9.md`, `docs/gates/m10.md`.
+Current milestone: **none; M1 to M10 are done, the first release (v1.0.0-beta.1) is published, and v1.x is reserved for what it brings (docs/roadmap.md)** (update this line when a milestone starts or its gate passes). Gates passed: `docs/gates/m1.md`, `docs/gates/m2.md`, `docs/gates/m3.md`, `docs/gates/m4.md`, `docs/gates/m5.md`, `docs/gates/m6.md`, `docs/gates/m7.md`, `docs/gates/m8.md`, `docs/gates/m9.md`, `docs/gates/m10.md`.
 
 ## Stack
 

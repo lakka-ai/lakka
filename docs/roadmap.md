@@ -2,7 +2,7 @@
 
 *The order of phases follows dependencies and risk, not how appealing each feature is.*
 
-**Status:** the v1 milestones, M1 to M7, are done, and so is M8, which closed what v1 left open. So is M9, the project site, deployed at https://lakka-ai.github.io/lakka/. So is M10, routing accuracy. Each gate is recorded in `docs/gates/`, and their checks pass on amd64 and arm64 in GitHub Actions.
+**Status:** the v1 milestones, M1 to M7, are done, and so is M8, which closed what v1 left open. So is M9, the project site, deployed at https://lakka-ai.github.io/lakka/. So is M10, routing accuracy. Each gate is recorded in `docs/gates/`, and their checks pass on amd64 and arm64 in GitHub Actions. The first release, v1.0.0-beta.1, is published, which opens v1.x.
 
 ## Sequencing principles
 
@@ -139,7 +139,7 @@ What the plan does say about proportion, it says through structure rather than n
 
 **Exit criteria:** every acceptance criterion in [docs/requirements.md](requirements.md) passes on a clean machine, run by someone following only the published documentation.
 
-**Changed from this plan:** export and deletion of a person's data (NF-P4, ADR 0057, ADR 0082) and the multilingual classifier (ADR 0088) were added. Deployment under a subpath (NF-C4) and flagging an unsatisfactory reply (OB-7) were deferred to v1.x (ADR 0075). The release pipeline is built, but its first run waits on GitHub Actions (ADR 0086).
+**Changed from this plan:** export and deletion of a person's data (NF-P4, ADR 0057, ADR 0082) and the multilingual classifier (ADR 0088) were added. Deployment under a subpath (NF-C4) and flagging an unsatisfactory reply (OB-7) were deferred to v1.x (ADR 0075). The release pipeline is built (ADR 0086); its first run published v1.0.0-beta.1.
 
 ### M8: Closing what v1 left open
 
