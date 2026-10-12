@@ -299,6 +299,9 @@ Routing picks a model for each conversation. On the workspace's **Routing** page
 
 - **Try a phrase** shows which route a message would take, and why.
 
+[Example routes](routing-examples.md) has routes to copy, with descriptions and example phrasings,
+and advice on writing your own.
+
 How a model is chosen, first match wins:
 
 1. the model or route the person or client chose;
