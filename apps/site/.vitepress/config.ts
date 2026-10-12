@@ -119,6 +119,7 @@ export default defineConfig({
           items: [
             { text: 'Install', link: '/guide/install' },
             { text: 'Administration', link: '/guide/administration' },
+            { text: 'Example routes', link: '/guide/routing-examples' },
             { text: 'Adding a provider', link: '/guide/providers' },
             { text: 'The API', link: '/guide/api' },
             { text: 'Configuration', link: '/guide/configuration' },
