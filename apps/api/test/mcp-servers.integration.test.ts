@@ -262,6 +262,30 @@ describe('shared credentials (TL-2, PR-3)', () => {
     expect((await as(t, root).delete(`${servers()}/${server.id}/credential`)).statusCode).toBe(404);
   });
 
+  it('TL-2: a server read back says whether its shared credential is set', async () => {
+    const server = await added(root, {
+      transport: 'streamable_http',
+      name: `flagged-${suffix()}`,
+      url: guarded.url,
+      authMode: 'shared',
+    });
+    const flag = async () => {
+      const list = (await as(t, root).get(servers())).json() as { servers: McpServerView[] };
+      const one = (await as(t, root).get(`${servers()}/${server.id}`)).json() as {
+        server: McpServerView;
+      };
+      return [
+        list.servers.find((s) => s.id === server.id)?.hasSharedCredential,
+        one.server.hasSharedCredential,
+      ];
+    };
+    expect(await flag()).toEqual([false, false]);
+    await as(t, root).put(`${servers()}/${server.id}/credential`, { secret: TOKEN });
+    expect(await flag()).toEqual([true, true]);
+    await as(t, root).delete(`${servers()}/${server.id}/credential`);
+    expect(await flag()).toEqual([false, false]);
+  });
+
   it('deleting a server deletes its credentials', async () => {
     const server = await added(root, {
       transport: 'streamable_http',
