@@ -21,6 +21,8 @@ import { setTimeout as sleep } from 'node:timers/promises';
  *   context-overflow   400, the provider's "input too long" error
  *   content-filter     400, a content policy refusal
  *   bad-request        400, anything else
+ *   no-credit          the account is out of credit: OpenAI's 429 insufficient_quota, or
+ *                      Anthropic's 400 "credit balance is too low"
  *   stall              sends headers, then nothing
  *   drop-before-first  sends headers, then closes the connection
  *   drop-after-2       sends two chunks, then closes the connection
@@ -366,6 +368,26 @@ export async function startFakeProvider(
             'content_policy_violation',
           ),
         );
+      case 'no-credit':
+        return protocol === 'openai'
+          ? json(
+              429,
+              errorBody(
+                protocol,
+                'insufficient_quota',
+                'You exceeded your current quota',
+                'insufficient_quota',
+              ),
+              { 'retry-after': '1' },
+            )
+          : json(
+              400,
+              errorBody(
+                protocol,
+                'invalid_request_error',
+                'Your credit balance is too low to access the Anthropic API.',
+              ),
+            );
       case 'bad-request':
         return json(
           400,

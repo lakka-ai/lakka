@@ -37,6 +37,40 @@ describe('failure classification (tech spec, Error classification)', () => {
     ).toBe('bad_request');
   });
 
+  it('CH-7: a provider account out of credit is billing, whatever status it comes with', () => {
+    expect(classifyFailure(http(402))).toEqual({
+      kind: 'billing',
+      retryAfterMs: null,
+      httpStatus: 402,
+      mayHaveBilled: false,
+    });
+    // OpenAI: a 429 that waiting will not fix.
+    expect(
+      classifyFailure(
+        http(
+          429,
+          '{"error":{"message":"You exceeded your current quota","type":"insufficient_quota","code":"insufficient_quota"}}',
+          { 'retry-after': '1' },
+        ),
+      ).kind,
+    ).toBe('billing');
+    // Anthropic: a 400.
+    expect(
+      classifyFailure(
+        http(
+          400,
+          '{"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API."}}',
+        ),
+      ).kind,
+    ).toBe('billing');
+    // A 402 is billing even when its text looks like something else.
+    expect(classifyFailure(http(402, '{"error":{"code":"model_not_found"}}')).kind).toBe('billing');
+    // An overloaded provider is never mistaken for an empty account.
+    expect(classifyFailure(http(503, '{"error":{"type":"insufficient_quota"}}')).kind).toBe(
+      'overloaded',
+    );
+  });
+
   it('recognizes each provider wording for an input that is too long', () => {
     const bodies = [
       '{"error":{"code":"context_length_exceeded","message":"maximum context length is 8192 tokens"}}',

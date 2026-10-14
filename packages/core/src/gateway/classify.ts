@@ -21,6 +21,8 @@ export type FailureKind =
   | 'model_not_found'
   /** 401/403: the credential is wrong. Stop; an admin has to fix it. */
   | 'auth'
+  /** 402, or a refusal that says the account is out of credit. Stop; an admin has to fix it. */
+  | 'billing'
   /** The provider's content filter refused. Stop; never retry, never fail over. */
   | 'content_filter'
   /** Any other 4xx: the request is malformed for this provider. Stop. */
@@ -42,6 +44,8 @@ export interface Failure {
 const CONTEXT_OVERFLOW =
   /context_length_exceeded|context window|maximum context length|prompt is too long|exceeds the maximum number of tokens|input is too long/i;
 const CONTENT_FILTER = /content[_ ]?(policy|filter)|responsible ?ai|safety system/i;
+// OpenAI says it with a 429, Anthropic with a 400; neither is a rate limit or a bad request.
+const BILLING = /insufficient_quota|credit balance is too low/i;
 const MODEL_NOT_FOUND =
   /model_not_found|not[_ ]found_error|does not exist|unknown model|is not found/i;
 
@@ -65,6 +69,7 @@ function fromStatus(error: APICallError): Failure {
   const status = error.statusCode ?? 0;
   const body = error.responseBody ?? '';
   const base = { retryAfterMs: null, httpStatus: status, mayHaveBilled: false };
+  if (status === 402 || (status < 500 && BILLING.test(body))) return { ...base, kind: 'billing' };
   if (status === 429)
     return { ...base, kind: 'rate_limited', retryAfterMs: parseRetryAfter(error.responseHeaders) };
   if (status === 401 || status === 403) return { ...base, kind: 'auth' };
