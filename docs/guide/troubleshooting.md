@@ -118,6 +118,13 @@ tab, so Lakka has no price for it. Add it, with its prices.
 provider refused the key: it was revoked, expired or ran out of credit. **Replace key** on the
 **Model providers** tab; **Save and check** checks the new one.
 
+**`provider_billing` (502).** The provider refused because of its account's billing, usually
+no credit left. Top up the account with the provider. Nothing was charged in Lakka.
+
+**`provider_model_not_found` (502).** Lakka has the model, but its provider does not know the id
+after the colon. Look the id up in the provider's model list, add the model again with that id
+on the **Models** tab, point routes and the workspace default at it, and remove the old one.
+
 **`upstream_unavailable` (502) or replies that stop with `stream_interrupted`.** The provider did
 not answer or broke off. Its status page may say more; a fallback on the route helps next time.
 

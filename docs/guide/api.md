@@ -147,6 +147,8 @@ The `message` is written for people; branch on `code`.
 | 429     | `rate_limited`                | You started more model requests than your rate limit allows; your keys count as you. Nothing was sent. `type` is `rate_limit_error`.                                  | Yes, after `Retry-After`                     |
 | 502     | `upstream_unavailable`        | No provider answered in time, or each one refused for its rate limit.                                                                                                 | Yes                                          |
 | 502     | `provider_auth_failed`        | The provider refused Lakka's key: an admin must fix it.                                                                                                               | No                                           |
+| 502     | `provider_billing`            | The provider refused because of its account's billing, usually no credit left: an admin must fix it. Never a 402, which is only `budget_exceeded`.                    | No                                           |
+| 502     | `provider_model_not_found`    | Lakka has the model, but its provider does not know the model id: an admin must correct it.                                                                           | No                                           |
 | 502     | `stream_interrupted`          | The reply broke off.                                                                                                                                                  | Yes                                          |
 | 503     | `budget_unavailable`          | Budgets or the rate limit cannot be checked right now, so nothing is served.                                                                                          | Yes, shortly                                 |
 | 200     | `server_shutting_down`        | Lakka is restarting: the last event of a stream already sent.                                                                                                         | Yes                                          |
@@ -156,7 +158,9 @@ The `message` is written for people; branch on `code`.
 A `budget_exceeded` error also carries `"lakka": {"scope", "remaining_micro_usd",
 "required_micro_usd"}`: the cap that refused, its room left and what the request needed, in
 millionths of a US dollar. An `upstream_unavailable` error names the `provider` there, and, when
-it refused for its rate limit, `rate_limited: true` and `retry_after_seconds`. While Lakka
+it refused for its rate limit, `rate_limited: true` and `retry_after_seconds`. A
+`provider_billing` error names the `provider`, and a `provider_model_not_found` error the
+`provider` and the `model` it did not know. While Lakka
 shuts down, a new request gets a plain 503 that is not in OpenAI's shape.
 
 A `rate_limited` error comes with a `Retry-After` header in seconds, `retry-after-ms`, and

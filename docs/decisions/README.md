@@ -128,3 +128,4 @@ Architecture decision records for questions the specs in `docs/` do not settle. 
 - [0124. Classifier weights from sentence-transformers' own ONNX exports](0124-sentence-transformers-onnx-exports.md)
 - [0125. A route's description counts as one of its examples](0125-description-blended-into-centroid.md)
 - [0126. DeepSeek, Moonshot AI, Qwen Cloud, Xiaomi MiMo and Z.ai as first-party providers](0126-compatible-first-party-providers.md)
+- [0127. Errors for a provider account out of credit and for a model id the provider does not know](0127-provider-billing-and-unknown-model-errors.md)
