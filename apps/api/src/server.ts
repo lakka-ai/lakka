@@ -167,6 +167,8 @@ export const STATUS_BY_CODE: Readonly<Record<string, number>> = {
   content_filtered: 400,
   provider_rejected_request: 400,
   provider_auth_failed: 502,
+  provider_billing: 502,
+  provider_model_not_found: 502,
   upstream_unavailable: 502,
   stream_interrupted: 502,
   // A stored credential names a key version this server was not given: its fault, not the

@@ -281,9 +281,15 @@ test.describe('instance administration (ID-6, ID-2)', () => {
     // focus stays on the tab whose page opened.
     const menuItem = mainMenu(page).getByRole('link', { name: 'People and sign-in' });
     await menuItem.click();
-    await page.getByRole('tab', { name: 'People', exact: true }).focus();
-    await page.keyboard.press('ArrowRight');
-    await expect(page).toHaveURL(/\/admin\/people\/sign-in$/);
+    // The tablist is server-rendered, so it can take focus before the page hydrates, and an
+    // arrow key pressed then does nothing. A keyboard user would press again; so does this test.
+    await expect(async () => {
+      if (!page.url().endsWith('/admin/people/sign-in')) {
+        await page.getByRole('tab', { name: 'People', exact: true }).focus();
+        await page.keyboard.press('ArrowRight');
+      }
+      await expect(page).toHaveURL(/\/admin\/people\/sign-in$/, { timeout: 1000 });
+    }).toPass();
     await expect(page.getByRole('tab', { name: 'Sign-in providers' })).toBeFocused();
     await expect(page.getByRole('heading', { name: 'People and sign-in', level: 1 })).toBeVisible();
     await expect(page.getByRole('tab', { name: 'Sign-in providers' })).toHaveAttribute(

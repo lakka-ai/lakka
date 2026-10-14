@@ -360,6 +360,39 @@ export class ProviderAuthError extends LakkaError {
   readonly code = 'provider_auth_failed';
 }
 
+/**
+ * The provider refused for its account's billing: a 402, or a refusal that says the account is
+ * out of credit (CH-7, ADR 0127). An admin has to fix it; nothing is retried or failed over.
+ * Never a 402 to clients: that status means a Lakka budget refused (API-5).
+ */
+export class ProviderBillingError extends LakkaError {
+  readonly code = 'provider_billing';
+  readonly provider: string;
+
+  constructor(message: string, options: ErrorOptions & { provider: string }) {
+    super(message, options);
+    this.provider = options.provider;
+  }
+}
+
+/**
+ * Every model tried was one its provider does not know (CH-7, ADR 0127): Lakka has the model,
+ * but the id after the colon is wrong. An admin has to fix the model. Unlike `unknown_model`,
+ * which is a model Lakka itself does not have.
+ */
+export class ProviderModelNotFoundError extends LakkaError {
+  readonly code = 'provider_model_not_found';
+  readonly provider: string;
+  /** The Lakka model reference of the last model tried, `provider:model`. */
+  readonly model: string;
+
+  constructor(message: string, options: ErrorOptions & { provider: string; model: string }) {
+    super(message, options);
+    this.provider = options.provider;
+    this.model = options.model;
+  }
+}
+
 /** The provider's content filter refused the request. Never retried, never failed over. */
 export class ContentFilteredError extends LakkaError {
   readonly code = 'content_filtered';

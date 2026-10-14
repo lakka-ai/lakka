@@ -60,13 +60,15 @@ export interface ChatToolActivity {
 
 /**
  * What a refusal or failure said beyond its code (ADR 0092): which cap and by how much, or
- * which provider and how long to wait.
+ * which provider and how long to wait, or which model its provider did not know (ADR 0127).
  */
 export interface ChatErrorDetails {
   scope?: string;
   remainingMicroUsd?: string;
   requiredMicroUsd?: string | null;
   provider?: string;
+  /** A model reference, `provider:model`. */
+  model?: string;
   rateLimited?: boolean;
   retryAfterSeconds?: number | null;
 }
@@ -107,6 +109,8 @@ function detailsOf(body: unknown): ChatErrorDetails {
   if (required !== undefined && /^\d+$/.test(required)) details.requiredMicroUsd = required;
   const provider = text(raw['provider']);
   if (provider !== undefined) details.provider = provider;
+  const model = text(raw['model']);
+  if (model !== undefined) details.model = model;
   if (typeof raw['rate_limited'] === 'boolean') details.rateLimited = raw['rate_limited'];
   const wait = raw['retry_after_seconds'];
   if (typeof wait === 'number' && Number.isFinite(wait) && wait >= 0) {

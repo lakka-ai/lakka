@@ -252,6 +252,30 @@ export function problemOf(
         retry: true,
         pickAnother: true,
       };
+    case 'provider_billing':
+      return {
+        title:
+          details.provider === undefined
+            ? t('chat.problem.billing.titleUnknown')
+            : t('chat.problem.billing.title', { provider: providerLabel(details.provider) }),
+        body: t('chat.problem.billing.body'),
+        pickAnother: true,
+      };
+    case 'provider_model_not_found': {
+      // The provider's own id, after the colon: what an admin has to correct.
+      const id = details.model === undefined ? undefined : parseModelRef(details.model)?.model;
+      return {
+        title:
+          details.provider === undefined || id === undefined
+            ? t('chat.problem.unknownModel.titleUnknown')
+            : t('chat.problem.unknownModel.title', {
+                provider: providerLabel(details.provider),
+                id,
+              }),
+        body: t('chat.problem.unknownModel.body'),
+        pickAnother: true,
+      };
+    }
     case 'stream_interrupted': {
       const provider = context.model === undefined ? undefined : parseModelRef(context.model);
       return {

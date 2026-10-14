@@ -1,6 +1,6 @@
 # 0040. Dispatch: checks, retries, failover and usage on every path
 
-Status: accepted
+Status: accepted; amended by ADR 0127 (a provider account out of credit, and a model id the provider does not know).
 
 ## Context
 

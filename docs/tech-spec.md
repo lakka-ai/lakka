@@ -630,8 +630,9 @@ This is what decides whether a retry helps or just wastes budget (ADR 0040). Eac
 | No first chunk in time (30 s, or 180 s for reasoning models) | Retry, then fail over |
 | 400 schema, or any other 4xx | Terminal: `provider_rejected_request`; the request is malformed |
 | 401 / 403 | Terminal; show the admin a credential problem (`provider_auth_failed`) |
+| 402, or a refusal that says the account is out of credit (OpenAI's 429 `insufficient_quota`, Anthropic's "credit balance is too low") | Terminal; show the admin a billing problem (`provider_billing`, ADR 0127) |
 | Content filter | Terminal; never retry, never fail over |
-| Context overflow, or a model the provider doesn't know | Don't retry; fail over at once. If nothing is left after an overflow, `context_too_long`; after an unknown model, `upstream_unavailable` |
+| Context overflow, or a model the provider doesn't know | Don't retry; fail over at once. If nothing is left after an overflow, `context_too_long`; if every candidate was a model its provider doesn't know, `provider_model_not_found` (ADR 0127); otherwise `upstream_unavailable` |
 
 Jitter isn't optional. If every client retries at the same moment after a provider hiccup, the wave of retries makes the outage last longer.
 

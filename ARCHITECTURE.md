@@ -748,12 +748,14 @@ and its fallbacks) and:
 | 429                                                 | Retry the same model if `Retry-After` is 10 s or less, else fail over              |
 | 5xx, overload, timeout, empty stream, network error | Retry the same model once with full-jitter backoff (250 ms to 4 s), then fail over |
 | Context overflow                                    | Fail over; if everything overflowed, `ContextTooLongError`                         |
-| Model not found                                     | Fail over                                                                          |
+| Model not found                                     | Fail over; if every candidate was unknown, `ProviderModelNotFoundError`            |
 | 401 / 403                                           | Terminal: `ProviderAuthError`                                                      |
+| 402, or a body that says the account has no credit  | Terminal: `ProviderBillingError` (ADR 0127)                                        |
 | Content filter                                      | Terminal: `ContentFilteredError`, never retried or failed over                     |
 | Other 400                                           | Terminal: `ProviderRequestRejectedError`                                           |
 
-Each model gets two attempts. With every candidate used up, `UpstreamUnavailableError`.
+Each model gets two attempts. With every candidate used up, `UpstreamUnavailableError`, unless
+every one of them was a model its provider does not know (ADR 0127).
 
 5. **Records usage for every attempt that may have cost money.** An attempt that failed after the
    provider may have started generating (timeouts, empty streams, network errors) is recorded as
@@ -1407,6 +1409,8 @@ error bodies. The SDKs then behave correctly: an unknown model is `model_not_fou
 `budget_exceeded` (not retried), and a store outage is 503. A budget refusal also carries a
 `lakka` extension with the cap's scope, what it had left and what the request needed; a provider
 failure carries the provider, whether it was rate limited, and its `Retry-After` (ADR 0092). A
+provider's billing refusal and a model id the provider does not know are 502 `provider_billing` and
+`provider_model_not_found`, carrying the provider (and the model), never a 402 (ADR 0127). A
 refusal by the per-person rate limit is 429 `rate_limit_error` with `Retry-After`, `retry-after-ms`
 and `lakka.retry_after_seconds` (BG-12, ADR 0113).
 

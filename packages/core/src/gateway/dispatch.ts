@@ -4,6 +4,8 @@ import {
   ContextTooLongError,
   OutputTooLongError,
   ProviderAuthError,
+  ProviderBillingError,
+  ProviderModelNotFoundError,
   ProviderNotConfiguredError,
   ProviderRequestRejectedError,
   UnknownModelError,
@@ -243,10 +245,15 @@ function endSpan(span: Span, errorType: string | null): void {
   span.end();
 }
 
-function terminalError(failure: Failure, cause: unknown): Error | undefined {
+function terminalError(failure: Failure, cause: unknown, provider: string): Error | undefined {
   switch (failure.kind) {
     case 'auth':
       return new ProviderAuthError('the provider refused the configured credential', { cause });
+    case 'billing':
+      return new ProviderBillingError("the provider refused for its account's billing", {
+        cause,
+        provider,
+      });
     case 'content_filter':
       return new ContentFilteredError("the provider's content filter refused this request", {
         cause,
@@ -362,6 +369,9 @@ export async function dispatch(
     let index = 0;
     let triesOnCurrent = 0;
     let sawContextOverflow = false;
+    // Only when every candidate was unknown to its provider is that the answer; if anything
+    // else failed too, a retry may still work, so the request stays upstream_unavailable.
+    let sawOnlyUnknownModels = true;
     // Set in onFailure, which the compiler cannot see run, so it lives in an object.
     const last: {
       failure: { kind: Failure['kind']; retryAfterMs: number | null; provider: string } | null;
@@ -521,9 +531,10 @@ export async function dispatch(
         error_code: failure.kind,
         status_code: failure.httpStatus,
       });
-      const terminal = terminalError(failure, error);
+      const terminal = terminalError(failure, error, current().model.provider);
       if (terminal !== undefined) return { retry: false, error: terminal };
       if (failure.kind === 'context_overflow') sawContextOverflow = true;
+      if (failure.kind !== 'model_not_found') sawOnlyUnknownModels = false;
 
       const retrySame =
         triesOnCurrent < attemptsPerModel &&
@@ -542,14 +553,25 @@ export async function dispatch(
         triesOnCurrent = 0;
         return { retry: true, delayMs: 0 };
       }
-      return sawContextOverflow
-        ? {
-            retry: false,
-            error: new ContextTooLongError('the input does not fit any candidate model', {
-              cause: error,
-            }),
-          }
-        : { retry: false };
+      if (sawContextOverflow) {
+        return {
+          retry: false,
+          error: new ContextTooLongError('the input does not fit any candidate model', {
+            cause: error,
+          }),
+        };
+      }
+      if (sawOnlyUnknownModels) {
+        return {
+          retry: false,
+          error: new ProviderModelNotFoundError('no candidate model is known to its provider', {
+            cause: error,
+            provider: current().model.provider,
+            model: current().model.id,
+          }),
+        };
+      }
+      return { retry: false };
     };
 
     let committed;

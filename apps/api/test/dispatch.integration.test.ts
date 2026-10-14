@@ -5,6 +5,7 @@ import {
   ContextTooLongError,
   OutputTooLongError,
   ProviderAuthError,
+  ProviderBillingError,
   ProviderNotConfiguredError,
   ProviderRequestRejectedError,
   StreamInterruptedError,
@@ -319,6 +320,40 @@ describe('dispatch: failures before the first chunk (invariant 6)', () => {
     });
   });
 
+  it('CH-7: a model its provider does not know is failed over at once, not retried', async () => {
+    const unknown = await model('fake', 'no-such-model');
+    const backup = await model('fake', 'ok');
+    const stream = await dispatch(ctx(), request([unknown, backup]));
+    await read(stream);
+    expect(stream.model.id).toBe(backup);
+    expect(fake.count(providerModel(unknown))).toBe(1);
+  });
+
+  it('CH-7: when every candidate is unknown to its provider, the error names the model', async () => {
+    const a = await model('fake', 'no-such-model');
+    const b = await model('fake', 'no-such-model');
+    const r = request([a, b]);
+    await expect(dispatch(ctx(), r)).rejects.toMatchObject({
+      code: 'provider_model_not_found',
+      provider: 'fake',
+      model: b,
+    });
+    expect(fake.count(providerModel(a))).toBe(1);
+    expect(fake.count(providerModel(b))).toBe(1);
+    expect(await usage(r)).toEqual([]);
+  });
+
+  it('CH-7: an unknown model next to one that is down stays upstream_unavailable', async () => {
+    const unknown = await model('fake', 'no-such-model');
+    const down = await model('fake', 'status-503');
+    await expect(dispatch(ctx(), request([unknown, down]))).rejects.toBeInstanceOf(
+      UpstreamUnavailableError,
+    );
+    await expect(dispatch(ctx(), request([down, unknown]))).rejects.toBeInstanceOf(
+      UpstreamUnavailableError,
+    );
+  });
+
   it('fails over to a model with a larger window when the input overflows', async () => {
     const small = await model('fake', 'context-overflow');
     const large = await model('fake', 'ok');
@@ -337,6 +372,8 @@ describe('dispatch: terminal errors are not retried and not failed over', () => 
     ['status-401', ProviderAuthError],
     ['content-filter', ContentFilteredError],
     ['bad-request', ProviderRequestRejectedError],
+    ['status-402', ProviderBillingError],
+    ['no-credit', ProviderBillingError],
   ] as const) {
     it(`${scenario} stops at once, even with a fallback`, async () => {
       const failing = await model('fake', scenario);
@@ -346,6 +383,14 @@ describe('dispatch: terminal errors are not retried and not failed over', () => 
       expect(fake.count(providerModel(fallback))).toBe(0);
     });
   }
+
+  it('CH-7: a billing refusal names the provider, from either protocol', async () => {
+    for (const provider of ['fake', 'anthropic']) {
+      await expect(
+        dispatch(ctx(), request([await model(provider, 'no-credit')])),
+      ).rejects.toMatchObject({ code: 'provider_billing', provider });
+    }
+  });
 });
 
 describe('dispatch: failures after the first chunk (invariant 6)', () => {

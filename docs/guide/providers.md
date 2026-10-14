@@ -191,11 +191,14 @@ that region's address and prices.
 - **`model_not_found` (404)**: no model by that name in Lakka. Add it under **Models you added**.
 - **`provider_auth_failed` (502)** on a request: the provider refused the key. **Change address**
   and enter it again.
-- **`provider_rejected_request` (400)** on every request: the provider turned the request down.
-  From OpenRouter this is most often credit: the account is empty, or its credit does not cover
-  the model's output limit. Top it up, or lower the [output limit](#the-output-limit).
-- **`provider_rejected_request` (400) or `upstream_unavailable` (502)** on every request to one
-  model, while others from the same provider work: the model id after the colon is not one the
-  provider knows. Copy it again, suffix included.
+- **`provider_billing` (502)**: the provider refused because of its account's billing. The
+  account is most often empty, or, from OpenRouter, its credit does not cover the model's output
+  limit. Top it up, or lower the [output limit](#the-output-limit). **Check** does not catch
+  this: listing models is free.
+- **`provider_model_not_found` (502)**: the model id after the colon is not one the provider
+  knows. Copy it again from the provider's model list, suffix included. **Check** does not catch
+  this either: it tests the key, not each model.
+- **`provider_rejected_request` (400)** on every request: the provider turned the request down
+  for another reason, such as an option the model does not take.
 
 [Troubleshooting](troubleshooting.md) has the rest.

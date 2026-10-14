@@ -1,6 +1,8 @@
 import {
   BudgetExceededError,
   LakkaError,
+  ProviderBillingError,
+  ProviderModelNotFoundError,
   RateLimitedError,
   UpstreamUnavailableError,
 } from '@lakka/contracts';
@@ -20,9 +22,9 @@ export interface OpenAiErrorBody {
 
 /**
  * Details some errors carry for the person who sent the request: which cap refused and by how
- * much, which provider did not answer and how long it asked to wait, or how long their own rate
- * limit asks them to wait (BG-12). Amounts are their own headroom, which /budgets/remaining
- * already shows them.
+ * much, which provider did not answer and how long it asked to wait, which provider refused for
+ * billing or did not know the model, or how long their own rate limit asks them to wait (BG-12).
+ * Amounts are their own headroom, which /budgets/remaining already shows them.
  */
 function details(error: LakkaError): Record<string, unknown> | undefined {
   if (error instanceof BudgetExceededError) {
@@ -41,6 +43,10 @@ function details(error: LakkaError): Record<string, unknown> | undefined {
       rate_limited: error.rateLimited,
       retry_after_seconds: error.retryAfterSeconds,
     };
+  }
+  if (error instanceof ProviderBillingError) return { provider: error.provider };
+  if (error instanceof ProviderModelNotFoundError) {
+    return { provider: error.provider, model: error.model };
   }
   return undefined;
 }
@@ -64,6 +70,9 @@ const MAPPING: Readonly<Record<string, { status: number; type: string; code?: st
   content_filtered: { status: 400, type: 'invalid_request_error', code: 'content_filter' },
   provider_rejected_request: { status: 400, type: 'invalid_request_error' },
   provider_auth_failed: { status: 502, type: 'server_error' },
+  // Never 402, which is a Lakka budget's (API-5); the caller cannot fix either one.
+  provider_billing: { status: 502, type: 'server_error' },
+  provider_model_not_found: { status: 502, type: 'server_error' },
   upstream_unavailable: { status: 502, type: 'server_error' },
   stream_interrupted: { status: 502, type: 'server_error' },
 };
