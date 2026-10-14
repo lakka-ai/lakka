@@ -252,6 +252,30 @@ describe('chat copy (CH-2, CH-4, CH-7)', () => {
     expect(problemOf('something_new', {}).title).not.toContain('something_new');
   });
 
+  it('CH-7: a provider billing refusal names the provider and says who can fix it', () => {
+    expect(problemOf('provider_billing', { provider: 'anthropic' })).toEqual({
+      title: 'Anthropic refused this message because of its account billing.',
+      body: 'Nothing was charged. The account may be out of credit, so ask an admin to check it, or pick another model.',
+      pickAnother: true,
+    });
+    expect(problemOf('provider_billing', {}).title).toBe(
+      'The model provider refused this message because of its account billing.',
+    );
+  });
+
+  it('CH-7: a model its provider does not know names the id an admin has to correct', () => {
+    expect(
+      problemOf('provider_model_not_found', { provider: 'berget', model: 'berget:kimik3' }),
+    ).toEqual({
+      title: 'berget does not know the model id kimik3.',
+      body: 'Nothing was charged. Ask an admin to correct the model id under Models and providers, or pick another model.',
+      pickAnother: true,
+    });
+    expect(problemOf('provider_model_not_found', { provider: 'berget' }).title).toBe(
+      'The model provider does not know this model.',
+    );
+  });
+
   it('BG-12, CH-7: a rate-limited message says how long to wait', () => {
     expect(problemOf('rate_limited', { retryAfterSeconds: 12 })).toEqual({
       title: 'Too many requests at once.',

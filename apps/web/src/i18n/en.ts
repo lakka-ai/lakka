@@ -1270,6 +1270,15 @@ export const en = {
   'chat.problem.down.title': '{provider} is not responding.',
   'chat.problem.down.titleUnknown': 'The model provider is not responding.',
   'chat.problem.down.body': 'Try again in a minute, or pick another model.',
+  'chat.problem.billing.title': '{provider} refused this message because of its account billing.',
+  'chat.problem.billing.titleUnknown':
+    'The model provider refused this message because of its account billing.',
+  'chat.problem.billing.body':
+    'Nothing was charged. The account may be out of credit, so ask an admin to check it, or pick another model.',
+  'chat.problem.unknownModel.title': '{provider} does not know the model id {id}.',
+  'chat.problem.unknownModel.titleUnknown': 'The model provider does not know this model.',
+  'chat.problem.unknownModel.body':
+    'Nothing was charged. Ask an admin to correct the model id under Models and providers, or pick another model.',
   'chat.problem.brokeOff.title': 'The reply broke off.',
   'chat.problem.brokeOff.body': '{provider} stopped sending. What arrived is kept.',
   'chat.problem.brokeOff.bodyUnknown': 'The provider stopped sending. What arrived is kept.',

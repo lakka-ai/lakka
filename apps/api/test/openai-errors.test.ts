@@ -4,6 +4,8 @@ import {
   BudgetExceededError,
   LakkaError,
   ProviderAuthError,
+  ProviderBillingError,
+  ProviderModelNotFoundError,
   RateLimitedError,
   UpstreamUnavailableError,
 } from '@lakka/contracts';
@@ -48,6 +50,38 @@ describe('the OpenAI error mapping', () => {
           param: null,
           code: 'provider_auth_failed',
         },
+      },
+    });
+  });
+
+  it('CH-7, API-5: a provider billing refusal is a 502 naming the provider, never a 402', () => {
+    const refused = new ProviderBillingError("the provider refused for its account's billing", {
+      provider: 'berget',
+    });
+    expect(toOpenAiError(refused)).toEqual({
+      status: 502,
+      body: {
+        error: {
+          message: "the provider refused for its account's billing",
+          type: 'server_error',
+          param: null,
+          code: 'provider_billing',
+        },
+        lakka: { provider: 'berget' },
+      },
+    });
+  });
+
+  it('CH-7: a model its provider does not know is a 502 naming the provider and model', () => {
+    const unknown = new ProviderModelNotFoundError('no candidate model is known to its provider', {
+      provider: 'berget',
+      model: 'berget:kimik3',
+    });
+    expect(toOpenAiError(unknown)).toMatchObject({
+      status: 502,
+      body: {
+        error: { type: 'server_error', code: 'provider_model_not_found' },
+        lakka: { provider: 'berget', model: 'berget:kimik3' },
       },
     });
   });
