@@ -4,7 +4,7 @@ Lakka is a self-hosted AI control plane for teams of 10 to 50 people: one instal
 
 Status: the v1 milestones are done; [`docs/roadmap.md`](docs/roadmap.md) lists them and their
 gates. The latest release,
-[v1.0.0-beta.2](https://github.com/lakka-ai/lakka/releases/tag/v1.0.0-beta.2), is a beta;
+[v1.0.0-beta.3](https://github.com/lakka-ai/lakka/releases/tag/v1.0.0-beta.3), is a beta;
 [`docs/releasing.md`](docs/releasing.md) describes how a release is made.
 
 ## Run it
