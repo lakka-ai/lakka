@@ -25,7 +25,7 @@ Download the release bundle, `lakka-<version>.tar.gz`, from
 want to run Lakka:
 
 ```
-tar -xzf lakka-v1.0.0-beta.3.tar.gz && cd lakka-v1.0.0-beta.3
+tar -xzf lakka-v1.0.0-beta.4.tar.gz && cd lakka-v1.0.0-beta.4
 ```
 
 The bundle holds the compose files, with every image pinned by digest, the backup script, the
@@ -37,10 +37,10 @@ Each release is signed. With [cosign](https://docs.sigstore.dev/cosign/system_co
 installed, check the file is the one the project's release workflow published:
 
 ```
-sha256sum -c lakka-v1.0.0-beta.3.tar.gz.sha256
-cosign verify-blob lakka-v1.0.0-beta.3.tar.gz \
-  --bundle lakka-v1.0.0-beta.3.tar.gz.sigstore.json \
-  --certificate-identity 'https://github.com/lakka-ai/lakka/.github/workflows/release.yml@refs/tags/v1.0.0-beta.3' \
+sha256sum -c lakka-v1.0.0-beta.4.tar.gz.sha256
+cosign verify-blob lakka-v1.0.0-beta.4.tar.gz \
+  --bundle lakka-v1.0.0-beta.4.tar.gz.sigstore.json \
+  --certificate-identity 'https://github.com/lakka-ai/lakka/.github/workflows/release.yml@refs/tags/v1.0.0-beta.4' \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com
 ```
 
