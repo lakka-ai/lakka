@@ -177,6 +177,57 @@ describe('the Requests list and trace (OB-1, ADR 0095)', () => {
     );
   });
 
+  it('OB-1: a request refused at the budget names the model routing picked, though none answered', () => {
+    const trace: TraceView = {
+      request: summary({
+        status: 'error',
+        errorType: 'budget_exceeded',
+        surface: 'api',
+        // Nothing was dispatched, so the request itself records no model.
+        model: null,
+        outcome: null,
+        costMicroUsd: '0',
+        outcomeKind: 'refused',
+        decision: {
+          requested: 'a:haiku',
+          rule: 'explicit',
+          route: null,
+          confidence: null,
+          threshold: null,
+          reason: null,
+        },
+      }),
+      spans: [
+        span('request', 0, 13, { parentSpanId: null, depth: 0, spanId: 'root' }),
+        span('policy.authorize', 0, 2),
+        span('policy.resolve_model', 2, 1, {
+          attributes: {
+            'lakka.routing.rule': 'explicit',
+            'lakka.routing.requested': 'a:haiku',
+            'lakka.model': 'a:haiku',
+          },
+        }),
+        span('policy.reserve_budget', 3, 10, {
+          status: 'error',
+          errorType: 'budget_exceeded',
+          attributes: {
+            'lakka.budget.estimate_micro_usd': 64_000,
+            'lakka.budget.scope': 'key',
+            'lakka.budget.remaining_micro_usd': 0,
+          },
+        }),
+      ],
+      attempts: [],
+      approvals: [],
+      content: [],
+      routes: [],
+    };
+    const steps = traceSteps(trace, names);
+    expect(steps[2]?.notes[0]).toBe(
+      "Claude Haiku 4.5 could cost up to $0.06 for this request. The key's cap had $0.00 left, so the request was refused. The model was never called.",
+    );
+  });
+
   it('nothing charged is written $0.00; a request cost keeps four decimals', () => {
     expect(requestCost('0')).toBe('$0.00');
     expect(requestCost('7300')).toBe('$0.0073');

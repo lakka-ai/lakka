@@ -2,6 +2,14 @@
 
 Lakka is a self-hosted AI control plane for teams of 10 to 50 people: one install, your own model keys, and one identity and policy model applied across web chat, an OpenAI-compatible API and MCP. Spend cannot exceed a cap, every request is attributed and traced, and a tool can never do what the requesting user is not allowed to do.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/guide/tour/chat-cheaper-model-dark.webp">
+  <img alt="Lakka chat: a code review answered by Claude Haiku 5.5, with a note that the workspace budget would not cover Claude Sonnet 5.5" src="docs/guide/tour/chat-cheaper-model-light.webp">
+</picture>
+
+[A tour of Lakka](https://lakka-ai.github.io/lakka/guide/tour) shows the rest: routing, caps,
+traces, spend and tools that ask first, from a demo install.
+
 Status: the v1 milestones are done; [`docs/roadmap.md`](docs/roadmap.md) lists them and their
 gates. The latest release,
 [v1.0.0-beta.3](https://github.com/lakka-ai/lakka/releases/tag/v1.0.0-beta.3), is a beta;

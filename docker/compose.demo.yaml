@@ -1,0 +1,37 @@
+# The demo instance the tour's screenshots are taken from (docs/guide/tour.md, ADR 0128). Run it
+# as a project of its own, so it never touches a development or acceptance stack's data:
+#   LAKKA_HTTP_PORT=8090 LAKKA_HTTPS_PORT=8453 \
+#     docker compose -p lakka-demo -f compose.yaml -f docker/compose.demo.yaml up -d --wait
+# then `pnpm demo:seed` and `pnpm demo:capture`. It adds a model server and a helpdesk tool server
+# that answer the story's prompts (test/demo/demo-provider.ts); no real provider is reached.
+services:
+  api:
+    environment:
+      # The address the screenshots show. The capture browser maps this name to the published
+      # port, so nothing needs to resolve it.
+      LAKKA_PUBLIC_URL: http://ai.nordlys.example
+      # Nordlys SSO is the demo server too, on a private address (ADR 0032).
+      LAKKA_OIDC_PRIVATE_ORIGINS: http://login.nordlys.example
+
+  demo-provider:
+    networks:
+      default:
+        # The issuer address of Nordlys SSO, so screenshots never show a container name for it.
+        aliases: [login.nordlys.example]
+    # The same Node image the app is built on; the server uses only Node's own modules.
+    image: node:24.21.0-trixie-slim
+    init: true
+    user: node
+    command: ['node', '/demo/demo-provider.ts']
+    volumes:
+      # Relative to the first compose file, the repository root.
+      - ./test/demo:/demo:ro
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:4020/openai/v1/models').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"
+      interval: 2s
+      timeout: 3s
+      retries: 15

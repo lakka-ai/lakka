@@ -278,6 +278,8 @@ function reserveStep(
   span: SpanView,
   r: RequestSummaryView,
   names: Names,
+  /** The model the routing step picked: a request refused here never reached one to answer. */
+  picked: string | null,
 ): Pick<Step, 'outcome' | 'notes' | 'cheaper'> {
   const held = micro(span, 'lakka.budget.held_micro_usd');
   const scope = str(span, 'lakka.budget.scope') as Cap | null;
@@ -291,7 +293,7 @@ function reserveStep(
         outcome: t('traces.step.noRoom'),
         notes: [
           t('traces.budget.noRoom', {
-            model: r.decision.rule === null || r.model === null ? '' : names.model(r.model),
+            model: modelName(r, names, picked),
             estimate: money(estimate),
             cap,
             left: money(left),
@@ -361,6 +363,18 @@ const base = (span: SpanView): Omit<Step, 'name' | 'outcome'> => ({
   callSpanIds: [],
 });
 
+/** What a refusal names: the model that answered, else the one routing picked. */
+function modelName(r: RequestSummaryView, names: Names, picked: string | null): string {
+  const ref = r.model ?? picked;
+  return r.decision.rule === null || ref === null ? '' : names.model(ref);
+}
+
+/** The model the request's routing step chose, whether or not it was ever called. */
+const pickedModel = (trace: TraceView): string | null => {
+  const resolve = trace.spans.find((s) => s.depth === 1 && s.name === 'policy.resolve_model');
+  return resolve === undefined ? null : str(resolve, 'lakka.model');
+};
+
 /**
  * The trace's steps in time order: the request's own steps, each model call with its attempts,
  * and each wait for an approval between the request that asked and the one that answered.
@@ -396,7 +410,7 @@ export function traceSteps(trace: TraceView, names: Names): Step[] {
         steps.push({
           ...base(span),
           name: t('traces.step.reserve'),
-          ...reserveStep(span, trace.request, names),
+          ...reserveStep(span, trace.request, names, pickedModel(trace)),
         });
         break;
       case 'gateway.dispatch': {

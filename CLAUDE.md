@@ -66,6 +66,8 @@ pnpm test:integration    # real postgres and valkey in containers
 pnpm test:out-of-process # TL-8 proof: a tool in the app image's locked-down runner container; needs LAKKA_RUNNER_IMAGE (CI only)
 pnpm test:sandbox        # NF-S4: a probe stdio server in the running stack's sandbox, and its failures; same stack as test:e2e
 pnpm stories             # the pattern gallery (Storybook) on port 6006, development only
+pnpm demo:seed           # the tour's demo story into a fresh demo stack (docker/compose.demo.yaml, ADR 0128)
+pnpm demo:capture        # the tour's screenshots, social card and video from the seeded demo stack; `screens`, `card` or `video` for one
 pnpm site:dev            # the project site (landing page and guide) on port 5173, under /lakka/
 pnpm site:build          # the static site into apps/site/.vitepress/dist; LAKKA_SITE_BASE sets its base path
 pnpm site:preview        # the built site on port 4173

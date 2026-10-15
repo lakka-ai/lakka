@@ -9,6 +9,9 @@ hero:
     - theme: brand
       text: Docs
       link: /guide/
+    - theme: alt
+      text: Take the tour
+      link: /guide/tour
 features:
   - title: One set of rules for every surface
     details: Web chat, the OpenAI-compatible API and MCP tools check one set of people, permissions and budgets. A key acts for the person who made it.

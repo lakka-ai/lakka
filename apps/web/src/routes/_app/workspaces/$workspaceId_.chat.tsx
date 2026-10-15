@@ -866,10 +866,11 @@ function Conversation({
                     reply={pendingReply}
                     workspaceId={workspaceId}
                     streaming={shownPending.streaming}
-                    liveTools={shownPending.tools.map((tool) => ({
-                      callId: tool.callId,
-                      name: toolLabel(tool.name),
-                    }))}
+                    // A call that stopped to ask has not run; the approval card below stands
+                    // for it.
+                    liveTools={shownPending.tools
+                      .filter((tool) => tool.status !== 'approval_required')
+                      .map((tool) => ({ callId: tool.callId, name: toolLabel(tool.name) }))}
                   />
                 )}
                 {waiting !== null && (

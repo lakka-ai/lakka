@@ -34,8 +34,11 @@ const mono = (text: string, key: string) => (
 );
 
 function Body({ text }: { text: string }) {
+  // Kept to the bubble's width: without the cap a code line wider than the bubble sized this to
+  // the code, and the bubble's right alignment pushed the code out past its left edge, instead
+  // of letting the code block scroll sideways.
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex max-w-full min-w-0 flex-col gap-3">
       {segmentsOf(text).map((segment, i) =>
         segment.code ? (
           <CodeBlock key={i}>{segment.text}</CodeBlock>
@@ -121,6 +124,9 @@ export function Turn({
 }
 
 function ToolCall({ use }: { use: ToolUse }) {
+  // A call that stopped to ask never ran: while it waits, the approval card stands for it, and
+  // once the person sends something else instead it has expired. Neither is "Used" (Pattern 9).
+  if (use.status === 'approval_required') return null;
   if (use.status === 'denied' || use.status === 'rejected') {
     return (
       <p className="flex items-center gap-2 self-start rounded-note border border-border px-3 py-2 text-body">
