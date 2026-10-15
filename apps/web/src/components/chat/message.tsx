@@ -34,8 +34,11 @@ const mono = (text: string, key: string) => (
 );
 
 function Body({ text }: { text: string }) {
+  // Kept to the bubble's width: without the cap a code line wider than the bubble sized this to
+  // the code, and the bubble's right alignment pushed the code out past its left edge, instead
+  // of letting the code block scroll sideways.
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex max-w-full min-w-0 flex-col gap-3">
       {segmentsOf(text).map((segment, i) =>
         segment.code ? (
           <CodeBlock key={i}>{segment.text}</CodeBlock>
