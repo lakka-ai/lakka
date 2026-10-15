@@ -11,6 +11,8 @@ import { defineConfig, type MarkdownOptions } from 'vitepress';
 
 // GitHub Pages serves a project site under the repository's name; a custom domain is '/'.
 const base = process.env.LAKKA_SITE_BASE ?? '/lakka/';
+// Where the site is published. A link preview needs the card's full address, not a path.
+const siteUrl = process.env.LAKKA_SITE_URL ?? `https://lakka-ai.github.io${base}`;
 
 // The browser's toolbar colour is the page's surface, read from the design's theme file so the
 // two cannot drift apart.
@@ -71,11 +73,38 @@ export default defineConfig({
       'meta',
       { media: '(prefers-color-scheme: light)', name: 'theme-color', content: surface(':root') },
     ],
+    // The card shown when a link to the site is shared (docs/guide/tour.md, ADR 0128).
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'Lakka' }],
+    ['meta', { property: 'og:image', content: `${siteUrl}og.png` }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
+    [
+      'meta',
+      {
+        property: 'og:image:alt',
+        content:
+          'Lakka chat, where a code review moved to a cheaper model because the budget was low',
+      },
+    ],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     [
       'meta',
       { media: '(prefers-color-scheme: dark)', name: 'theme-color', content: surface('\\.dark') },
     ],
   ],
+
+  // Each page's own title, summary and address for its link preview; the card is the same.
+  transformHead({ pageData, title, description }) {
+    const path = pageData.relativePath
+      .replace(/(^|\/)(index|README)\.md$/, '$1')
+      .replace(/\.md$/, '');
+    return [
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description }],
+      ['meta', { property: 'og:url', content: `${siteUrl}${path}` }],
+    ];
+  },
 
   markdown: {
     // Code is drawn as the app draws it: plain text in the code block colours. Highlighting
@@ -112,7 +141,10 @@ export default defineConfig({
       '/guide/': [
         {
           text: 'Introduction',
-          items: [{ text: 'What is Lakka?', link: '/guide/' }],
+          items: [
+            { text: 'What is Lakka?', link: '/guide/' },
+            { text: 'A tour of Lakka', link: '/guide/tour' },
+          ],
         },
         {
           text: 'Guide',

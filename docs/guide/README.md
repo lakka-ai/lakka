@@ -11,6 +11,7 @@ when you need it.
 
 | Page                                        | For                                                                                                                                                                                                              |
 | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [A tour of Lakka](tour.md)                  | Screenshots of a demo install: routing, caps that hold, traces, spend and tools that ask first.                                                                                                                  |
 | [Install](install.md)                       | From nothing to a first answer, the services that start, and serving it on a domain with HTTPS.                                                                                                                  |
 | [Administration](administration.md)         | People, sign-in, workspaces, keys, providers and models, price updates, budgets and the rate limit, routing, tool servers and the sandbox, files in chat, content capture, traces, and deleting a person's data. |
 | [Example routes](routing-examples.md)       | Routes to copy for code, summaries, translation, contracts, customer replies, data and brainstorming, and how to write your own.                                                                                 |

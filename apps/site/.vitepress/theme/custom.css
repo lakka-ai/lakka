@@ -801,3 +801,24 @@ html {
 :root .NotFound .link:active {
   opacity: 0.8;
 }
+
+/*
+ * The tour's screenshots (docs/guide/tour.md): each comes in a light and a dark version, and the
+ * one for the other theme is not shown. They sit in a card's 1px border and 12px corners, so a
+ * screenshot's own background never runs into the page's.
+ */
+.vp-doc .lk-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 16px 0 24px;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+.vp-doc .lk-dark,
+.dark .vp-doc .lk-light {
+  display: none;
+}
+.dark .vp-doc .lk-dark {
+  display: block;
+}
