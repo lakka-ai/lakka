@@ -20,6 +20,8 @@
     "test:sandbox": "vitest run --config vitest.sandbox.config.ts",
     "test:e2e": "playwright test",
     "stories": "pnpm --filter @lakka/web storybook",
+    "demo:seed": "node test/demo/seed.ts",
+    "demo:capture": "node test/demo/capture.ts",
     "test:stories": "pnpm --filter @lakka/web build-storybook && playwright test --config playwright.stories.config.ts",
     "test:compat": "vitest run --config vitest.compat.config.ts",
     "test:compat:python": "scripts/compat-python.sh",

@@ -2,6 +2,8 @@
 
 The mockups share one consistent story. Use it for component stories, tests and seed data, so screens can be compared with the boards.
 
+The demo instance behind the tour's screenshots (`test/demo/seed.ts`, ADR 0128) tells this story with every address under `nordlys.example` and current models, so nothing published names a real domain.
+
 ## Instance and workspace
 
 - Server: ai.nordlys.se. Sign-in provider: Nordlys SSO (OIDC), allowed domains nordlys.se and nordlys.fi. 27 people sign in with it.

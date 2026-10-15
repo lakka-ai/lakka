@@ -37,3 +37,7 @@ models/*
 # project site (VitePress)
 apps/site/.vitepress/cache/
 apps/site/.vitepress/dist/
+
+# The demo instance: sign-ins written by pnpm demo:seed, and capture output (ADR 0128).
+test/demo/.state.json
+test/demo/.output/
