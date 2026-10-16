@@ -6,6 +6,12 @@ checked against one set of people, permissions and budgets. Spend cannot exceed 
 request is attributed and traced, and a tool can never do what the person asking is not allowed
 to do.
 
+Lakka's own chat is one way in, not the only one. People can keep the apps they already use, such
+as Open WebUI, LibreChat, a coding harness or their own scripts, and point them at Lakka's
+OpenAI-compatible API with a Lakka key. Those requests are capped, traced and routed exactly like
+chat. With the model set to `auto`, the workspace's routes choose the model for each request, so
+an app needs no list of models or prices of its own. [The API](api.md) shows how to connect one.
+
 This guide is everything you need to run it. Read [Install](install.md) first; the rest is for
 when you need it.
 
@@ -16,7 +22,7 @@ when you need it.
 | [Administration](administration.md)         | People, sign-in, workspaces, keys, providers and models, price updates, budgets and the rate limit, routing, tool servers and the sandbox, files in chat, content capture, traces, and deleting a person's data. |
 | [Example routes](routing-examples.md)       | Routes to copy for code, summaries, translation, contracts, customer replies, data and brainstorming, and how to write your own.                                                                                 |
 | [Adding a provider](providers.md)           | Any OpenAI-compatible service or server, such as OpenRouter or Ollama, and pricing its models so budgets stay exact.                                                                                             |
-| [The API](api.md)                           | Using Lakka from scripts, the OpenAI SDKs, Open WebUI and LibreChat, the per-person rate limit, and its errors.                                                                                                  |
+| [The API](api.md)                           | Using Lakka from any app or harness that speaks the OpenAI API, routing with `auto`, the per-person rate limit, and its errors.                                                                                  |
 | [Configuration](configuration.md)           | Every setting, which of them compose reads, the rate limit and the sandbox, the secrets and key files, and the operator commands.                                                                                |
 | [Operations](operations.md)                 | Health of each service, logs, the diagnostics bundle, retention, price update checks, trace export and restarts.                                                                                                 |
 | [Backup and restore](backup-and-restore.md) | One command each way, and rotating the recovery key.                                                                                                                                                             |

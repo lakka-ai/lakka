@@ -1,10 +1,11 @@
 # Example routes
 
-These routes are starting points for a workspace's **Routing** page. Each one shows the fields
-you fill in under **Add a route**, with a description and example phrasings you can paste
-straight into the form, one per line. Copy the ones that fit your team, change the wording to
-match how your people write, and check them with **Try a phrase**. How routing decides, and how
-accurate it is, is under [Routing](administration.md#routing).
+These routes are starting points for a workspace's **Routing** page. They apply to chat and to
+every app that asks the API for the model `auto`. Each one shows the fields you fill in under
+**Add a route**, with a description and example phrasings you can paste straight into the form,
+one per line. Copy the ones that fit your team, change the wording to match how your people
+write, and check them with **Try a phrase**. How routing decides, and how accurate it is, is
+under [Routing](administration.md#routing).
 
 The models are named by what they need, not by product, because your providers and prices are
 your own. "The default model" is the workspace's **Default model**: a capable, general model that
@@ -24,6 +25,8 @@ accuracy was not measured; your own messages are the real test.
   sent to a weaker model by mistake. That is why the two values under **How sure routing must be**
   differ. Leave them as they are at first.
 - Messages under three words skip the classifier, and a conversation keeps its first decision.
+  An API request that names no conversation is routed on its own (see
+  [The API](api.md#routing-without-a-conversation)).
 
 ## Code
 

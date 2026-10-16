@@ -106,7 +106,9 @@ again at the setup code.
    **Settings**; **Save**. The models of every provider with its own row are in the bundled
    catalogue with their prices. For an OpenAI-compatible server, first add the model on the **Models** tab (see
    [Administration](administration.md#providers-and-models)).
-3. Open **Chat**, write a message and **Send**.
+3. Open **Chat**, write a message and **Send**. Or skip Lakka's chat: create a key under **API
+   keys** on the **Workspace settings** page and point any app that speaks the OpenAI API at
+   `http://localhost:8080/v1` with the model `auto` (see [The API](api.md)).
 
 Every request is priced from the catalogue before it is sent, so a model with no price cannot be
 used. Set a budget before inviting people (see
@@ -146,5 +148,6 @@ network you trust completely.
 ## Next
 
 - [Administration](administration.md): people, workspaces, providers, budgets, routing and tools.
-- [The API](api.md): connecting scripts, SDKs and tools such as Open WebUI.
+- [The API](api.md): connecting the apps, coding harnesses, scripts and SDKs your team already
+  uses, such as Open WebUI, instead of or alongside Lakka's chat.
 - [Backup and restore](backup-and-restore.md): set up backups before you rely on it.
