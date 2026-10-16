@@ -18,7 +18,7 @@ body:
     attributes:
       label: Version
       description: '`cat VERSION` in the release bundle, or the commit if you run from source.'
-      placeholder: v1.0.0-beta.4
+      placeholder: v1.0.0-beta.5
     validations:
       required: true
 
