@@ -171,7 +171,12 @@ for (const size of sizes) {
       for (const view of ['list', 'detailed'] as const) {
         if (view === 'detailed') {
           await page.getByRole('button', { name: 'Display detailed list' }).click();
-          await expect(page.locator('.VPLocalSearchBox .excerpt').first()).toBeVisible();
+          // Excerpts appear only once VitePress has imported and rendered every result's page.
+          // In Linux WebKit that took up to 3.5 s on a cold run with nothing else running, so
+          // the default 5 s fails when CI runs the other tests alongside it.
+          await expect(page.locator('.VPLocalSearchBox .excerpt').first()).toBeVisible({
+            timeout: 15_000,
+          });
         }
         await settled(page);
         for (const v of await axeViolations(page)) faults.push(`search, ${view} view: ${v}`);
