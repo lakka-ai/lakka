@@ -35,5 +35,9 @@ patchedDependencies:
 # it would be installed into the product image as a dependency of better-auth. A range no release
 # satisfies leaves the peer unresolved. ('-', which removes a peer in later pnpm, turns it into
 # '*' in 12.6.)
+# TanStack Start is the same: better-auth lists it as an optional peer for its TanStack Start
+# integration, which nothing here uses. Linked, it was held at an old version for core, kept out of
+# step with apps/web, and shipped in the api image (CVE-2026-102989).
 overrides:
   better-auth>vue: '0.0.0'
+  better-auth>@tanstack/react-start: '0.0.0'
