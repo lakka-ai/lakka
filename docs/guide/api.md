@@ -1,8 +1,13 @@
 # The API
 
-Lakka speaks the OpenAI Chat Completions API, so the official OpenAI SDKs, and tools built on
-them, work with nothing but a different base URL and a Lakka key. Every request goes through
-the same budgets, routing, permissions and tracing as chat.
+Lakka speaks the OpenAI Chat Completions API. Any app, coding harness, script or SDK that lets
+you set a base URL and a key can use Lakka in place of OpenAI, so your team does not have to
+switch to Lakka's chat. Every request goes through the same budgets, routing, permissions and
+tracing as chat: a key acts for the person who made it and spends against their caps.
+
+Set `model` to `auto` and Lakka chooses the model for each request from the workspace's routes
+(see [Choosing a model](#choosing-a-model)). The app does not need to know which models exist or
+what they cost, and when an admin changes a route, every app follows.
 
 ## Connecting
 
@@ -34,7 +39,17 @@ curl https://ai.example.com/v1/chat/completions \
 - **LibreChat**: add a custom endpoint in `librechat.yaml` with `baseURL` set to the base URL,
   `apiKey` to a key, and `models: { fetch: true }`, so it lists the models Lakka offers.
 
-Both are tested against Lakka, unmodified, on every change.
+Both are tested against Lakka, unmodified, on every change. Their model lists show `auto` and
+each route, so people can pick routing there.
+
+### Other apps and harnesses
+
+Other chat apps, coding harnesses and agent frameworks that use Chat Completions should work the
+same way, but the project does not test them. Before you rely on one, check that it does not need
+something Lakka refuses (see [Request](#request)): structured output, `tool_choice` other than
+`auto` or `none`, or more than one reply per request. Lakka offers only Chat Completions, not
+OpenAI's Responses API or Anthropic's Messages API, so an app that speaks only one of those cannot
+use it.
 
 ## Endpoints
 
@@ -51,7 +66,30 @@ Both are tested against Lakka, unmodified, on every change.
 | `route/<name>`       | Use that route's model, and its fallbacks.                                            |
 | `<provider>:<model>` | Exactly this model, such as `anthropic:claude-sonnet-4-5` or `ollama:llama3.3:70b`.   |
 
+With `auto`, Lakka matches the request against the workspace's routes, the same way it does in
+chat, unless an admin pinned one model for the workspace. A signal, such as a code block, sends
+the request to its route straight away. Otherwise a classifier compares the message with each
+route's description and example phrasings, inside Lakka and offline. A request no route claims
+with enough confidence goes to the workspace's default model. The response headers say
+which model answered and why (see [Headers you get back](#headers-you-get-back)), and so does the
+request's trace.
+
 A budget can still send a request to a cheaper model; the response headers say when.
+
+### Routing without a conversation
+
+Routing reads the latest user message. In chat, and in a request that sends
+`x-lakka-conversation`, it decides once for the conversation and keeps that decision. Most apps
+cannot send that header, and the conversation it names must already exist in Lakka. Without it,
+each request is routed on its own:
+
+- While a harness or agent works through tool calls, the latest user message stays the same, so
+  the request is routed the same way each time.
+- A new user message can go to a different route's model. The provider's prompt cache for the
+  earlier model is then lost, so the next reply can cost more.
+
+To keep one model for a whole session, choose `route/<name>`, which keeps the route's fallbacks,
+or a model, instead of `auto`.
 
 ## Request
 

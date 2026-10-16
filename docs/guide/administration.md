@@ -121,8 +121,9 @@ On the **People** tab, instance admins can:
 Anyone can create a key for a workspace they are in: on the **Workspace settings** page, under **API
 keys** (**Your API keys** for members), a **New key name**, **Create key**. The key (`lk_...`) is
 shown once. A key acts for the person who made it, with that person's permissions, never more, and
-stops working if they are suspended or leave the workspace. **Revoke** ends it for good. See
-[The API](api.md) for using it.
+stops working if they are suspended or leave the workspace. **Revoke** ends it for good. A key
+works in any app that speaks the OpenAI API, so people can keep their own chat app or coding
+harness and still be capped, traced and routed. See [The API](api.md) for using it.
 
 ## Providers and models
 
@@ -279,7 +280,8 @@ key shared by a team, such as one behind Open WebUI, gets one person's limit for
 
 ## Routing
 
-Routing picks a model for each conversation. On the workspace's **Routing** page:
+Routing picks a model for each conversation in chat, and for each API request that asks for the
+model `auto`, from whatever app sent it. On the workspace's **Routing** page:
 
 - **Choose models automatically** turns routing on or off.
 - **Default model** answers whenever nothing else decides. Without one, a request that names no
@@ -306,7 +308,8 @@ How a model is chosen, first match wins:
 
 1. the model or route the person or client chose;
 2. the conversation's earlier decision, since routing is decided once per conversation, not per
-   message;
+   message. An API request that names no conversation has none, so it is routed on its own (see
+   [The API](api.md#routing-without-a-conversation));
 3. the pinned model;
 4. a signal;
 5. the classifier;

@@ -48,7 +48,8 @@ someone signs them out everywhere within seconds.
 
 Routing reads the first message of a conversation and sends it to the model its routes pick: code
 to the strongest model, quick questions and translations to cheaper ones. The classifier runs
-inside the image, offline. Routing is optional; with it off, everyone gets the default model.
+inside the image, offline. The same routes apply to any app that connects through the API and
+asks for the model `auto`. Routing is optional; with it off, everyone gets the default model.
 
 ![Routing: the default model is Claude Sonnet 5.5, with routes for code, writing, quick questions, translation and data questions](./tour/routing-light.webp){.lk-shot .lk-light}
 ![Routing: the default model is Claude Sonnet 5.5, with routes for code, writing, quick questions, translation and data questions](./tour/routing-dark.webp){.lk-shot .lk-dark}
@@ -113,14 +114,15 @@ Sara asks for duplicate tickets to be closed. Searching runs at once; closing wa
 ![Chat: the model searched the helpdesk, and an approval card asks whether helpdesk.close_ticket may close SUP-1490](./tour/chat-tool-approval-light.webp){.lk-shot .lk-light}
 ![Chat: the model searched the helpdesk, and an approval card asks whether helpdesk.close_ticket may close SUP-1490](./tour/chat-tool-approval-dark.webp){.lk-shot .lk-dark}
 
-## The same rules from code
+## The same rules from your own apps
 
-Each person can make API keys for scripts and tools. A key acts for the person who made it and
-spends against their caps, and can have a cap of its own. The API is OpenAI-compatible, so the
-official SDKs, Open WebUI and LibreChat work unchanged:
+Nobody has to use Lakka's chat. Each person can make API keys for the apps, coding harnesses and
+scripts they already use. A key acts for the person who made it and spends against their caps,
+and can have a cap of its own. The API is OpenAI-compatible, so the official SDKs, Open WebUI and
+LibreChat work unchanged, and a request for the model `auto` is routed the way chat is:
 
 ```
-curl https://ai.example.com/v1/chat/completions \
+curl https://ai.nordlys.example/v1/chat/completions \
   -H "Authorization: Bearer lk_..." \
   -H "Content-Type: application/json" \
   -d '{"model": "auto", "messages": [{"role": "user", "content": "Hello"}]}'
