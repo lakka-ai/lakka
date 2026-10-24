@@ -1059,7 +1059,7 @@ requires one and never falls back to running a server in process.
 ### Tracing
 
 - **Setup.** [`createTracing`](packages/core/src/observability/tracing.ts) builds an OpenTelemetry
-  `BasicTracerProvider` that is deliberately **not registered globally**, so libraries such as
+  `TracerProvider` that is deliberately **not registered globally**, so libraries such as
   Better Auth and Drizzle cannot emit spans carrying SQL or emails.
 - **Where spans go.** They are batched into Postgres by
   [`postgresSpanExporter`](packages/core/src/observability/exporter.ts), and also to an OTLP/HTTP
