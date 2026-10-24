@@ -18,7 +18,7 @@ traces, spend and tools that ask first, from a demo install.
 
 Status: the v1 milestones are done; [`docs/roadmap.md`](docs/roadmap.md) lists them and their
 gates. The latest release,
-[v1.0.0-beta.5](https://github.com/lakka-ai/lakka/releases/tag/v1.0.0-beta.5), is a beta;
+[v1.0.0-beta.6](https://github.com/lakka-ai/lakka/releases/tag/v1.0.0-beta.6), is a beta;
 [`docs/releasing.md`](docs/releasing.md) describes how a release is made.
 
 ## Run it
