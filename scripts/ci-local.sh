@@ -29,8 +29,8 @@ jobs=("$@")
 [ ${#jobs[@]} -gt 0 ] || jobs=(check dco site integration-pg16 integration-pg18 image out-of-process upgrade stack)
 for job in "${jobs[@]}"; do
   case "$job" in
-    check | site | integration-pg16 | integration-pg18 | image | out-of-process | upgrade | stack) ;;
-    *) echo "unknown job: $job (check, site, integration-pg16, integration-pg18, image, out-of-process, upgrade, stack)" >&2; exit 2 ;;
+    check | dco | site | integration-pg16 | integration-pg18 | image | out-of-process | upgrade | stack) ;;
+    *) echo "unknown job: $job (check, dco, site, integration-pg16, integration-pg18, image, out-of-process, upgrade, stack)" >&2; exit 2 ;;
   esac
 done
 
