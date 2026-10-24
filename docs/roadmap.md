@@ -2,7 +2,7 @@
 
 *The order of phases follows dependencies and risk, not how appealing each feature is.*
 
-**Status:** the v1 milestones, M1 to M7, are done, and so is M8, which closed what v1 left open. So is M9, the project site, deployed at https://lakka-ai.github.io/lakka/. So is M10, routing accuracy. Each gate is recorded in `docs/gates/`, and their checks pass on amd64 and arm64 in GitHub Actions. The first release, v1.0.0-beta.1, is published, which opens v1.x; the latest is v1.0.0-beta.5.
+**Status:** the v1 milestones, M1 to M7, are done, and so is M8, which closed what v1 left open. So is M9, the project site, deployed at https://lakka-ai.github.io/lakka/. So is M10, routing accuracy. Each gate is recorded in `docs/gates/`, and their checks pass on amd64 and arm64 in GitHub Actions. The first release, v1.0.0-beta.1, is published, which opens v1.x; the latest is v1.0.0-beta.6.
 
 ## Sequencing principles
 
