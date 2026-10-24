@@ -54,7 +54,7 @@ services:
       - egress-keys:/run/lakka/egress
 
   postgres:
-    image: &postgres-image pgvector/pgvector:0.8.6-pg18-trixie
+    image: &postgres-image pgvector/pgvector:0.8.7-pg18-trixie
     restart: unless-stopped
     depends_on:
       init:

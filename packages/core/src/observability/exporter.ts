@@ -1,6 +1,6 @@
 import { SpanKind, SpanStatusCode } from '@opentelemetry/api';
 import type { Attributes, AttributeValue, HrTime } from '@opentelemetry/api';
-import type { ReadableSpan, SpanExporter } from '@opentelemetry/sdk-trace-base';
+import type { ReadableSpan, SpanExporter } from '@opentelemetry/sdk-trace';
 import { insertSpans } from '@lakka/db';
 import type { Db, NewSpan } from '@lakka/db';
 import { ERROR_TYPE, LK, STORED_ATTRIBUTES } from '../gateway/telemetry.ts';

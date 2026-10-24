@@ -16,7 +16,7 @@ import { tarStream } from '../packages/core/src/export/tar.ts';
  *   pnpm release:bundle --version v1.0.0 --out dist/release \
  *     --image lakka/app:local=ghcr.io/lakka-ai/lakka@sha256:... \
  *     --image lakka/caddy:local=ghcr.io/lakka-ai/lakka-caddy@sha256:... \
- *     --image pgvector/pgvector:0.8.6-pg18-trixie=pgvector/pgvector:0.8.6-pg18-trixie@sha256:...
+ *     --image pgvector/pgvector:0.8.7-pg18-trixie=pgvector/pgvector:0.8.7-pg18-trixie@sha256:...
  *
  * Every image the compose file names must be mapped, so a release never ships a tag that could
  * change under it, and never the local build tags.

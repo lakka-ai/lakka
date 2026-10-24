@@ -26,7 +26,7 @@ allowBuilds:
 # Fixes to dependencies until upstream releases them; each names its ADR. Delete a patch when the
 # version it targets is upgraded past the fix.
 patchedDependencies:
-  react-aria@3.52.1: patches/react-aria@3.52.1.patch
+  react-aria@3.53.1: patches/react-aria@3.53.1.patch
   # The search dialog's roles (ADR 0120).
   vitepress@2.0.0-alpha.20: patches/vitepress@2.0.0-alpha.20.patch
 

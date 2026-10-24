@@ -19,7 +19,7 @@ services:
         # The issuer address of Nordlys SSO, so screenshots never show a container name for it.
         aliases: [login.nordlys.example]
     # The same Node image the app is built on; the server uses only Node's own modules.
-    image: node:24.21.0-trixie-slim
+    image: node:24.22.1-trixie-slim
     init: true
     user: node
     command: ['node', '/demo/demo-provider.ts']

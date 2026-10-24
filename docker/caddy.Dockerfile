@@ -1,11 +1,11 @@
-# syntax=docker/dockerfile:1.7
+# syntax=docker/dockerfile:1.28
 #
 # Caddy on Debian slim (ADR 0011). The official image is Alpine-based, and its binary carries
 # fixable vulnerabilities in its Go toolchain and modules, so we compile the same Caddy release
 # ourselves, from docker/caddy (ADR 0086): go.mod pins the release and the fixed modules, go.sum
 # every hash. Only the static binary goes into the image; nothing runs on Alpine.
 
-ARG GO_IMAGE=golang:1.26.9-trixie
+ARG GO_IMAGE=golang:1.27.3-trixie
 ARG DEBIAN_IMAGE=debian:trixie-slim
 
 FROM ${GO_IMAGE} AS caddy

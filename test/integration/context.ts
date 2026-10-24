@@ -2,7 +2,7 @@
 
 export const POSTGRES_ADMIN_URL = 'postgresAdminUrl';
 export const POSTGRES_IMAGE = 'postgresImage';
-export const DEFAULT_POSTGRES_IMAGE = 'pgvector/pgvector:0.8.6-pg18-trixie';
+export const DEFAULT_POSTGRES_IMAGE = 'pgvector/pgvector:0.8.7-pg18-trixie';
 export const VALKEY_HOST = 'valkeyHost';
 export const VALKEY_PORT = 'valkeyPort';
 export const VALKEY_IMAGE = 'valkey/valkey:9.1.2-trixie';
