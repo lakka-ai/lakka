@@ -48,20 +48,20 @@
     "@axe-core/playwright": "4.13.0",
     "@lakka/core": "workspace:*",
     "@lakka/db": "workspace:*",
-    "@modelcontextprotocol/server": "2.2.0",
-    "@playwright/test": "1.63.0",
-    "@testcontainers/postgresql": "12.1.0",
-    "@types/node": "24.13.6",
-    "openai": "7.23.0",
-    "oxfmt": "0.70.0",
-    "oxlint": "1.85.0",
-    "testcontainers": "12.1.0",
+    "@modelcontextprotocol/server": "2.3.1",
+    "@playwright/test": "1.64.1",
+    "@testcontainers/postgresql": "12.2.1",
+    "@types/node": "24.19.2",
+    "openai": "7.43.0",
+    "oxfmt": "0.74.0",
+    "oxlint": "1.89.0",
+    "testcontainers": "12.2.1",
     "typescript": "7.0.2",
-    "vitest": "5.0.1",
-    "zod": "4.6.5"
+    "vitest": "5.0.5",
+    "zod": "4.6.7"
   },
   "engines": {
     "node": ">=24.12.0 <25"
   },
-  "packageManager": "pnpm@12.6.0"
+  "packageManager": "pnpm@12.15.0"
 }

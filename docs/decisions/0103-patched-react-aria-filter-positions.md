@@ -14,6 +14,7 @@ leaves two options that read "14 of 2" and "15 of 2" (NF-A1, WCAG 1.3.1 and 4.1.
 comes from the filtered collection; the position comes from each option's `index`, and React
 Aria's `filterChildren` (`BaseCollection`) copies a kept node with the index it had before
 filtering. This is the case in react-aria 3.52.1, the latest release, and on its main branch.
+It is still the case in 3.53.1, so the patch moved to that version unchanged.
 
 Filtering in the picker instead, and handing the list only the matches, gives correct numbers.
 It also takes the chosen model out of the collection the field reads its value from, so while a
@@ -21,7 +22,7 @@ search hides it the field and its accessible name read "None".
 
 ## Decision
 
-Patch react-aria with pnpm (`patches/react-aria@3.52.1.patch`, `patchedDependencies` in
+Patch react-aria with pnpm (`patches/react-aria@<version>.patch`, `patchedDependencies` in
 `pnpm-workspace.yaml`). The patch numbers each kept node among the kept siblings in
 `filterChildren`, as the collection does before filtering, in the three builds the package
 ships. The picker is unchanged.

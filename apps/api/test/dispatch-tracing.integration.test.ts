@@ -1,11 +1,11 @@
 import { randomBytes, randomUUID } from 'node:crypto';
 import { context, SpanKind, SpanStatusCode, trace } from '@opentelemetry/api';
 import {
-  BasicTracerProvider,
+  TracerProvider,
   InMemorySpanExporter,
   SimpleSpanProcessor,
-} from '@opentelemetry/sdk-trace-base';
-import type { ReadableSpan } from '@opentelemetry/sdk-trace-base';
+} from '@opentelemetry/sdk-trace';
+import type { ReadableSpan } from '@opentelemetry/sdk-trace';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { ContentFilteredError, ProviderAuthError } from '@lakka/contracts';
 import type { ModelView } from '@lakka/contracts';
@@ -25,8 +25,8 @@ let t: TestApp;
 let fake: FakeProvider;
 let admin: SignedInUser;
 const exporter = new InMemorySpanExporter();
-const tracer = new BasicTracerProvider({
-  spanProcessors: [new SimpleSpanProcessor(exporter)],
+const tracer = new TracerProvider({
+  spanProcessors: [new SimpleSpanProcessor({ exporter })],
 }).getTracer('test');
 const { logger } = createLogger({ level: 'silent', service: 'tracing-test' });
 const catalogue = fixedCatalogue(loadCatalogue());

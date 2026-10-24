@@ -4,7 +4,7 @@ name: lakka-dev
 
 services:
   postgres:
-    image: pgvector/pgvector:0.8.6-pg18-trixie
+    image: pgvector/pgvector:0.8.7-pg18-trixie
     environment:
       POSTGRES_USER: lakka
       POSTGRES_DB: lakka

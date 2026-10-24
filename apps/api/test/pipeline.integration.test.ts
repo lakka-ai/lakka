@@ -1,9 +1,9 @@
 import { randomBytes, randomUUID } from 'node:crypto';
 import {
-  BasicTracerProvider,
+  TracerProvider,
   InMemorySpanExporter,
   SimpleSpanProcessor,
-} from '@opentelemetry/sdk-trace-base';
+} from '@opentelemetry/sdk-trace';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { ForbiddenError, NoModelError, NotFoundError } from '@lakka/contracts';
 import type { IssuedKey, ModelView, Principal, RouteView, WorkspaceView } from '@lakka/contracts';
@@ -87,8 +87,8 @@ let models: { default: string; cheap: string; strong: string };
 let code: RouteView;
 let summary: RouteView;
 const exporter = new InMemorySpanExporter();
-const tracer = new BasicTracerProvider({
-  spanProcessors: [new SimpleSpanProcessor(exporter)],
+const tracer = new TracerProvider({
+  spanProcessors: [new SimpleSpanProcessor({ exporter })],
 }).getTracer('test');
 const { logger } = createLogger({ level: 'silent', service: 'pipeline-test' });
 const catalogue = fixedCatalogue(loadCatalogue());

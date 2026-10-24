@@ -197,7 +197,15 @@ export interface TokenUsage {
   reasoningTokens: number | null;
 }
 
-export type FinishReason = 'stop' | 'length' | 'content-filter' | 'tool-calls' | 'error' | 'other';
+/** `interrupted`: the provider stream ended without a completion signal, so output may be cut short. */
+export type FinishReason =
+  | 'stop'
+  | 'length'
+  | 'content-filter'
+  | 'tool-calls'
+  | 'error'
+  | 'interrupted'
+  | 'other';
 
 export type GatewayStreamEvent =
   | { type: 'text'; text: string }

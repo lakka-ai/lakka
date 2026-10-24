@@ -1,5 +1,5 @@
 import { SpanKind } from '@opentelemetry/api';
-import { InMemorySpanExporter } from '@opentelemetry/sdk-trace-base';
+import { InMemorySpanExporter } from '@opentelemetry/sdk-trace';
 import { describe, expect, it } from 'vitest';
 import type { Db } from '@lakka/db';
 import { LK } from '../src/gateway/telemetry.ts';

@@ -1,9 +1,9 @@
-# syntax=docker/dockerfile:1.7
+# syntax=docker/dockerfile:1.28
 #
 # One image for every app process (ADR 0014): `lakka api|worker|web|init`.
 # Debian slim, never Alpine: onnxruntime-node has no musl builds (CLAUDE.md, ADR 0014).
 
-ARG NODE_IMAGE=node:24.21.0-trixie-slim
+ARG NODE_IMAGE=node:24.22.1-trixie-slim
 
 FROM ${NODE_IMAGE} AS base
 ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0 \

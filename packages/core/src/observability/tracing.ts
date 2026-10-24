@@ -1,13 +1,8 @@
 import { trace } from '@opentelemetry/api';
 import type { Attributes, Context, Tracer } from '@opentelemetry/api';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
-import { BasicTracerProvider, BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import type {
-  ReadableSpan,
-  Span,
-  SpanExporter,
-  SpanProcessor,
-} from '@opentelemetry/sdk-trace-base';
+import { TracerProvider, BatchSpanProcessor } from '@opentelemetry/sdk-trace';
+import type { ReadableSpan, Span, SpanExporter, SpanProcessor } from '@opentelemetry/sdk-trace';
 import type { Db } from '@lakka/db';
 import { LK } from '../gateway/telemetry.ts';
 import type { Logger } from '../logger.ts';
@@ -45,7 +40,7 @@ const inheritRequest: SpanProcessor = {
   },
 };
 
-// SDK 2.x export results, as plain numbers: 1 is failure.
+// SDK export results, as plain numbers: 1 is failure.
 const FAILED = 1;
 
 /**
@@ -104,18 +99,18 @@ export function createTracing(options: {
 }): Tracing {
   const batches = { scheduledDelayMillis: 1000, maxExportBatchSize: 256, maxQueueSize: 4096 };
   const otlp = options.otlp ?? null;
-  const provider = new BasicTracerProvider({
+  const provider = new TracerProvider({
     spanProcessors: [
       inheritRequest,
-      new BatchSpanProcessor(
-        options.exporter ?? postgresSpanExporter(options.db, options.logger),
-        batches,
-      ),
+      new BatchSpanProcessor({
+        exporter: options.exporter ?? postgresSpanExporter(options.db, options.logger),
+        ...batches,
+      }),
       ...(otlp === null
         ? []
         : [
-            new BatchSpanProcessor(
-              outsideExporter(
+            new BatchSpanProcessor({
+              exporter: outsideExporter(
                 new OTLPTraceExporter({
                   url: otlp.endpoint,
                   headers: otlp.headers,
@@ -123,8 +118,8 @@ export function createTracing(options: {
                 }),
                 options.logger,
               ),
-              batches,
-            ),
+              ...batches,
+            }),
           ]),
     ],
   });

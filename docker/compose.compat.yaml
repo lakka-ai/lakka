@@ -7,7 +7,7 @@
 services:
   open-webui:
     # BSD-3 with a branding clause; the slim image has no bundled ML models.
-    image: ghcr.io/open-webui/open-webui:v0.11.4-slim@sha256:0487ad4a5a4b986062dedace806c3ef1e88fec38c10d1e64d6a5501c66671e5e
+    image: ghcr.io/open-webui/open-webui:v0.12.3-slim@sha256:5adfb0355bbe4a5860c0ba9482cc0b40f573de3749a21a64cf4789391a14fffc
     environment:
       # One local admin, no sign-in: the checks drive its HTTP API.
       WEBUI_AUTH: 'False'
@@ -40,7 +40,7 @@ services:
       retries: 40
 
   librechat-mongodb:
-    image: mongo:8.0.20@sha256:098862b1339f031900ca66cf8fef799e616d6324fa41b9a263f2ec899552c1ef
+    image: mongo:8.0.34@sha256:4a4ab5d4834207389e0d7270fac988e21ffedccecba77991a552f755df229907
     command: ['mongod', '--noauth', '--quiet']
     healthcheck:
       test: ['CMD', 'mongosh', '--quiet', '--eval', 'db.adminCommand("ping").ok']
