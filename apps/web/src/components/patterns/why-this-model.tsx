@@ -8,7 +8,8 @@ import type { IconName } from '../icons.tsx';
 /*
  * Pattern 1, Why this model (CH-2). A chip next to the model name on every reply, opening a
  * popover with the reason, the model, the route, the cost and a link to the trace. The chip's
- * text stays short so it survives translation; its accessible name is the whole reason.
+ * text stays short so it survives translation. Its accessible name starts with that text, so a
+ * speech user can say what they see (WCAG 2.5.3), then gives the whole reason (ADR 0129).
  */
 
 export type DecisionKind = 'routed' | 'chosen' | 'default' | 'pinned' | 'fallback' | 'refused';
@@ -98,7 +99,7 @@ export function WhyThisModel({
     <Popover defaultOpen={defaultOpen}>
       <Button
         variant="ghost"
-        aria-label={t('why.button', { reason: decision.reason })}
+        aria-label={t('why.button', { chip: decisionChipText(decision), reason: decision.reason })}
         className={`${chipBase} ${look[decision.kind].chip} min-w-0 hover:opacity-90`}
       >
         <Icon name={look[decision.kind].icon} className="size-3.5" />

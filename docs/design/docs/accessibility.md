@@ -14,7 +14,7 @@ Global rules that apply everywhere:
 
 ## Shared patterns
 
-Why this model: the chip is a button that opens a popover. Its accessible name is the full sentence, not the chip text.
+Why this model: the chip is a button that opens a popover. Its accessible name starts with the chip text, then gives the full sentence: 'Cheaper model. Why this model: Your budget would not cover Claude Sonnet 4.5, so a cheaper one answered.' (ADR 0129).
 
 Budget meter: a meter with aria-valuetext such as '$31.20 left of $50.00, your monthly cap, resets Oct 1'. The low and used-up states change the words, not only the color.
 
