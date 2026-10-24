@@ -52,7 +52,7 @@ measurements and protocols of ADR 0121 and ADR 0122; the weights come from ADR 0
   the same machine.
 - The figures in this record are restated with sentence-transformers' exports (ADR 0124):
   accuracy with examples and latency from the app image, as CI runs them, linux/arm64, `--network
-none --cpus 2` (`--memory 4g` for `embed-bench`), with the arm64 files; the description
+  none --cpus 2` (`--memory 4g` for `embed-bench`), with the arm64 files; the description
   scenarios from ADR 0121's harness, which reproduces ADR 0122's tables and this record's first
   measurements exactly.
 - Accuracy uses `classifier-eval`'s protocol: the same mulberry32 splits, 12 examples per route,

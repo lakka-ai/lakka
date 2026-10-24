@@ -24,7 +24,7 @@ key versions) and ADR 0084 (restore removes key files the backup does not hold).
 ## Decision
 
 - **Numbered keys; the prefix names the key.** A stored value is `v<N>:<iv>:<ciphertext and
-tag>`, and `v<N>` is the key it was encrypted with. Decryption picks the key by that version and
+  tag>`, and `v<N>` is the key it was encrypted with. Decryption picks the key by that version and
   fails with `credential_key_unavailable`, naming the version, when the process was not given it.
   Writes always use the active version. The original key stays `v1`, so no stored value changes
   on upgrade.
@@ -72,7 +72,7 @@ tag>`, and `v<N>` is the key it was encrypted with. Decryption picks the key by 
   have, so a backup taken before a rotation restores with exactly its own keys and its own
   `credential_keys` rows.
 - **Reading the new recovery key (owner decision D1).** `docker compose exec api lakka
-recovery-key` prints the active key to the command's own output, which `exec` does not hand to
+  recovery-key` prints the active key to the command's own output, which `exec` does not hand to
   the logging driver, as `setup-code` does (ADR 0034). It checks the key against Postgres first.
   This changes ADR 0034's "never shown by the product again": anyone who can run it can already
   read the secrets volume.
