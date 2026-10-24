@@ -14,6 +14,7 @@ Status: accepted.
   - **The account button**, on every signed-in page. It shows the avatar's initials, the name and the email; its name was "Account: Maja Lind".
   - **The workspace switcher**, on every signed-in page. It shows the workspace's initial, its name and the role; its name was "Workspace: Product. You are an admin. Switch workspace".
   - **Row actions** whose names put the target inside the visible words: "Make admin" named "Make Erik Holm an admin" (the example accessibility.md gave), "Make member", "Make instance admin", "Export data" ("Export the data of ..."), "Change address", "Replace key" and "Add key" on Model providers, and "Revoke" on Connections ("Stop always allowing ...").
+- The project site's checks found it in VitePress's search results, in the list and the detailed view, in every browser. A result's name is its headings joined by " > ", "Administration > Budgets and spend", but it shows them as separate elements, with a "#" before them and, in the detailed view, an excerpt of the page under them.
 - axe counts all text drawn inside the control, aria-hidden or not, and joins text from separate elements with no space, so "Model" over "Auto" reads as one word, "ModelAuto".
 
 ## Decision
@@ -27,7 +28,8 @@ Status: accepted.
 - **Workspace switcher**: "{name}, {role}. Switch workspace", with the role as the button shows it: "Product, Admin. Switch workspace".
 - **Avatars** inside those two buttons draw their initials with CSS (`lk-initials`, from a data attribute), not as text. An avatar is a picture; as text, its initials would be part of what the button shows. They were aria-hidden already and look the same.
 - **Row actions** put the target after the visible words: "Make admin: Erik Holm", "Make member: Erik Holm", "Make instance admin: Erik Holm", "Export data of Erik Holm", "Change address of Ollama", "Replace key for OpenAI", "Add key for OpenAI", and "Revoke the standing approval for {tool}", as the Tools page already says it. Names that already started with the button's words ("Remove Erik Holm", "Edit cap for Lina Berg", "Revoke key CI bot") are unchanged.
-- The rule stays on, and nothing is excluded from it in `test/axe.ts`.
+- **Site search**: the VitePress patch (ADR 0120) grows by three markup changes, still with no change to styles. The headings are joined by a space in the markup, so the list view's names, which VitePress already gives, now hold what is shown. The "#" before them is aria-hidden; it is decoration. In the detailed view a result has no aria-label and is named by its content, as a link is: the excerpt is rendered page HTML, tables and code included, which no fixed label can follow. VitePress marks the excerpt inert, which keeps it out of the accessibility tree, so the name is the headings: "Administration Budgets and spend" (checked in Chromium).
+- The rule stays on, and nothing is excluded from it in `test/axe.ts` or the site's checks.
 
 ## Consequences
 

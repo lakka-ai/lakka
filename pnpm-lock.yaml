@@ -168,7 +168,7 @@ overrides:
 
 patchedDependencies:
   react-aria@3.53.1: 43ecd2ec56eda95b009d5f2d5263bf5ec952ded2fce698d368107bdca8781520
-  vitepress@2.0.0-alpha.20: 26cdd71310506e2574b610aaf69a84d4aa1b91e3c26b73e0dd71892cbf2757cd
+  vitepress@2.0.0-alpha.20: 0fed768990af840a0c765191f2e5219c1771bf30e824732b714b54501cef7aa1
 
 importers:
 
@@ -255,7 +255,7 @@ importers:
         version: 5.3.0
       vitepress:
         specifier: 2.0.0-alpha.20
-        version: 2.0.0-alpha.20(patch_hash=26cdd71310506e2574b610aaf69a84d4aa1b91e3c26b73e0dd71892cbf2757cd)(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(postcss@8.5.31)(tsx@4.23.15)(typescript@7.0.2)(yaml@2.9.1)
+        version: 2.0.0-alpha.20(patch_hash=0fed768990af840a0c765191f2e5219c1771bf30e824732b714b54501cef7aa1)(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(postcss@8.5.31)(tsx@4.23.15)(typescript@7.0.2)(yaml@2.9.1)
       vue:
         specifier: 3.5.44
         version: 3.5.44(typescript@7.0.2)
@@ -9799,7 +9799,7 @@ snapshots:
     optionalDependencies:
       vite: 8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)
 
-  vitepress@2.0.0-alpha.20(patch_hash=26cdd71310506e2574b610aaf69a84d4aa1b91e3c26b73e0dd71892cbf2757cd)(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(postcss@8.5.31)(tsx@4.23.15)(typescript@7.0.2)(yaml@2.9.1):
+  vitepress@2.0.0-alpha.20(patch_hash=0fed768990af840a0c765191f2e5219c1771bf30e824732b714b54501cef7aa1)(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(postcss@8.5.31)(tsx@4.23.15)(typescript@7.0.2)(yaml@2.9.1):
     dependencies:
       '@docsearch/css': 4.7.1
       '@docsearch/js': 4.7.1
