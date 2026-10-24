@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { Browser, Page } from '@playwright/test';
 import {
+  accountName,
   accounts,
   awaitSignInSlot,
   createWorkspace,
@@ -73,7 +74,7 @@ test.describe('people: instance admins, export and delete (ID-3, NF-P4)', () => 
 
     // ID-3: an instance admin makes them one, and they see the Admin pages; then removes it.
     await row.getByRole('button', { name: `More actions for ${person.name}` }).click();
-    await page.getByRole('menuitem', { name: `Make ${person.name} an instance admin` }).click();
+    await page.getByRole('menuitem', { name: `Make instance admin: ${person.name}` }).click();
     const grant = page.getByRole('alertdialog', { name: `Make ${person.name} an instance admin?` });
     await expectAccessible(page);
     await grant.getByRole('button', { name: 'Make instance admin' }).click();
@@ -94,7 +95,7 @@ test.describe('people: instance admins, export and delete (ID-3, NF-P4)', () => 
 
     const [download] = await Promise.all([
       page.waitForEvent('download'),
-      row.getByRole('link', { name: `Export the data of ${person.name}` }).click(),
+      row.getByRole('link', { name: `Export data of ${person.name}` }).click(),
     ]);
     expect(download.suggestedFilename()).toMatch(
       /^lakka-export-\d{4}-\d{2}-\d{2}-[0-9a-f-]{36}\.tar\.gz$/,
@@ -186,9 +187,7 @@ test.describe('people: instance admins, export and delete (ID-3, NF-P4)', () => 
     await person.page.getByLabel('Email').fill(person.email);
     await person.page.getByLabel('Password', { exact: true }).fill(password);
     await person.page.getByRole('button', { name: 'Sign in' }).click();
-    await expect(
-      person.page.getByRole('button', { name: `Account: ${person.name}` }),
-    ).toBeVisible();
+    await expect(person.page.getByRole('button', { name: accountName(person.name) })).toBeVisible();
     // A new tab: in this one only the fragment would change, which loads nothing.
     const again = await context.newPage();
     watchErrors(again, errors);

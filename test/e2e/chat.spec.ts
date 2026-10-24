@@ -609,7 +609,7 @@ test.describe('chat (CH-1 to CH-5, CH-7, AC 6)', () => {
     const tops = await Promise.all(
       [
         list.getByRole('link', { name: 'New conversation' }),
-        page.getByRole('button', { name: /^Workspace: / }),
+        page.getByRole('button', { name: /\. Switch workspace$/ }),
       ].map(async (button) => (await button.boundingBox())?.y),
     );
     expect(tops[0]).toBe(tops[1]);

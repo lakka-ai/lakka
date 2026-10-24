@@ -844,6 +844,14 @@ html {
     --tw-ring-inset: inset;
     --tw-ring-offset-width: 0px;
   }
+  /*
+   * Initials on an avatar inside a named button (the account, the workspace switcher), drawn
+   * from data-initials. An avatar is a picture: as text it would count as part of what the
+   * button shows, which the button's name would then have to contain (WCAG 2.5.3, ADR 0129).
+   */
+  .lk-initials::before {
+    content: attr(data-initials);
+  }
   @media (prefers-reduced-motion: reduce) {
     .lk-pills .tabs__tab {
       transition: none;

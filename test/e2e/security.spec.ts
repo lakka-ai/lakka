@@ -68,7 +68,7 @@ test.describe('page security (H6)', () => {
     await page.goto('/');
     // Signed in, the link is in the account menu (ADR 0107).
     await pressUntil(
-      page.getByRole('button', { name: /^Account: / }),
+      page.getByRole('button', { name: /\. Account$/ }),
       page.getByRole('menuitem', { name: 'Source code' }),
     );
     await expect(page.getByRole('menuitem', { name: 'Source code' })).toHaveAttribute(

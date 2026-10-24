@@ -1,4 +1,5 @@
 import {
+  accountName,
   accounts,
   awaitSignInSlot,
   createWorkspace,
@@ -60,7 +61,7 @@ test.describe('sign-in (ID-2)', () => {
     await awaitSignInSlot();
     await page.keyboard.press('Enter');
     await expect(
-      page.getByRole('button', { name: `Account: ${accounts.member.name}` }),
+      page.getByRole('button', { name: accountName(accounts.member.name) }),
     ).toBeVisible();
   });
 
@@ -251,7 +252,7 @@ test.describe('instance administration (ID-6, ID-2)', () => {
     }).toPass();
     const own = page.getByRole('row').filter({ hasText: accounts.admin.email });
     await expect(
-      own.getByRole('link', { name: `Export the data of ${accounts.admin.name}` }),
+      own.getByRole('link', { name: `Export data of ${accounts.admin.name}` }),
     ).toBeVisible();
     await expect(own.getByRole('button')).toHaveCount(0);
     await expect(own).toContainText('Password');

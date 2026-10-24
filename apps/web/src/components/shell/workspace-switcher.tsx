@@ -11,28 +11,20 @@ import { RailTooltip } from './rail-tooltip.tsx';
 
 /*
  * The workspace switcher: the workspace's name and your role, and a menu of the others. Its
- * name says all of that in one sentence ("Workspace: Product. You are an admin. Switch
- * workspace"). Switching keeps you on the same page in the other workspace when that page is
+ * name says them as they are shown, then what it does ("Product, Admin. Switch workspace"), so a
+ * speech user can say what they see (WCAG 2.5.3, ADR 0129). Switching keeps you on the same page in the other workspace when that page is
  * in its menu, and otherwise opens its chat. "All workspaces" is where instance admins create
  * one.
  */
-
-const roleSentence = (role: WorkspaceView['role']) =>
-  role === 'admin'
-    ? t('nav.switcher.admin')
-    : role === 'member'
-      ? t('nav.switcher.member')
-      : t('nav.switcher.none');
 
 function Tile({ name, size }: { name: string; size: 'side' | 'drawer' | 'bar' }) {
   const box = size === 'side' ? 'size-7 rounded-lg text-small' : 'size-7.5 rounded-lg';
   return (
     <span
       aria-hidden="true"
-      className={`flex shrink-0 items-center justify-center bg-accent-soft font-semibold text-accent-soft-foreground ${box} ${size === 'bar' ? 'text-body' : ''}`}
-    >
-      {name.slice(0, 1).toUpperCase()}
-    </span>
+      data-initials={name.slice(0, 1).toUpperCase()}
+      className={`lk-initials flex shrink-0 items-center justify-center bg-accent-soft font-semibold text-accent-soft-foreground ${box} ${size === 'bar' ? 'text-body' : ''}`}
+    />
   );
 }
 
@@ -78,7 +70,7 @@ export function WorkspaceSwitcher({
   const switcher = (
     <Dropdown>
       <Dropdown.Trigger
-        aria-label={t('nav.switcher', { name: current.name, role: roleSentence(current.role) })}
+        aria-label={t('nav.switcher', { name: current.name, role: roleLabel(current.role) })}
         // Its height is fixed: in a menu too short for everything, the menu scrolls instead.
         className={`${trigger} shrink-0 cursor-pointer`}
       >
@@ -86,7 +78,10 @@ export function WorkspaceSwitcher({
         {(variant === 'side' || variant === 'drawer') && (
           <>
             <span className="flex min-w-0 grow flex-col">
-              <span className="truncate text-body leading-tight font-semibold">{current.name}</span>
+              {/* A space between the lines, so they read as words, not one run of text. */}
+              <span className="truncate text-body leading-tight font-semibold">
+                {current.name}
+              </span>{' '}
               <span className="text-caption leading-tight text-muted">
                 {roleLabel(current.role)}
               </span>

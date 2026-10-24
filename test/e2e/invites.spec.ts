@@ -1,6 +1,7 @@
 import { randomBytes } from 'node:crypto';
 import type { Browser, Page } from '@playwright/test';
 import {
+  accountName,
   accounts,
   awaitSignInSlot,
   createWorkspace,
@@ -85,7 +86,7 @@ test.describe('invites (ID-7)', () => {
     await invitee.getByLabel('Password').fill(`invitee password ${accounts.tag}`);
     await invitee.getByRole('button', { name: 'Create account and join' }).click();
     await expectWorkspaceSettings(invitee, name);
-    await expect(invitee.getByRole('button', { name: 'Account: New Colleague' })).toBeVisible();
+    await expect(invitee.getByRole('button', { name: accountName('New Colleague') })).toBeVisible();
     await context.close();
 
     // The link worked once.

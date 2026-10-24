@@ -1,5 +1,6 @@
 import type { Page } from '@playwright/test';
 import {
+  accountName,
   accounts,
   expect,
   expectAccessible,
@@ -72,7 +73,7 @@ test.describe('app shell, desktop', () => {
     const id = await adminWorkspace(page);
     await page.goto(`/workspaces/${id}/requests`);
     const source = page.getByRole('menuitem', { name: 'Source code' });
-    await pressUntil(page.getByRole('button', { name: `Account: ${accounts.admin.name}` }), source);
+    await pressUntil(page.getByRole('button', { name: accountName(accounts.admin.name) }), source);
     await expect(source).toHaveAttribute('href', /^https?:\/\//);
     await expect(source).toHaveAccessibleDescription('Lakka is free software under the AGPL.');
     await expectAccessible(page);
@@ -80,7 +81,7 @@ test.describe('app shell, desktop', () => {
 
     // Collapsed, the avatar alone still opens it.
     await page.getByRole('button', { name: 'Collapse menu' }).click();
-    await page.getByRole('button', { name: `Account: ${accounts.admin.name}` }).click();
+    await page.getByRole('button', { name: accountName(accounts.admin.name) }).click();
     await expect(page.getByRole('menuitem', { name: 'Source code' })).toBeVisible();
   });
 
@@ -214,7 +215,7 @@ test.describe('app shell, desktop', () => {
     const id = await adminWorkspace(page);
     await page.goto(`/workspaces/${id}/spend`);
     const switcher = page.getByRole('button', {
-      name: /^Workspace: Shell .*\. You are an admin\. Switch workspace$/,
+      name: /^Shell .*, Admin\. Switch workspace$/,
     });
     const menu = page.getByRole('menu', { name: 'Switch workspace' });
     await pressUntil(switcher, menu);
@@ -250,7 +251,7 @@ test.describe('app shell, desktop', () => {
     const page = await context.newPage();
     await page.goto('/workspaces');
     await pressUntil(
-      page.getByRole('button', { name: `Account: ${accounts.admin.name}` }),
+      page.getByRole('button', { name: accountName(accounts.admin.name) }),
       page.getByRole('menuitem', { name: 'Sign out' }),
     );
     await expectAccessible(page);
@@ -312,7 +313,7 @@ test.describe('app shell, phone', () => {
     await page.goto('/admin/people');
     const drawer = page.getByRole('dialog', { name: 'Menu' });
     await pressUntil(page.getByRole('button', { name: 'Menu', exact: true }), drawer);
-    await drawer.getByRole('button', { name: `Account: ${accounts.admin.name}` }).click();
+    await drawer.getByRole('button', { name: accountName(accounts.admin.name) }).click();
     const source = page.getByRole('menuitem', { name: 'Source code' });
     await expect(source).toHaveAttribute('href', /^https?:\/\//);
     await expect(source).toHaveAccessibleDescription('Lakka is free software under the AGPL.');

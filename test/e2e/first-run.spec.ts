@@ -1,6 +1,13 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, rmSync } from 'node:fs';
-import { accounts, expect, expectAccessible, expectWorkspaceSettings, test } from './fixtures.ts';
+import {
+  accountName,
+  accounts,
+  expect,
+  expectAccessible,
+  expectWorkspaceSettings,
+  test,
+} from './fixtures.ts';
 import { m1ExitJourney } from './m1-exit.ts';
 
 /*
@@ -94,7 +101,7 @@ test('AD-1, NF-D1: a fresh instance is set up in the browser with the setup code
 
   // Signed in as the new instance admin, in the first workspace.
   await expectWorkspaceSettings(page, 'Acme');
-  await expect(page.getByRole('button', { name: 'Account: First Admin' })).toBeVisible();
+  await expect(page.getByRole('button', { name: accountName('First Admin') })).toBeVisible();
   await expect(page.getByRole('link', { name: 'People and sign-in' })).toBeVisible();
   await expect(page.getByRole('row').filter({ hasText: email })).toContainText('Admin');
 

@@ -162,7 +162,7 @@ The summary is an aside that comes after the steps in reading order, even though
 
 ## Workspace settings, tools and connections
 
-Every row action names its target, for example 'Make Erik Holm an admin' or 'Revoke key CI bot'.
+Every row action names its target, starting with the words on the button, for example 'Make admin: Erik Holm' or 'Revoke key CI bot' (ADR 0129).
 
 Remove member and Revoke key use a plain two-button confirm. Deleting a person, on People, uses the typed confirmation.
 
