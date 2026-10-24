@@ -7,7 +7,7 @@
  * Plain Node only: the acceptance stack's fake-provider container imports this file too.
  */
 
-export const KEYCLOAK_IMAGE = 'quay.io/keycloak/keycloak:26.7.4';
+export const KEYCLOAK_IMAGE = 'quay.io/keycloak/keycloak:26.8.1';
 export const KEYCLOAK_ADMIN = { username: 'admin', password: 'keycloak-tests-only' };
 export const KEYCLOAK_REALM = 'mcp';
 /**

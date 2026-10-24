@@ -38,7 +38,7 @@ services:
 
   fake-provider:
     # The same Node image the app is built on; the provider uses only Node's own modules.
-    image: node:24.21.0-trixie-slim
+    image: node:24.22.1-trixie-slim
     init: true
     user: node
     command: ['node', '/fake/fake-provider-serve.ts']
@@ -62,7 +62,7 @@ services:
     # kept across `up` so Keycloak and the api keep agreing on it.
     # OAuth token requests must use TLS unless the server is on loopback, which the MCP client
     # enforces, so the stack's authorization server serves HTTPS as a real one would.
-    image: quay.io/keycloak/keycloak:26.7.4
+    image: quay.io/keycloak/keycloak:26.8.1
     user: root
     entrypoint: ['/bin/bash', '-c']
     command:
@@ -78,7 +78,7 @@ services:
       - keycloak-certs:/certs
 
   keycloak:
-    image: quay.io/keycloak/keycloak:26.7.4
+    image: quay.io/keycloak/keycloak:26.8.1
     command: ['start-dev', '--https-port=${LAKKA_E2E_KEYCLOAK_PORT:-18543}', '--http-port=8080']
     environment:
       # Test credentials for a throwaway realm; test/integration/keycloak.ts uses the same.
