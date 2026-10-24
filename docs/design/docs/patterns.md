@@ -10,7 +10,7 @@ HeroUI: Chip styling on a Button, Popover. Shown on every reply, next to the mod
 
 - Chip variants and tokens: routed (`--lk-decision-routed`), you chose (`--lk-decision-chosen`), default (`--lk-decision-default`), pinned, cheaper model (`--lk-decision-fallback`), refused (`--lk-decision-refused`). Each has a `-soft` background.
 - The popover shows the reason sentence, then Model, Route, Cost, and a View trace link.
-- The chip text stays under 16 characters in English so it survives translation. The button's accessible name is the full reason sentence.
+- The chip text stays under 16 characters in English so it survives translation. The button's accessible name starts with the chip text, then gives the full reason sentence (ADR 0129).
 
 ## 2. Budget meter
 

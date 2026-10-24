@@ -213,7 +213,9 @@ test.describe('tools (TL-1, TL-3 to TL-5, AC 18)', () => {
       'Needs no account. Nothing to connect.',
     );
     await expectAccessible(chat);
-    await chat.getByRole('button', { name: `Stop always allowing ${server}.delete` }).click();
+    await chat
+      .getByRole('button', { name: `Revoke the standing approval for ${server}.delete` })
+      .click();
     await expect(chat.getByText('You have not told any tool to always run.')).toBeVisible();
     await newChat('Delete one more');
     await expect(approval).toBeVisible();

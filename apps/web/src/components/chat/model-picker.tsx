@@ -113,6 +113,8 @@ export function ModelPicker({
   id: string;
 }) {
   const pinnedNote = useId();
+  const labelWord = useId();
+  const valueText = useId();
   const value = valueOf(requestable, choice);
   const pinned = requestable.routing.pinnedModel;
   const routes = requestable.routes.map((r) => ({ ...r, id: `route/${r.name}` }));
@@ -164,8 +166,12 @@ export function ModelPicker({
       {...(pinned === null ? {} : { 'aria-describedby': pinnedNote })}
     >
       <Label className="sr-only">{t('chat.picker.label')}</Label>
+      {/* Named in the order it reads, "Model Auto", so its name holds what it shows (WCAG 2.5.3,
+          ADR 0129). React Aria names a select's button by its value, then its label: "Auto
+          Model", the other way round. */}
       <Select.Trigger
         id={id}
+        aria-labelledby={`${labelWord} ${valueText}`}
         className={
           variant === 'header'
             ? // As tall as the cap meter beside it; its two lines, Model and the model's name,
@@ -176,13 +182,22 @@ export function ModelPicker({
       >
         {variant === 'header' ? (
           <span className="flex min-w-0 grow flex-col leading-tight">
-            <span aria-hidden="true" className="text-caption text-muted">
+            <span id={labelWord} className="text-caption text-muted">
               {t('chat.picker.label')}
+            </span>{' '}
+            <span id={valueText} className="truncate text-body font-semibold">
+              {name}
             </span>
-            <span className="truncate text-body font-semibold">{name}</span>
           </span>
         ) : (
-          <span className="max-w-28 truncate text-body font-semibold">{name}</span>
+          <>
+            <span id={labelWord} className="sr-only">
+              {t('chat.picker.label')}
+            </span>
+            <span id={valueText} className="max-w-28 truncate text-body font-semibold">
+              {name}
+            </span>
+          </>
         )}
         <Icon name="chevronDown" className="size-3.5 text-muted" />
       </Select.Trigger>

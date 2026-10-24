@@ -1,5 +1,5 @@
 diff --git a/dist/client/theme-default/components/VPLocalSearchBox.vue b/dist/client/theme-default/components/VPLocalSearchBox.vue
-index 2ee186c1fe2625304f603ec4ef6e5f44f42209fe..2612d02ef8c685350b345e1a0358ccf780841741 100644
+index 2ee186c1fe2625304f603ec4ef6e5f44f42209fe..551e1bb58dbafaece9068639755c0bf0dbd93b34 100644
 --- a/dist/client/theme-default/components/VPLocalSearchBox.vue
 +++ b/dist/client/theme-default/components/VPLocalSearchBox.vue
 @@ -26,11 +26,14 @@ if (import.meta.hot) {
@@ -31,7 +31,7 @@ index 2ee186c1fe2625304f603ec4ef6e5f44f42209fe..2612d02ef8c685350b345e1a0358ccf7
        aria-labelledby="localsearch-label"
        class="VPLocalSearchBox"
      >
-@@ -429,11 +430,12 @@ function onMouseMove(e) {
+@@ -429,15 +430,16 @@ function onMouseMove(e) {
            <li
              v-for="(p, index) in results"
              :key="p.id"
@@ -47,6 +47,32 @@ index 2ee186c1fe2625304f603ec4ef6e5f44f42209fe..2612d02ef8c685350b345e1a0358ccf7
                :href="withBase(p.id)"
                class="result"
                :class="{ selected: selectedIndex === index }"
+-              :aria-label="[...p.titles, p.title].join(' > ')"
++              :aria-label="showDetailedList && p.text ? undefined : [...p.titles, p.title].join(' > ')"
+               @mouseenter="!disableMouseOver && (selectedIndex = index)"
+               @focusin="selectedIndex = index"
+               @click="$emit('close')"
+@@ -445,17 +447,17 @@ function onMouseMove(e) {
+             >
+               <div>
+                 <div class="titles">
+-                  <span class="title-icon">#</span>
++                  <span class="title-icon" aria-hidden="true">#</span>
+                   <span
+                     v-for="(t, index) in p.titles"
+                     :key="index"
+                     class="title"
+                   >
+-                    <span class="text" v-html="t" />
++                    <span class="text" v-html="t" />{{ ' ' }}
+                     <span class="vpi-chevron-right local-search-icon" />
+                   </span>
+                   <span class="title main">
+-                    <span class="text" v-html="p.title" />
++                    <span class="text" v-html="p.title" />{{ ' ' }}
+                   </span>
+                 </div>
+ 
 @@ -479,22 +481,28 @@ function onMouseMove(e) {
  
          <div class="search-keyboard-shortcuts">

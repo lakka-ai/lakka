@@ -159,7 +159,9 @@ test.describe('chat (CH-1 to CH-5, CH-7, AC 6)', () => {
     const first = reply(chat, cheap.name);
     await expect(first).toBeVisible();
     await expect(
-      first.getByRole('button', { name: 'Why this model: This is the workspace default model.' }),
+      first.getByRole('button', {
+        name: 'Default. Why this model: This is the workspace default model.',
+      }),
     ).toBeVisible();
     // CH-4: what the reply cost, and a way to its trace.
     await expect(first).toContainText(/\$0\.\d{4}/);
@@ -184,7 +186,7 @@ test.describe('chat (CH-1 to CH-5, CH-7, AC 6)', () => {
     const stopped = reply(chat, slow.name);
     await expect(stopped).toContainText('You stopped this reply. What arrived is kept.');
     await expect(
-      stopped.getByRole('button', { name: 'Why this model: You chose this model.' }),
+      stopped.getByRole('button', { name: 'You chose. Why this model: You chose this model.' }),
     ).toBeVisible();
     await expect(chat.getByRole('status').filter({ hasText: 'Reply stopped' })).toHaveCount(1);
 
@@ -204,9 +206,12 @@ test.describe('chat (CH-1 to CH-5, CH-7, AC 6)', () => {
     );
     // A new page load reads the cap an admin just set.
     await chat.goto(`/workspaces/${workspace.id}/chat`);
-    // The meter says what is left, of what, and when it resets (Pattern 2).
-    const meter = chat.getByRole('button', { name: /on your cap\. Resets .+\. Show all caps$/ });
-    await expect(meter).toHaveAccessibleName(/^\$1\.00 left of \$1\.00 on your cap\./);
+    // The meter says what is left, of what, and when it resets (Pattern 2), starting with what
+    // it shows (ADR 0129).
+    const meter = chat.getByRole('button', { name: /\. Show all caps$/ });
+    await expect(meter).toHaveAccessibleName(
+      /^\$1\.00 left\. Your cap, .+\. The cap is \$1\.00\. Resets .+\. Show all caps$/,
+    );
     await pressUntil(meter, chat.getByRole('meter', { name: 'Your cap' }));
     await expectAccessible(chat);
     await chat.keyboard.press('Escape');
@@ -222,7 +227,7 @@ test.describe('chat (CH-1 to CH-5, CH-7, AC 6)', () => {
     ).toBeVisible();
     await expect(
       fellBack.getByRole('button', {
-        name: `Why this model: Your budget would not cover ${dear.name}, so a cheaper one answered.`,
+        name: `Cheaper model. Why this model: Your budget would not cover ${dear.name}, so a cheaper one answered.`,
       }),
     ).toBeVisible();
 
@@ -604,7 +609,7 @@ test.describe('chat (CH-1 to CH-5, CH-7, AC 6)', () => {
     const tops = await Promise.all(
       [
         list.getByRole('link', { name: 'New conversation' }),
-        page.getByRole('button', { name: /^Workspace: / }),
+        page.getByRole('button', { name: /\. Switch workspace$/ }),
       ].map(async (button) => (await button.boundingBox())?.y),
     );
     expect(tops[0]).toBe(tops[1]);

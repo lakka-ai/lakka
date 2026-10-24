@@ -8,7 +8,8 @@ import { RailTooltip } from './rail-tooltip.tsx';
  * The account at the foot of the menu: a 48px button with a round 28px avatar, the name and the
  * email under it (30px avatar and phone sizes in the drawer). The boards name it "Account: Maja
  * Lind" and draw nothing behind it, so it opens a menu with Sign out, the one account action the
- * web app has.
+ * web app has. Its name starts with the name and email it shows, "Maja Lind, maja@nordlys.se.
+ * Account", so a speech user can say what they see (WCAG 2.5.3, ADR 0129).
  *
  * The menu also holds the AGPL notice (AD-6, AGPL section 13): a link to the source of the
  * version running, with the sentence that says why. The design moves it to a Settings page that
@@ -60,18 +61,22 @@ export function AccountMenu({
   const menu = (
     <Dropdown>
       <Dropdown.Trigger
-        aria-label={t('nav.account', { name })}
+        aria-label={
+          email === null
+            ? t('nav.account.button', { name })
+            : t('nav.account.buttonEmail', { name, email })
+        }
         className={`flex cursor-pointer items-center rounded-lg text-left text-foreground hover:bg-default ${trigger}`}
       >
         <span
           aria-hidden="true"
-          className={`flex shrink-0 items-center justify-center rounded-full bg-surface-tertiary text-caption font-semibold ${variant === 'drawer' ? 'size-7.5' : 'size-7'}`}
-        >
-          {initials(name)}
-        </span>
+          data-initials={initials(name)}
+          className={`lk-initials flex shrink-0 items-center justify-center rounded-full bg-surface-tertiary text-caption font-semibold ${variant === 'drawer' ? 'size-7.5' : 'size-7'}`}
+        />
         {variant !== 'rail' && (
           <span className="flex min-w-0 grow flex-col leading-tight">
-            <span className="truncate text-body font-medium">{name}</span>
+            {/* A space between the lines, so they read as words, not one run of text. */}
+            <span className="truncate text-body font-medium">{name}</span>{' '}
             {email !== null && (
               <span
                 className={`truncate text-muted ${variant === 'drawer' ? 'text-small' : 'text-caption'}`}

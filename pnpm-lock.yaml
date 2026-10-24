@@ -168,15 +168,15 @@ overrides:
 
 patchedDependencies:
   react-aria@3.53.1: 43ecd2ec56eda95b009d5f2d5263bf5ec952ded2fce698d368107bdca8781520
-  vitepress@2.0.0-alpha.20: 26cdd71310506e2574b610aaf69a84d4aa1b91e3c26b73e0dd71892cbf2757cd
+  vitepress@2.0.0-alpha.20: 0fed768990af840a0c765191f2e5219c1771bf30e824732b714b54501cef7aa1
 
 importers:
 
   .:
     devDependencies:
       '@axe-core/playwright':
-        specifier: 4.13.0
-        version: 4.13.0(playwright-core@1.64.1)
+        specifier: 4.14.0
+        version: 4.14.0(playwright-core@1.64.1)
       '@lakka/core':
         specifier: workspace:*
         version: link:packages/core
@@ -255,7 +255,7 @@ importers:
         version: 5.3.0
       vitepress:
         specifier: 2.0.0-alpha.20
-        version: 2.0.0-alpha.20(patch_hash=26cdd71310506e2574b610aaf69a84d4aa1b91e3c26b73e0dd71892cbf2757cd)(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(postcss@8.5.31)(tsx@4.23.15)(typescript@7.0.2)(yaml@2.9.1)
+        version: 2.0.0-alpha.20(patch_hash=0fed768990af840a0c765191f2e5219c1771bf30e824732b714b54501cef7aa1)(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(postcss@8.5.31)(tsx@4.23.15)(typescript@7.0.2)(yaml@2.9.1)
       vue:
         specifier: 3.5.44
         version: 3.5.44(typescript@7.0.2)
@@ -516,8 +516,9 @@ packages:
     resolution: {integrity: sha512-cTlrKttbrRHEw3W+0/I609A2Matj5JQaRvfLtEIGZvlN0RaPi+3ANsMeqAyCAVlH/lUIW2tmtBlSMni74lcXeg==}
     engines: {node: '>=12'}
 
-  '@axe-core/playwright@4.13.0':
-    resolution: {integrity: sha512-6YLx+kxXu5GJceG4ozFg+33a2EMTdjYwWGloJ3sb9Kta5pp+ZNS53uxGVog5JetIY8s++P5UrtX+cri+u0VAVg==}
+  '@axe-core/playwright@4.14.0':
+    resolution: {integrity: sha512-SGUhG5PIHd2eMdpgBF2PyQLOhX+qyDR2PT4cmoS4Qk2ak+jX/rrSvst9l0PGv5WTHolKpUMvVmoHpr4cZgf1RQ==}
+    engines: {node: '>=22.12.0'}
     peerDependencies:
       playwright-core: '>= 1.0.0'
 
@@ -3051,6 +3052,10 @@ packages:
     resolution: {integrity: sha512-UzGt8zg7Ny8djbYMhxl2zuEevVa7r2gJjYY5Lwr1xM7+XU2nd6CkIWFTVcCIbAP63vSz71NaVyyuSk9lHKcy0A==}
     engines: {node: '>=4'}
 
+  axe-core@4.14.0:
+    resolution: {integrity: sha512-9WTZxEjsZ7b13TH8JPmbV2z8CHbl80/2hm3XPEG4JgNdQLK81IBRXmSxHfMAOkSqQeRxT/0dwNDz2GOm3zzpcQ==}
+    engines: {node: '>=4'}
+
   b4a@1.9.0:
     resolution: {integrity: sha512-dpfcF9fDNR6++cthXR67iyhgqWy9CBouAvIWhIntzBG6cvK/cnIPiZQjBwi/ZqjjBEDGfoNDtmB0kTjroOJ3pQ==}
     peerDependencies:
@@ -5411,9 +5416,9 @@ snapshots:
       escape-html: 1.0.3
       xpath: 0.0.32
 
-  '@axe-core/playwright@4.13.0(playwright-core@1.64.1)':
+  '@axe-core/playwright@4.14.0(playwright-core@1.64.1)':
     dependencies:
-      axe-core: 4.13.0
+      axe-core: 4.14.0
       playwright-core: 1.64.1
 
   '@babel/code-frame@7.29.7':
@@ -7487,6 +7492,8 @@ snapshots:
       fastq: 1.20.3
 
   axe-core@4.13.0: {}
+
+  axe-core@4.14.0: {}
 
   b4a@1.9.0: {}
 
@@ -9792,7 +9799,7 @@ snapshots:
     optionalDependencies:
       vite: 8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)
 
-  vitepress@2.0.0-alpha.20(patch_hash=26cdd71310506e2574b610aaf69a84d4aa1b91e3c26b73e0dd71892cbf2757cd)(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(postcss@8.5.31)(tsx@4.23.15)(typescript@7.0.2)(yaml@2.9.1):
+  vitepress@2.0.0-alpha.20(patch_hash=0fed768990af840a0c765191f2e5219c1771bf30e824732b714b54501cef7aa1)(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(postcss@8.5.31)(tsx@4.23.15)(typescript@7.0.2)(yaml@2.9.1):
     dependencies:
       '@docsearch/css': 4.7.1
       '@docsearch/js': 4.7.1

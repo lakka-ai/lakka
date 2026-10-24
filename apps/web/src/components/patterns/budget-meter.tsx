@@ -14,6 +14,7 @@ import { Icon } from '../icons.tsx';
  */
 
 const lowerFirst = (text: string) => text.slice(0, 1).toLowerCase() + text.slice(1);
+const capitalized = (text: string) => text.slice(0, 1).toUpperCase() + text.slice(1);
 
 /**
  * How each money state looks (tokens.md, Money states): the meter box, the bar's fill and track,
@@ -103,8 +104,10 @@ type Variant = 'card' | 'header' | 'strip';
 /**
  * The button that opens the caps, in three shapes: `card`, as on the Patterns board; `header`,
  * the chat header's box with the amount and the short line on one row; `strip`, the phone's
- * full-width band under the top bar. Its name says it all in one sentence, as the chat boards
- * do: "Budget low. $0.40 left of $1,000.00 on the workspace cap. Resets Oct 1. Show all caps".
+ * full-width band under the top bar. Its name starts with what the button shows, word for word,
+ * so a speech user can say it (WCAG 2.5.3), then adds what it does not show: "$0.40 left.
+ * Workspace, Oct 1. Budget low. The workspace cap is $1,000.00. Resets Oct 1. Show all caps"
+ * (ADR 0129). The shown parts are separate text nodes, so they are joined by a space.
  */
 function Trigger({
   reading,
@@ -120,13 +123,8 @@ function Trigger({
   const look = stateLook[reading.state];
   const amount = formatMicroUsd(String(reading.leftMicro));
   const resets = reading.cap.resets ?? reading.cap.period.replace(/\.$/, '');
-  const label = t('meter.button', {
-    state: labelWords(reading.state),
-    left: amount,
-    limit: formatMicroUsd(String(reading.limitMicro)),
-    cap: reading.cap.inSentence ?? lowerFirst(reading.cap.name),
-    resets,
-  });
+  const limit = formatMicroUsd(String(reading.limitMicro));
+  const capLine = `${stateWords(reading.state)}${reading.cap.name}. ${resets}`;
   const icon =
     reading.state === 'low' ? (
       <Icon name="warning" className="size-3.5" />
@@ -141,22 +139,22 @@ function Trigger({
       : reading.state === 'exhausted'
         ? t('meter.strip.exhausted', { amount })
         : t('meter.left', { amount });
+  const amountLine = variant === 'strip' ? stripAmount : t('meter.left', { amount });
 
   if (variant === 'card') {
     return (
       <Button
         variant="ghost"
-        aria-label={label}
+        aria-label={t('meter.button.card', { shown: `${amountLine}. ${capLine}`, limit })}
         className={`flex h-auto w-full min-w-44 flex-col items-stretch gap-1.5 rounded-note border px-3 py-2.5 text-left font-normal ${look.box} ${className}`}
       >
         <span className="lk-num flex items-center gap-1.5 text-small font-semibold">
           {icon}
-          {t('meter.left', { amount })}
-        </span>
+          {amountLine}
+        </span>{' '}
         {bar}
         <span className={`text-caption ${reading.state === 'healthy' ? 'text-muted' : ''}`}>
-          {stateWords(reading.state)}
-          {reading.cap.name}. {resets}
+          {capLine}
         </span>
       </Button>
     );
@@ -164,7 +162,18 @@ function Trigger({
   return (
     <Button
       variant="ghost"
-      aria-label={label}
+      aria-label={t('meter.button', {
+        shown: shortLine === undefined ? amountLine : `${amountLine}. ${shortLine}`,
+        // The strip says the state in words; the header only with its icon.
+        state: variant === 'header' ? labelWords(reading.state) : '',
+        // The short line names the cap already.
+        cap:
+          shortLine === undefined
+            ? capitalized(reading.cap.inSentence ?? reading.cap.name)
+            : t('meter.theCap'),
+        limit,
+        resets,
+      })}
       className={`flex flex-col items-stretch gap-1.5 text-left font-normal ${
         variant === 'header'
           ? // As tall as the model picker beside it (--lk-chat-control-height), its rows centred.
@@ -175,8 +184,8 @@ function Trigger({
       <span className="flex items-center justify-between gap-3 text-small">
         <span className="lk-num flex items-center gap-1.5 font-semibold">
           {icon}
-          {variant === 'strip' ? stripAmount : t('meter.left', { amount })}
-        </span>
+          {amountLine}
+        </span>{' '}
         {shortLine !== undefined && (
           <span className={`text-caption ${reading.state === 'healthy' ? 'text-muted' : ''}`}>
             {shortLine}

@@ -14,7 +14,7 @@ Global rules that apply everywhere:
 
 ## Shared patterns
 
-Why this model: the chip is a button that opens a popover. Its accessible name is the full sentence, not the chip text.
+Why this model: the chip is a button that opens a popover. Its accessible name starts with the chip text, then gives the full sentence: 'Cheaper model. Why this model: Your budget would not cover Claude Sonnet 4.5, so a cheaper one answered.' (ADR 0129).
 
 Budget meter: a meter with aria-valuetext such as '$31.20 left of $50.00, your monthly cap, resets Oct 1'. The low and used-up states change the words, not only the color.
 
@@ -162,7 +162,7 @@ The summary is an aside that comes after the steps in reading order, even though
 
 ## Workspace settings, tools and connections
 
-Every row action names its target, for example 'Make Erik Holm an admin' or 'Revoke key CI bot'.
+Every row action names its target, starting with the words on the button, for example 'Make admin: Erik Holm' or 'Revoke key CI bot' (ADR 0129).
 
 Remove member and Revoke key use a plain two-button confirm. Deleting a person, on People, uses the typed confirmation.
 

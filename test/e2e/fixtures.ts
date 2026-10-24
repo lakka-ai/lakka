@@ -91,7 +91,7 @@ export async function signIn(page: Page, account: Account): Promise<void> {
   await page.getByLabel('Password').fill(account.password);
   await awaitSignInSlot();
   await page.getByRole('button', { name: 'Sign in' }).click();
-  await expect(page.getByRole('button', { name: `Account: ${account.name}` })).toBeVisible();
+  await expect(page.getByRole('button', { name: accountName(account.name) })).toBeVisible();
 }
 
 /**
@@ -138,8 +138,16 @@ export const mainMenu = (page: Page) => page.getByRole('navigation', { name: 'Ma
 
 /** Signs out through the account menu. */
 export async function signOut(page: Page, account: Account): Promise<void> {
-  await page.getByRole('button', { name: `Account: ${account.name}` }).click();
+  await page.getByRole('button', { name: accountName(account.name) }).click();
   await page.getByRole('menuitem', { name: 'Sign out' }).click();
+}
+
+/**
+ * The account button's name: the name and email it shows, then "Account" (ADR 0129). Matched
+ * whole, so no other button that mentions the person matches.
+ */
+export function accountName(name: string): RegExp {
+  return new RegExp(`^${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(, [^,]+)?\\. Account$`);
 }
 
 /** NF-A1: no serious or critical WCAG 2.1 A/AA violations on the current page. */

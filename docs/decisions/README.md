@@ -130,3 +130,4 @@ Architecture decision records for questions the specs in `docs/` do not settle. 
 - [0126. DeepSeek, Moonshot AI, Qwen Cloud, Xiaomi MiMo and Z.ai as first-party providers](0126-compatible-first-party-providers.md)
 - [0127. Errors for a provider account out of credit and for a model id the provider does not know](0127-provider-billing-and-unknown-model-errors.md)
 - [0128. A demo instance for the tour's screenshots](0128-demo-instance-and-tour-screenshots.md)
+- [0129. Visible text first in accessible names](0129-visible-text-first-in-accessible-names.md)

@@ -1,6 +1,6 @@
 # 0120. A patch to VitePress for the search dialog's roles
 
-Status: accepted. Scope: the project site (ADR 0119).
+Status: accepted; amended by ADR 0129 (the results' names). Scope: the project site (ADR 0119).
 
 ## Context
 

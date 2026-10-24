@@ -45,7 +45,7 @@
     "classifier:eval": "node apps/api/src/cli/classifier-eval.ts"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.13.0",
+    "@axe-core/playwright": "4.14.0",
     "@lakka/core": "workspace:*",
     "@lakka/db": "workspace:*",
     "@modelcontextprotocol/server": "2.3.1",
