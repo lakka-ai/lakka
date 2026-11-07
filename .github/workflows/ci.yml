@@ -342,7 +342,7 @@ jobs:
         if: failure()
         run: |
           docker compose logs --no-color
-          for c in lakka-open-webui-1 lakka-librechat-1; do
+          for c in lakka-open-webui-1 lakka-librechat-1 lakka-librechat-mongodb-1; do
             docker logs "$c" 2>&1 | tail -n 100 || true
           done
       - name: Playwright traces on failure
