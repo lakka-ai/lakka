@@ -20,7 +20,7 @@ services:
       retries: 20
 
   valkey:
-    image: valkey/valkey:9.1.2-trixie
+    image: valkey/valkey:9.1.3-trixie
     ports:
       - '127.0.0.1:56379:6379'
     volumes:
