@@ -104,7 +104,7 @@ its own image. `docker compose up` starts nine services; `backup` and `credentia
 | ---------------- | ------------------------------------- | ------------------------------- | ---------------------------------------------------------------------------- |
 | `init`           | `lakka init`                          | -                               | One-shot. Generates missing secrets, and the sandbox's keys (ADR 0004, 0118) |
 | `postgres`       | `pgvector/pgvector:0.8.7-pg18-trixie` | 5432 (internal)                 | Source of truth, including traces and usage                                  |
-| `valkey`         | `valkey/valkey:9.1.2-trixie`          | 6379 (internal)                 | Counters, rate limits, pub/sub (ADR 0009)                                    |
+| `valkey`         | `valkey/valkey:9.1.3-trixie`          | 6379 (internal)                 | Counters, rate limits, pub/sub (ADR 0009)                                    |
 | `api`            | `lakka api`                           | 3000 (internal)                 | Fastify: every HTTP route, the policy pipeline, the classifier               |
 | `worker`         | `lakka worker`                        | 3001 (health only)              | Migrations, pg-boss jobs, budget maintenance, partitions                     |
 | `web`            | `lakka web`                           | 3000 (internal)                 | TanStack Start SSR served by srvx (ADR 0015); no secrets mounted             |
@@ -1625,7 +1625,7 @@ reader, used by api, worker and the CLI. The web process reads its own few varia
 
 ### The app image
 
-[`docker/Dockerfile`](docker/Dockerfile) builds on `node:24.22.1-trixie-slim`. It is never Alpine,
+[`docker/Dockerfile`](docker/Dockerfile) builds on `node:24.22.2-trixie-slim`. It is never Alpine,
 because onnxruntime-node has no musl build.
 
 **Stages**

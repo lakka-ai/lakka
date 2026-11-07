@@ -13,11 +13,11 @@
     "@lakka/contracts": "workspace:*",
     "@lakka/core": "workspace:*",
     "@lakka/db": "workspace:*",
-    "fastify": "5.12.7",
+    "fastify": "5.12.8",
     "zod": "4.6.7"
   },
   "devDependencies": {
     "@opentelemetry/api": "1.10.0",
-    "@opentelemetry/sdk-trace": "3.0.0"
+    "@opentelemetry/sdk-trace": "3.1.0"
   }
 }

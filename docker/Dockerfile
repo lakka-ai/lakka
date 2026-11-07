@@ -3,7 +3,7 @@
 # One image for every app process (ADR 0014): `lakka api|worker|web|init`.
 # Debian slim, never Alpine: onnxruntime-node has no musl builds (CLAUDE.md, ADR 0014).
 
-ARG NODE_IMAGE=node:24.22.1-trixie-slim
+ARG NODE_IMAGE=node:24.22.2-trixie-slim
 
 FROM ${NODE_IMAGE} AS base
 ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0 \

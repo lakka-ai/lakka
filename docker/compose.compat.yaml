@@ -7,7 +7,7 @@
 services:
   open-webui:
     # BSD-3 with a branding clause; the slim image has no bundled ML models.
-    image: ghcr.io/open-webui/open-webui:v0.12.3-slim@sha256:5adfb0355bbe4a5860c0ba9482cc0b40f573de3749a21a64cf4789391a14fffc
+    image: ghcr.io/open-webui/open-webui:v0.13.0-slim@sha256:283efb20756785229a388bcd1e56a052f5284ae8c861717eed5eaaa3bba6b20a
     environment:
       # One local admin, no sign-in: the checks drive its HTTP API.
       WEBUI_AUTH: 'False'
@@ -40,7 +40,9 @@ services:
       retries: 40
 
   librechat-mongodb:
-    image: mongo:8.0.34@sha256:4a4ab5d4834207389e0d7270fac988e21ffedccecba77991a552f755df229907
+    # 9.0.4 or later: 8.0 up to 8.0.36 refuses to start on Ubuntu's 7.0 kernels, the GitHub
+    # runners' included, since it cannot read their patch level (SERVER-131779, SERVER-136848).
+    image: mongo:9.0.4@sha256:452bdaf2127b8ff851e31410a267809b9829eded219979f2210e7c7efb85a058
     command: ['mongod', '--noauth', '--quiet']
     healthcheck:
       test: ['CMD', 'mongosh', '--quiet', '--eval', 'db.adminCommand("ping").ok']
